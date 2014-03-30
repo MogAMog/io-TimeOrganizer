@@ -20,10 +20,10 @@ public class MainDatabaseHelper extends SQLiteOpenHelper {
 
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL(SqlDatabaseTableScriptBuilder.buildCreateTableStatement(new AccountTable()));
-		db.execSQL(SqlDatabaseTableScriptBuilder.buildCreateTableStatement(new LocationTable()));
-		db.execSQL(SqlDatabaseTableScriptBuilder.buildCreateTableStatement(new EventTable()));
-		db.execSQL(SqlDatabaseTableScriptBuilder.buildCreateTableStatement(new EventDateTable()));
+		db.execSQL(SqlDatabaseTableScriptBuilder.buildCreateTableStatement(AccountTable.getInstance()));
+		db.execSQL(SqlDatabaseTableScriptBuilder.buildCreateTableStatement(LocationTable.getInstance()));
+		db.execSQL(SqlDatabaseTableScriptBuilder.buildCreateTableStatement(EventTable.getInstance()));
+		db.execSQL(SqlDatabaseTableScriptBuilder.buildCreateTableStatement(EventDateTable.getInstance()));
 	}
 
 	@Override

@@ -14,11 +14,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class AccountManagementService implements IDatabaseDmlProvider<Account> {
 
 	private SQLiteOpenHelper dbHelper;
-
+	
 	public AccountManagementService(SQLiteOpenHelper dbHelper) {
 		this.dbHelper = dbHelper;
 	}
-
+	
 	@Override
 	public long insert(Account insertObject) {
 		ContentValues values = new ContentValues();
@@ -61,5 +61,5 @@ public class AccountManagementService implements IDatabaseDmlProvider<Account> {
 		account.setEmail(cursor.getString(cursor.getColumnIndex(AccountTable.COLUMN_NAME_EMAIL)));
 		return account;
 	}
-
+	
 }

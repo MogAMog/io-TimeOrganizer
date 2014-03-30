@@ -22,6 +22,15 @@ public class EventDateTable implements BaseColumns, IDatabaseTableSchema {
 	public static final String COLUMN_NAME_DURATION = "Duration";
 	public static final String COLUMN_NAME_FINISHED = "IsFinished";
 	
+	public static final EventDateTable INSTANCE = new EventDateTable();
+	
+	private EventDateTable() {
+	}
+	
+	public static EventDateTable getInstance() {
+		return INSTANCE;
+	}
+	
 	@Override
 	public String getTableName() {
 		return TABLE_NAME;

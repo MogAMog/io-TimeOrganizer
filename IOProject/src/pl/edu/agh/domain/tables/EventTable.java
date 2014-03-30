@@ -21,6 +21,15 @@ public class EventTable implements BaseColumns, IDatabaseTableSchema {
 	public static final String COLUMN_NAME_IS_REQUIRED = "IsRequired";
 	public static final String COLUMN_NAME_IS_CONSTANT = "IsConstant";
 	
+	public static final EventTable INSTANCE = new EventTable();
+	
+	private EventTable() {
+	}
+	
+	public static EventTable getInstance() {
+		return INSTANCE;
+	}
+	
 	@Override
 	public String getTableName() {
 		return TABLE_NAME;

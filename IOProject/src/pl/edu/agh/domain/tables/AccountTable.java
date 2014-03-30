@@ -17,6 +17,15 @@ public class AccountTable implements BaseColumns, IDatabaseTableSchema {
 	public static final String COLUMN_NAME_PASSWORD = "Password";
 	public static final String COLUMN_NAME_EMAIL = "Email";
 	
+	public static final AccountTable INSTANCE = new AccountTable();
+	
+	private AccountTable() {
+	}
+	
+	public static AccountTable getInstance() {
+		return INSTANCE;
+	}
+	
 	@Override
 	public String getTableName() {
 		return TABLE_NAME;

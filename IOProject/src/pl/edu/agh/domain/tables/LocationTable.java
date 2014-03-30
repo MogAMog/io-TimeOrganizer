@@ -20,6 +20,15 @@ public class LocationTable implements BaseColumns, IDatabaseTableSchema {
 	public static final String COLUMN_NAME_LONGITUDE = "Longitude";
 	public static final String COLUMN_NAME_DEFAULT = "IsDeafult";
 
+	public static final LocationTable INSTANCE = new LocationTable();
+	
+	private LocationTable() {
+	}
+	
+	public static LocationTable getInstance() {
+		return INSTANCE;
+	}
+	
 	@Override
 	public String getTableName() {
 		return TABLE_NAME;
