@@ -81,6 +81,14 @@ public class EventDate {
 	public void setFinished(boolean finished) {
 		this.finished = finished;
 	}
+
+	@Override
+	public String toString() {
+		return "EventDate [id=" + id + ", location=" + location + ", date="
+				+ date + ", startTime=" + startTime + ", endTime=" + endTime
+				+ ", duration=" + duration + ", finished=" + finished + "]";
+	}
+	
 	
 	
 }

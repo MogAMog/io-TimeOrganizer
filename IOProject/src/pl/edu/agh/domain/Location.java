@@ -78,5 +78,12 @@ public class Location {
 	public void setDefaultLocation(boolean defaultLocation) {
 		this.defaultLocation = defaultLocation;
 	}
+
+	@Override
+	public String toString() {
+		return "Location [id=" + id + ", name=" + name + ", address=" + address
+				+ ", city=" + city + ", latitude=" + latitude + ", longitude="
+				+ longitude + ", defaultLocation=" + defaultLocation + "]";
+	}
 	
 }

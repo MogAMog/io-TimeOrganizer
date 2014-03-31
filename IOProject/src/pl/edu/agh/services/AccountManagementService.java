@@ -14,11 +14,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class AccountManagementService implements IDatabaseDmlProvider<Account> {
 
 	private SQLiteOpenHelper dbHelper;
-	
+
 	public AccountManagementService(SQLiteOpenHelper dbHelper) {
 		this.dbHelper = dbHelper;
 	}
-	
+
 	@Override
 	public long insert(Account insertObject) {
 		ContentValues values = new ContentValues();
@@ -32,28 +32,37 @@ public class AccountManagementService implements IDatabaseDmlProvider<Account> {
 
 	@Override
 	public List<Account> getAll() {
-		Cursor cursor = dbHelper.getReadableDatabase().rawQuery("SELECT * FROM " + EventTable.TABLE_NAME, null);
-		cursor.moveToFirst();
-		List<Account> accounts = new ArrayList<Account>();
-		while (!cursor.isAfterLast()) {
-			Account account = new Account();
-			account.setId(cursor.getLong(cursor.getColumnIndex(AccountTable._ID)));
-			account.setLogin(cursor.getString(cursor.getColumnIndex(AccountTable.COLUMN_NAME_LOGIN)));
-			account.setPassword(cursor.getString(cursor.getColumnIndex(AccountTable.COLUMN_NAME_PASSWORD)));
-			account.setEmail(cursor.getString(cursor.getColumnIndex(AccountTable.COLUMN_NAME_EMAIL)));
-			accounts.add(account);
-			cursor.moveToNext();
+		Cursor cursor = null;
+		try {
+			cursor = dbHelper.getReadableDatabase().rawQuery("SELECT * FROM " + EventTable.TABLE_NAME, null);
+			cursor.moveToFirst();
+			List<Account> accounts = new ArrayList<Account>();
+			while (!cursor.isAfterLast()) {
+				accounts.add(getAccountFromCursor(cursor));
+				cursor.moveToNext();
+			}
+			return accounts;
+		} finally {
+			cursor.close();
 		}
-		return accounts;
 	}
 
 	@Override
 	public Account getByIdAllData(long id) {
-		String selection = AccountTable._ID + " = ?";
-		String[] selectionArgument = new String[] { String.valueOf(id) };
-		Cursor cursor = dbHelper.getReadableDatabase().query(AccountTable.TABLE_NAME, null,
-				selection, selectionArgument, null, null, null);
-		cursor.moveToFirst();
+		Cursor cursor = null;
+		try {
+			String selection = AccountTable._ID + " = ?";
+			String[] selectionArgument = new String[] { String.valueOf(id) };
+			cursor = dbHelper.getReadableDatabase().query(AccountTable.TABLE_NAME, null, selection, selectionArgument, null, null, null);
+			cursor.moveToFirst();
+			Account account = getAccountFromCursor(cursor);
+			return account;
+		} finally {
+			cursor.close();
+		}
+	}
+
+	private Account getAccountFromCursor(Cursor cursor) {
 		Account account = new Account();
 		account.setId(cursor.getLong(cursor.getColumnIndex(AccountTable._ID)));
 		account.setLogin(cursor.getString(cursor.getColumnIndex(AccountTable.COLUMN_NAME_LOGIN)));
@@ -61,5 +70,5 @@ public class AccountManagementService implements IDatabaseDmlProvider<Account> {
 		account.setEmail(cursor.getString(cursor.getColumnIndex(AccountTable.COLUMN_NAME_EMAIL)));
 		return account;
 	}
-	
+
 }

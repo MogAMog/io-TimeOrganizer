@@ -1,13 +1,13 @@
 package com.example.ioproject;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
 import pl.edu.agh.domain.Account;
 import pl.edu.agh.domain.Event;
+import pl.edu.agh.domain.EventDate;
+import pl.edu.agh.domain.Location;
 import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
-import pl.edu.agh.domain.databasemanagement.SqlDatabaseTableScriptBuilder;
-import pl.edu.agh.domain.tables.AccountTable;
-import pl.edu.agh.domain.tables.EventDateTable;
-import pl.edu.agh.domain.tables.EventTable;
-import pl.edu.agh.domain.tables.LocationTable;
 import pl.edu.agh.services.EventManagementService;
 import android.app.Activity;
 import android.os.Bundle;
@@ -32,12 +32,20 @@ public class MainActivity extends Activity {
 //    
 //        ((TextView)findViewById(R.id.text)).setText(builder.toString());
         
+        //this.deleteDatabase(MainDatabaseHelper.DATABASE_NAME);
+        
         Account account = new Account("Janek", "Kowalski", "Zdzisia");
         Event event1 = new Event(account, null, null, "title", "description", true, false);
+        event1.getEventDates().add(new EventDate(null, new GregorianCalendar(2014, Calendar.APRIL, 1, 00, 00).getTime(), 
+        											   new GregorianCalendar(2014, Calendar.APRIL, 1, 11, 20).getTime(),
+        											   new GregorianCalendar(2014, Calendar.APRIL, 1, 11, 55).getTime(),
+        											   new GregorianCalendar(0, 0, 0, 0, 35).getTime(),
+        											   false));
+        event1.setDefaultLocation(new Location("Basen", "D17 AGH", "Krakow", 23.452398, 43.3423415, true));
         EventManagementService ems = new EventManagementService(new MainDatabaseHelper(this));
         ems.insert(event1);
         
-        ((TextView)findViewById(R.id.text)).setText(ems.getAll().toString());
+        ((TextView)findViewById(R.id.text)).setText(ems.getAll().toString()); //getByIdAllData(event1.getId()).toString());
         
         
     }
@@ -45,7 +53,6 @@ public class MainActivity extends Activity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }

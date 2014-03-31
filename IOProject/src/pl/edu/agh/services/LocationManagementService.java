@@ -3,10 +3,8 @@ package pl.edu.agh.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import pl.edu.agh.domain.Account;
 import pl.edu.agh.domain.Location;
 import pl.edu.agh.domain.databasemanagement.IDatabaseDmlProvider;
-import pl.edu.agh.domain.tables.AccountTable;
 import pl.edu.agh.domain.tables.LocationTable;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -37,30 +35,37 @@ public class LocationManagementService implements IDatabaseDmlProvider<Location>
 
 	@Override
 	public List<Location> getAll() {
-		Cursor cursor = dbHelper.getReadableDatabase().rawQuery("SELECT * FROM " + LocationTable.TABLE_NAME, null);
-		cursor.moveToFirst();
-		List<Location> locations = new ArrayList<Location>();
-		while(!cursor.isAfterLast()) {
-			Location location = new Location();
-			location.setId(cursor.getLong(cursor.getColumnIndex(LocationTable._ID)));
-			location.setName(cursor.getString(cursor.getColumnIndex(LocationTable.COLUMN_NAME_NAME)));
-			location.setAddress(cursor.getString(cursor.getColumnIndex(LocationTable.COLUMN_NAME_ADDRESS)));
-			location.setCity(cursor.getString(cursor.getColumnIndex(LocationTable.COLUMN_NAME_CITY)));
-			location.setLongitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.COLUMN_NAME_LONGITUDE)));
-			location.setLatitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.COLUMN_NAME_LATITUDE)));
-			location.setDefaultLocation(cursor.getInt(cursor.getColumnIndex(LocationTable.COLUMN_NAME_DEFAULT)) == 1 ? true : false);
-			locations.add(location);
-			cursor.moveToNext();
+		Cursor cursor = null;
+		try {
+			cursor = dbHelper.getReadableDatabase().rawQuery("SELECT * FROM " + LocationTable.TABLE_NAME, null);
+			cursor.moveToFirst();
+			List<Location> locations = new ArrayList<Location>();
+			while(!cursor.isAfterLast()) {
+				locations.add(getLocationFromCursor(cursor));
+				cursor.moveToNext();
+			}
+			return locations;
+		} finally {
+			cursor.close();
 		}
-		return locations;
 	}
 
 	@Override
 	public Location getByIdAllData(long id) {
-		String selection = LocationTable._ID + " = ?";
-		String[] selectionArgument = new String[] { String.valueOf(id) };
-		Cursor cursor = dbHelper.getReadableDatabase().query(LocationTable.TABLE_NAME, null,selection, selectionArgument, null, null, null);
-		cursor.moveToFirst();
+		Cursor cursor = null;
+		try {
+			String selection = LocationTable._ID + " = ?";
+			String[] selectionArgument = new String[] { String.valueOf(id) };
+			cursor = dbHelper.getReadableDatabase().query(LocationTable.TABLE_NAME, null,selection, selectionArgument, null, null, null);
+			cursor.moveToFirst();
+			Location location = getLocationFromCursor(cursor);	
+			return location;
+		} finally {
+			cursor.close();
+		}
+	}
+	
+	private Location getLocationFromCursor(Cursor cursor) {
 		Location location = new Location();
 		location.setId(cursor.getLong(cursor.getColumnIndex(LocationTable._ID)));
 		location.setName(cursor.getString(cursor.getColumnIndex(LocationTable.COLUMN_NAME_NAME)));

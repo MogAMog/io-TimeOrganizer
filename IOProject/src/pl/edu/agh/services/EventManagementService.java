@@ -1,14 +1,11 @@
 package pl.edu.agh.services;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import pl.edu.agh.domain.Event;
 import pl.edu.agh.domain.EventDate;
 import pl.edu.agh.domain.databasemanagement.IDatabaseDmlProvider;
-import pl.edu.agh.domain.tables.EventDateTable;
 import pl.edu.agh.domain.tables.EventTable;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -18,11 +15,13 @@ public class EventManagementService implements IDatabaseDmlProvider<Event> {
 
 	private SQLiteOpenHelper dbHelper;
 	private AccountManagementService accountManagementService;
+	private EventDateManagementService eventDateManagementService;
 	private LocationManagementService locationManagementService;
 	
 	public EventManagementService(SQLiteOpenHelper dbHelper) {
 		this.dbHelper = dbHelper;
 		this.accountManagementService = new AccountManagementService(dbHelper);
+		this.eventDateManagementService = new EventDateManagementService(dbHelper);
 		this.locationManagementService = new LocationManagementService(dbHelper);
 	}
 	
@@ -45,55 +44,66 @@ public class EventManagementService implements IDatabaseDmlProvider<Event> {
 			}
 			values.put(EventTable.COLUMN_NAME_ACCOUNT_ID, insertObject.getAccount().getId());
 		}
+		if(insertObject.getDefaultLocation() != null) {
+			if(insertObject.getDefaultLocation().getId() <= 0) {
+				locationManagementService.insert(insertObject.getDefaultLocation());
+			}
+			values.put(EventTable.COLUMN_NAME_DEFAULT_LOCATION_ID, insertObject.getDefaultLocation().getId());
+		}
 		long id = dbHelper.getWritableDatabase().insert(EventTable.TABLE_NAME, null, values);
 		insertObject.setId(id);
+		
+		if(insertObject.getEventDates() != null && !insertObject.getEventDates().isEmpty()) {
+			for(EventDate eventDate : insertObject.getEventDates()) {
+				eventDateManagementService.insert(eventDate, insertObject);
+			}
+		}
 		return id;
 	}
 
 	@Override
 	public List<Event> getAll() {
-		Cursor cursor = dbHelper.getReadableDatabase().rawQuery("SELECT * FROM " + EventTable.TABLE_NAME, null);
-		cursor.moveToFirst();
-		List<Event> events = new ArrayList<Event>();
-		while(!cursor.isAfterLast()) {
-			Event event = new Event();
-			event.setId(cursor.getLong(cursor.getColumnIndex(EventTable._ID)));
-			event.setTitle(cursor.getString(cursor.getColumnIndex(EventTable.COLUMN_NAME_TITLE)));
-			event.setDescription(cursor.getString(cursor.getColumnIndex(EventTable.COLUMN_NAME_DESCRIPTION)));
-			event.setConstant(cursor.getInt(cursor.getColumnIndex(EventTable.COLUMN_NAME_IS_CONSTANT)) == 1 ? true : false);
-			event.setRequired(cursor.getInt(cursor.getColumnIndex(EventTable.COLUMN_NAME_IS_REQUIRED)) == 1 ? true : false);
-			event.setAccount(accountManagementService.getByIdAllData(cursor.getLong(cursor.getColumnIndex(EventTable.COLUMN_NAME_ACCOUNT_ID))));
-			//event.setEventDates();
-			//event.setPredecessorEvent(getById)
-			events.add(event);
-			cursor.moveToNext();
+		Cursor cursor = null;
+		try {
+			cursor = dbHelper.getReadableDatabase().rawQuery("SELECT * FROM " + EventTable.TABLE_NAME, null);
+			cursor.moveToFirst();
+			List<Event> events = new ArrayList<Event>();
+			while(!cursor.isAfterLast()) {
+				events.add(getEventFromCursor(cursor));
+				cursor.moveToNext();
+			}
+			return events;
+		} finally {
+			cursor.close();
 		}
-		return events;
 	}
 
 	@Override
 	public Event getByIdAllData(long id) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-	public Set<EventDate> getAllEventDatesForEvent(Event event) {
-		Set<EventDate> resultSet = new HashSet<EventDate>();
-		String selection = EventDateTable.COLUMN_NAME_EVENT_ID + " = ?";
-		String[] selectionArguments = new String[] { String.valueOf(event.getId()) };
-		Cursor cursor = dbHelper.getWritableDatabase().query(EventDateTable.TABLE_NAME, null, selection, selectionArguments, null, null, null);
-		cursor.moveToFirst();
-		while(!cursor.isAfterLast()) {
-			EventDate eventDate = new EventDate();
-			eventDate.setId(cursor.getLong(cursor.getColumnIndex(EventDateTable._ID)));
-			//eventDate.setDate(cursor.get)
-			eventDate.setFinished(cursor.getInt(cursor.getColumnIndex(EventDateTable.COLUMN_NAME_FINISHED)) == 1 ? true : false);
-			eventDate.setLocation(locationManagementService.getByIdAllData(cursor.getLong(cursor.getColumnIndex(EventDateTable.COLUMN_NAME_LOCATION_ID))));
-			resultSet.add(eventDate);
+		Cursor cursor = null;
+		try { 
+			String selection = EventTable._ID + " = ?";
+			String[] selectionArgument = new String[] { String.valueOf(id) };
+			cursor = dbHelper.getReadableDatabase().query(EventTable.TABLE_NAME, null, selection, selectionArgument, null, null, null);
+			cursor.moveToFirst();
+			Event event = getEventFromCursor(cursor);
+			return event;
+		} finally {
+			cursor.close();
 		}
-		return resultSet;
 	}
 	
+	private Event getEventFromCursor(Cursor cursor) {
+		Event event = new Event();
+		event.setId(cursor.getLong(cursor.getColumnIndex(EventTable._ID)));
+		event.setTitle(cursor.getString(cursor.getColumnIndex(EventTable.COLUMN_NAME_TITLE)));
+		event.setDescription(cursor.getString(cursor.getColumnIndex(EventTable.COLUMN_NAME_DESCRIPTION)));
+		event.setConstant(cursor.getInt(cursor.getColumnIndex(EventTable.COLUMN_NAME_IS_CONSTANT)) == 1 ? true : false);
+		event.setRequired(cursor.getInt(cursor.getColumnIndex(EventTable.COLUMN_NAME_IS_REQUIRED)) == 1 ? true : false);
+		event.setAccount(accountManagementService.getByIdAllData(cursor.getLong(cursor.getColumnIndex(EventTable.COLUMN_NAME_ACCOUNT_ID))));
+		event.setEventDates(eventDateManagementService.getAllEventDatesForEventId(event.getId()));
+		event.setPredecessorEvent(null);
+		return event;
+	}
 
 }

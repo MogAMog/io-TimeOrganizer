@@ -10,6 +10,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -200,5 +201,26 @@ public class SqliteDatatypesHelper {
 	public static String parseDateTime(Date date) {
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss", Locale.getDefault());
 		return simpleDateFormat.format(date);
+	}
+	
+	public static Date parseFromStringToDate(String sqliteDateTime) {
+		String[] date = sqliteDateTime.split(" ")[0].split(":");
+		Calendar calendar = new GregorianCalendar();
+		calendar.set(Calendar.YEAR, Integer.valueOf(date[0]));
+		calendar.set(Calendar.MONTH, Integer.valueOf(date[1]) - 1);
+		calendar.set(Calendar.DAY_OF_MONTH, Integer.valueOf(date[2]));
+		//calendar.set(Calendar.DAY_OF_MONTH, 0);
+		//calendar.set(Calendar.DAY_OF_MONTH, 0);
+		//calendar.set(Calendar.DAY_OF_MONTH, 0);
+		return calendar.getTime();
+	}
+	
+	public static Date parseFromStringToTime(String sqliteDateTime) {
+		String[] time = sqliteDateTime.split(" ")[1].split(":");
+		Calendar calendar = new GregorianCalendar();
+		calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(time[0]));
+		calendar.set(Calendar.MINUTE, Integer.valueOf(time[1]));
+		calendar.set(Calendar.SECOND, Integer.valueOf(time[2]));
+		return calendar.getTime();
 	}
 }
