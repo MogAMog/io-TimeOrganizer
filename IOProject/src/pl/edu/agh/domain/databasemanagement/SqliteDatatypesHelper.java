@@ -6,9 +6,12 @@ import java.math.BigInteger;
 import java.sql.Blob;
 import java.sql.Clob;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class SqliteDatatypesHelper {
 	
@@ -194,4 +197,8 @@ public class SqliteDatatypesHelper {
 		return TEXT_TYPE;
 	}
 
+	public static String parseDateTime(Date date) {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss", Locale.getDefault());
+		return simpleDateFormat.format(date);
+	}
 }

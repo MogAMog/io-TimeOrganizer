@@ -1,10 +1,14 @@
 package pl.edu.agh.services;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import pl.edu.agh.domain.Event;
+import pl.edu.agh.domain.EventDate;
 import pl.edu.agh.domain.databasemanagement.IDatabaseDmlProvider;
+import pl.edu.agh.domain.tables.EventDateTable;
 import pl.edu.agh.domain.tables.EventTable;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -14,12 +18,14 @@ public class EventManagementService implements IDatabaseDmlProvider<Event> {
 
 	private SQLiteOpenHelper dbHelper;
 	private AccountManagementService accountManagementService;
-
+	private LocationManagementService locationManagementService;
+	
 	public EventManagementService(SQLiteOpenHelper dbHelper) {
 		this.dbHelper = dbHelper;
 		this.accountManagementService = new AccountManagementService(dbHelper);
+		this.locationManagementService = new LocationManagementService(dbHelper);
 	}
-
+	
 	@Override
 	public long insert(Event insertObject) {
 		ContentValues values = new ContentValues();
@@ -71,6 +77,23 @@ public class EventManagementService implements IDatabaseDmlProvider<Event> {
 		return null;
 	}
 	
+	
+	public Set<EventDate> getAllEventDatesForEvent(Event event) {
+		Set<EventDate> resultSet = new HashSet<EventDate>();
+		String selection = EventDateTable.COLUMN_NAME_EVENT_ID + " = ?";
+		String[] selectionArguments = new String[] { String.valueOf(event.getId()) };
+		Cursor cursor = dbHelper.getWritableDatabase().query(EventDateTable.TABLE_NAME, null, selection, selectionArguments, null, null, null);
+		cursor.moveToFirst();
+		while(!cursor.isAfterLast()) {
+			EventDate eventDate = new EventDate();
+			eventDate.setId(cursor.getLong(cursor.getColumnIndex(EventDateTable._ID)));
+			//eventDate.setDate(cursor.get)
+			eventDate.setFinished(cursor.getInt(cursor.getColumnIndex(EventDateTable.COLUMN_NAME_FINISHED)) == 1 ? true : false);
+			eventDate.setLocation(locationManagementService.getByIdAllData(cursor.getLong(cursor.getColumnIndex(EventDateTable.COLUMN_NAME_LOCATION_ID))));
+			resultSet.add(eventDate);
+		}
+		return resultSet;
+	}
 	
 
 }

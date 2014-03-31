@@ -3,8 +3,10 @@ package pl.edu.agh.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.edu.agh.domain.Account;
 import pl.edu.agh.domain.Location;
 import pl.edu.agh.domain.databasemanagement.IDatabaseDmlProvider;
+import pl.edu.agh.domain.tables.AccountTable;
 import pl.edu.agh.domain.tables.LocationTable;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -55,8 +57,19 @@ public class LocationManagementService implements IDatabaseDmlProvider<Location>
 
 	@Override
 	public Location getByIdAllData(long id) {
-		// TODO Auto-generated method stub
-		return null;
+		String selection = LocationTable._ID + " = ?";
+		String[] selectionArgument = new String[] { String.valueOf(id) };
+		Cursor cursor = dbHelper.getReadableDatabase().query(LocationTable.TABLE_NAME, null,selection, selectionArgument, null, null, null);
+		cursor.moveToFirst();
+		Location location = new Location();
+		location.setId(cursor.getLong(cursor.getColumnIndex(LocationTable._ID)));
+		location.setName(cursor.getString(cursor.getColumnIndex(LocationTable.COLUMN_NAME_NAME)));
+		location.setAddress(cursor.getString(cursor.getColumnIndex(LocationTable.COLUMN_NAME_ADDRESS)));
+		location.setCity(cursor.getString(cursor.getColumnIndex(LocationTable.COLUMN_NAME_CITY)));
+		location.setLongitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.COLUMN_NAME_LONGITUDE)));
+		location.setLatitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.COLUMN_NAME_LATITUDE)));
+		location.setDefaultLocation(cursor.getInt(cursor.getColumnIndex(LocationTable.COLUMN_NAME_DEFAULT)) == 1 ? true : false);
+		return location;
 	}
 	
 }
