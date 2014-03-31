@@ -17,9 +17,9 @@ public class EventDate {
 		super();
 	}
 
-	public EventDate(Event event, Location location, Date date, Date startTime, Date endTime, Date duration, boolean finished) {
+	public EventDate(Location location, Date date, Date startTime, Date endTime, Date duration, boolean finished) {
 		super();
-		this.event = event;
+		//this.event = event;
 		this.location = location;
 		this.date = date;
 		this.startTime = startTime;

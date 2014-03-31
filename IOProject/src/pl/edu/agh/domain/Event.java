@@ -101,6 +101,11 @@ public class Event {
 		this.eventDates = eventDates;
 	}
 
+	public void addEventDate(EventDate eventDate) {
+		eventDates.add(eventDate);
+		eventDate.setEvent(this);
+	}
+	
 	@Override
 	public String toString() {
 		return "Event [id=" + id + ", account=" + account
