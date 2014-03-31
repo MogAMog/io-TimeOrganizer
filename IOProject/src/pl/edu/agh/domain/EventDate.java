@@ -5,6 +5,7 @@ import java.util.Date;
 public class EventDate {
 
 	private long id = -1;
+	private Event event;
 	private Location location;
 	private Date date;
 	private Date startTime;
@@ -16,8 +17,9 @@ public class EventDate {
 		super();
 	}
 
-	public EventDate(Location location, Date date, Date startTime, Date endTime, Date duration, boolean finished) {
+	public EventDate(Event event, Location location, Date date, Date startTime, Date endTime, Date duration, boolean finished) {
 		super();
+		this.event = event;
 		this.location = location;
 		this.date = date;
 		this.startTime = startTime;
@@ -81,12 +83,18 @@ public class EventDate {
 	public void setFinished(boolean finished) {
 		this.finished = finished;
 	}
+	
+	public Event getEvent() {
+		return event;
+	}
+
+	public void setEvent(Event event) {
+		this.event = event;
+	}
 
 	@Override
 	public String toString() {
-		return "EventDate [id=" + id + ", location=" + location + ", date="
-				+ date + ", startTime=" + startTime + ", endTime=" + endTime
-				+ ", duration=" + duration + ", finished=" + finished + "]";
+		return startTime + " - " + endTime + ": " + event.getDescription();
 	}
 	
 	

@@ -50,12 +50,12 @@ public class EventDateManagementService {
 		return id;	
 	}
 
-	public Set<EventDate> getAllEventDatesForEventId(long eventId) {
+	public Set<EventDate> getAllEventDatesForEventId(Event event) {
 		Set<EventDate> resultSet = new HashSet<EventDate>();
 		Cursor cursor = null;
 		try {
 			String selection = EventDateTable.COLUMN_NAME_EVENT_ID + " = ?";
-			String[] selectionArguments = new String[] { String.valueOf(eventId) };
+			String[] selectionArguments = new String[] { String.valueOf(event.getId()) };
 			cursor = dbHelper.getWritableDatabase().query(EventDateTable.TABLE_NAME, null, selection, selectionArguments, null, null, null);
 			cursor.moveToFirst();
 			while(!cursor.isAfterLast()) {
@@ -67,6 +67,7 @@ public class EventDateManagementService {
 				eventDate.setDuration(SqliteDatatypesHelper.parseFromStringToTime(cursor.getString(cursor.getColumnIndex(EventDateTable.COLUMN_NAME_DURATION))));
 				eventDate.setFinished(cursor.getInt(cursor.getColumnIndex(EventDateTable.COLUMN_NAME_FINISHED)) == 1 ? true : false);
 				eventDate.setLocation(locationManagementService.getByIdAllData(cursor.getLong(cursor.getColumnIndex(EventDateTable.COLUMN_NAME_LOCATION_ID))));
+				eventDate.setEvent(event);
 				resultSet.add(eventDate);
 				cursor.moveToNext();
 			}
