@@ -1,4 +1,4 @@
-package pl.edu.agh.view.todo;
+package pl.edu.agh.view.eventlist;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -14,13 +14,13 @@ import android.widget.TextView;
 
 import com.example.ioproject.R;
 
-public class TodoListAdapter extends ArrayAdapter<TodoListItem> {
+public class EventListAdapter extends ArrayAdapter<EventListItem> {
 
-	private ArrayList<TodoListItem> items;
+	private ArrayList<EventListItem> items;
 	private LayoutInflater layoutInflater;
 
-	public TodoListAdapter(Context context, int resource,
-			ArrayList<TodoListItem> items) {
+	public EventListAdapter(Context context, int resource,
+			ArrayList<EventListItem> items) {
 		super(context, resource);
 		layoutInflater = LayoutInflater.from(context);
 		this.items = items;
@@ -32,7 +32,7 @@ public class TodoListAdapter extends ArrayAdapter<TodoListItem> {
 	}
 
 	@Override
-	public TodoListItem getItem(int position) {
+	public EventListItem getItem(int position) {
 		return items.get(position);
 	}
 
@@ -60,11 +60,11 @@ public class TodoListAdapter extends ArrayAdapter<TodoListItem> {
 	}
 
 	private void fillRow(ViewHolder holder, int position) {
-		TodoListItem item = items.get(position);
+		EventListItem item = items.get(position);
 		holder.description.setText(item.getEventDescription());
 		holder.title.setText(item.getEventTitle());
-		holder.locationAddress.setText(item.getLocationAddress());
-		holder.locationName.setText(item.getDefaultLocationName());
+//		holder.locationAddress.setText(item.getLocationAddress());
+//		holder.locationName.setText(item.getDefaultLocationName());
 		holder.timeFrom.setText(getReadableTime(item.getStartTime()));
 		holder.timeTo.setText(getReadableTime(item.getEndTime()));
 	}
@@ -73,10 +73,10 @@ public class TodoListAdapter extends ArrayAdapter<TodoListItem> {
 		holder.title = (TextView) convertView.findViewById(R.id.event_title);
 		holder.description = (TextView) convertView
 				.findViewById(R.id.event_description);
-		holder.locationAddress = (TextView) convertView
-				.findViewById(R.id.location_address);
-		holder.locationName = (TextView) convertView
-				.findViewById(R.id.location_name);
+//		holder.locationAddress = (TextView) convertView
+//				.findViewById(R.id.location_address);
+//		holder.locationName = (TextView) convertView
+//				.findViewById(R.id.location_name);
 		holder.timeFrom = (TextView) convertView.findViewById(R.id.time_from);
 		holder.timeTo = (TextView) convertView.findViewById(R.id.time_to);
 	}

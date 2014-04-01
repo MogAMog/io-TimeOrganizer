@@ -1,4 +1,4 @@
-package pl.edu.agh.view.todo;
+package pl.edu.agh.view.eventlist;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +15,9 @@ import android.view.ViewGroup;
 
 import com.example.ioproject.R;
 
-public class TodoListFragment extends ListFragment {
+public class EventListFragment extends ListFragment {
 
-	private TodoListAdapter todoListAdapter;
+	private EventListAdapter todoListAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,7 @@ public class TodoListFragment extends ListFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 
-		ArrayList<TodoListItem> todoItems = new ArrayList<TodoListItem>();
+		ArrayList<EventListItem> todoItems = new ArrayList<EventListItem>();
 
 		EventManagementService ems = new EventManagementService(
 				new MainDatabaseHelper(getActivity()));
@@ -42,11 +42,11 @@ public class TodoListFragment extends ListFragment {
 		List<Event> events = ems.getAll();
 		for (Event event : events) {
 			for (EventDate eventDate : event.getEventDates()) {
-				todoItems.add(new TodoListItem(event, eventDate));
+				todoItems.add(new EventListItem(event, eventDate));
 			}
 		}
 
-		todoListAdapter = new TodoListAdapter(getActivity(),
+		todoListAdapter = new EventListAdapter(getActivity(),
 				R.layout.todo_list_item, todoItems);
 		setListAdapter(todoListAdapter);
 	}

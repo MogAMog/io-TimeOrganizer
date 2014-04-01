@@ -10,7 +10,7 @@
 
     <fragment
         android:id="@+id/fragment1"
-        android:name="pl.edu.agh.view.todo.TodoListFragment"
+        android:name="pl.edu.agh.view.eventlist.EventListFragment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

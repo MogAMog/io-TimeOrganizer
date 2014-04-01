@@ -1,15 +1,15 @@
-package pl.edu.agh.view.todo;
+package pl.edu.agh.view.eventlist;
 
 import java.util.Date;
 
 import pl.edu.agh.domain.Event;
 import pl.edu.agh.domain.EventDate;
 
-public class TodoListItem {
+public class EventListItem {
 	private Event event;
 	private EventDate eventDate;
 
-	public TodoListItem(Event event, EventDate eventDate) {
+	public EventListItem(Event event, EventDate eventDate) {
 		this.event = event;
 		this.eventDate = eventDate;
 	}
