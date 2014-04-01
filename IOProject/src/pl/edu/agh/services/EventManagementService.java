@@ -102,6 +102,7 @@ public class EventManagementService implements IDatabaseDmlProvider<Event> {
 		event.setRequired(cursor.getInt(cursor.getColumnIndex(EventTable.COLUMN_NAME_IS_REQUIRED)) == 1 ? true : false);
 		event.setAccount(accountManagementService.getByIdAllData(cursor.getLong(cursor.getColumnIndex(EventTable.COLUMN_NAME_ACCOUNT_ID))));
 		event.setEventDates(eventDateManagementService.getAllEventDatesForEventId(event));
+		event.setDefaultLocation(locationManagementService.getByIdAllData(cursor.getLong(cursor.getColumnIndex(EventTable.COLUMN_NAME_DEFAULT_LOCATION_ID))));
 		event.setPredecessorEvent(null);
 		return event;
 	}
