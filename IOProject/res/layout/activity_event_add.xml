@@ -8,169 +8,178 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".EventAddActivity" >
 
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="758dp" >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp" >
 
-	    <Button
-	        android:id="@+id/buttonLocation"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/editTextDescription"
-	        android:layout_centerHorizontal="true"
-	        android:layout_marginTop="34dp"
-	        android:text="@string/event_location_event_add" />
+        <EditText
+            android:id="@+id/editTextEventTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/AddNewEvent.spacingBetweenItems"
+            android:hint="@string/event_title_event_add"
+            android:textAlignment="center" />
 
-	    <CheckBox
-	        android:id="@+id/checkBoxConstant"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentRight="true"
-	        android:layout_below="@+id/buttonLocation"
-	        android:layout_marginRight="21dp"
-	        android:layout_marginTop="21dp"
-	        android:text="@string/constant_checkbox_event_add" />
+        <EditText
+            android:id="@+id/editTextDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/AddNewEvent.spacingBetweenItems" 
+            android:hint="@string/event_decription_event_add"
+            android:minLines="4"
+            android:scrollHorizontally="true"
+            android:textAlignment="center" />
 
-	    <EditText
-	        android:id="@+id/editTextDescription"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_below="@+id/editTextEventTitle"
-	        android:layout_centerHorizontal="true"
-	        android:layout_marginTop="22dp"
-	        android:ems="10"
-	        android:minLines="4"
-	        android:scrollHorizontally="true"
-	        android:hint="@string/event_decription_event_add" />
+        <Button
+            android:id="@+id/buttonLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/AddNewEvent.spacingBetweenItems"
+            android:text="@string/event_location_event_add" />
 
-	    <ImageView
-	        android:id="@+id/imageView2"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignLeft="@+id/imageView1"
-	        android:layout_alignTop="@+id/buttonStartTime"
-	        android:src="@drawable/clock_blue" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/AddNewEvent.spacingBetweenItems" >
 
-	    <Button
-	        android:id="@+id/buttonEndTime"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignLeft="@+id/buttonStartTime"
-	        android:layout_below="@+id/buttonStartTime"
-	        android:layout_marginTop="14dp"
-	        android:layout_toLeftOf="@+id/checkBoxConstant"
-	        android:onClick="showEndTimePickerDialog"
-	        android:text="@string/end_time_event_add" />
+            <CheckBox
+                android:id="@+id/checkBoxConstant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/constant_checkbox_event_add" />
 
-	    <ImageView
-	        android:id="@+id/imageView3"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignLeft="@+id/imageView2"
-	        android:layout_alignTop="@+id/buttonEndTime"
-	        android:src="@drawable/clock_blue" />
+            <CheckBox
+                android:id="@+id/checkBoxRequired"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="100dp"
+                android:layout_toRightOf="@id/checkBoxConstant"
+                android:text="@string/required_checkbox_event_add" />
+        </RelativeLayout>
 
-	    <TextView
-	        android:id="@+id/textViewEndTime"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignBaseline="@+id/buttonEndTime"
-	        android:layout_alignBottom="@+id/buttonEndTime"
-	        android:layout_centerHorizontal="true"
-	        android:text="@string/text_view_end_time" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/AddNewEvent.spacingBetweenItems" >
 
-	        <TextView
-	            android:id="@+id/textViewCurrentDate"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignBaseline="@+id/buttonPickDate"
-	            android:layout_alignBottom="@+id/buttonPickDate"
-	            android:layout_centerHorizontal="true"
-	            android:text="@string/current_date_label_event_add" />
+            <ImageView
+                android:id="@+id/calendarIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/calendar_icon" />
 
-	        <TextView
-	            android:id="@+id/textViewStartTime"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignBottom="@+id/buttonStartTime"
-	            android:layout_centerHorizontal="true"
-	            android:text="@string/text_view_start_time" />
+            <TextView
+                android:id="@+id/textViewCurrentDate"
+                android:layout_width="@dimen/AddNewEvent.timeAndDateInformationText"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/calendarIcon"
+                android:text="@string/current_date_label_event_add" />
 
-	        <Button
-	            android:id="@+id/buttonPickDate"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_below="@+id/checkBoxConstant"
-	            android:layout_marginTop="34dp"
-	            android:layout_toLeftOf="@+id/checkBoxConstant"
-	            android:onClick="showDatePickerDialog"
-	            android:text="@string/pick_date_event_add" />
+            <Button
+                android:id="@+id/buttonPickDate"
+                android:layout_width="@dimen/AddNewEvent.timeAndDateButtonWidth"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/textViewCurrentDate"
+                android:onClick="showDatePickerDialog"
+                android:text="@string/pick_date_event_add" />
+        </RelativeLayout>
 
-	        <Button
-	            android:id="@+id/buttonStartTime"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_below="@+id/buttonPickDate"
-	            android:layout_marginTop="26dp"
-	            android:layout_toLeftOf="@+id/checkBoxConstant"
-	            android:onClick="showStartTimePickerDialog"
-	            android:text="@string/start_time_event_add" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:layout_marginTop="@dimen/AddNewEvent.spacingBetweenItems" >
 
-	        <SeekBar
-	            android:id="@+id/seekBarEventDuration"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content"
-	            android:layout_alignParentLeft="true"
-	            android:layout_below="@+id/buttonEndTime"
-	            android:layout_marginTop="73dp"
-	            android:max="600" />
+            <ImageView
+                android:id="@+id/startTimeIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/clock_blue" />
 
-	        <TextView
-	            android:id="@+id/textSeekBarProgress"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignBottom="@+id/seekBarEventDuration"
-	            android:layout_centerHorizontal="true"
-	            android:layout_marginBottom="37dp"
-	            android:text="TextView" />
+            <TextView
+                android:id="@+id/textViewStartTime"
+                android:layout_width="@dimen/AddNewEvent.timeAndDateInformationText"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/startTimeIcon"
+                android:text="@string/text_view_start_time" />
 
-	        <EditText
-	            android:id="@+id/editTextEventTitle"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignParentTop="true"
-	            android:layout_centerHorizontal="true"
-	            android:ems="10"
-	            android:hint="@string/event_title_event_add" />
+            <Button
+                android:id="@+id/buttonStartTime"
+                android:layout_width="@dimen/AddNewEvent.timeAndDateButtonWidth"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/textViewStartTime"
+                android:onClick="showStartTimePickerDialog"
+                android:text="@string/start_time_event_add" />
+        </RelativeLayout>
 
-	        <ImageView
-	            android:id="@+id/imageView1"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_above="@+id/buttonStartTime"
-	            android:layout_marginLeft="60dp"
-	            android:layout_toRightOf="@+id/checkBoxRequired"
-	            android:src="@drawable/calendar_icon" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/AddNewEvent.spacingBetweenItems" >
 
-	        <CheckBox
-	            android:id="@+id/checkBoxRequired"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_alignBaseline="@+id/checkBoxConstant"
-	            android:layout_alignBottom="@+id/checkBoxConstant"
-	            android:layout_alignParentLeft="true"
-	            android:text="@string/required_checkbox_event_add" />
+            <ImageView
+                android:id="@+id/endTimeIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/clock_blue" />
 
-	        <Button
-	            android:id="@+id/buttonAddEvent"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:layout_below="@+id/seekBarEventDuration"
-	            android:layout_centerHorizontal="true"
-	            android:layout_marginTop="34dp"
-	            android:onClick="addNewEventAction"
-	            android:text="@string/addevent_event_add" />
-    
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/textViewEndTime"
+                android:layout_width="@dimen/AddNewEvent.timeAndDateInformationText"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@id/endTimeIcon"
+                android:text="@string/text_view_end_time" />
+
+            <Button
+                android:id="@+id/buttonEndTime"
+                android:layout_width="@dimen/AddNewEvent.timeAndDateButtonWidth"
+                android:layout_height="wrap_content"
+                android:onClick="showEndTimePickerDialog"
+                android:layout_toRightOf="@id/textViewEndTime"
+                android:text="@string/end_time_event_add" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/AddNewEvent.spacingBetweenItems"
+            android:layout_marginBottom="@dimen/AddNewEvent.spacingBetweenItems" >
+
+            <TextView
+                android:id="@+id/textSeekBarProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:text="@string/event_duration_event_add" />
+
+            <SeekBar
+                android:id="@+id/seekBarEventDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/textSeekBarProgress"
+                android:max="180" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/buttonAddEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="addNewEventAction"
+            android:text="@string/addevent_event_add" />
+    </LinearLayout>
 
 </ScrollView>
