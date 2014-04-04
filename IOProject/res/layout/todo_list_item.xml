@@ -4,7 +4,7 @@
     android:layout_height="match_parent" >
 
     <CheckBox
-        android:id="@+id/checkBox1"
+        android:id="@+id/checkBoxConstant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
@@ -18,9 +18,9 @@
         android:id="@+id/event_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/checkBox1"
+        android:layout_alignTop="@+id/checkBoxConstant"
         android:layout_marginLeft="15dp"
-        android:layout_toRightOf="@+id/checkBox1"
+        android:layout_toRightOf="@+id/checkBoxConstant"
         android:text="title"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -28,8 +28,8 @@
         android:id="@+id/event_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/checkBox1"
-        android:layout_below="@+id/checkBox1"
+        android:layout_alignLeft="@+id/checkBoxConstant"
+        android:layout_below="@+id/checkBoxConstant"
         android:layout_marginTop="15dp"
         android:text="description" />
 
@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/time_from"
-        android:layout_below="@+id/checkBox1"
+        android:layout_below="@+id/checkBoxConstant"
         android:text="TextView" />
 
     <TextView

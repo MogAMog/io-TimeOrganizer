@@ -1,21 +1,11 @@
 package com.example.ioproject;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.GregorianCalendar;
-import java.util.List;
-
-import pl.edu.agh.domain.Account;
-import pl.edu.agh.domain.Event;
-import pl.edu.agh.domain.EventDate;
-import pl.edu.agh.domain.Location;
-import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
-import pl.edu.agh.services.EventManagementService;
+import pl.edu.agh.view.addevent.EventAddActivity;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.view.View;
 
 public class MainActivity extends Activity {
 
@@ -70,5 +60,9 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+    
+    public void addNewEventAction(View view) {
+		startActivity(new Intent(this, EventAddActivity.class));
+	}
     
 }

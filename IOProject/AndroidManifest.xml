@@ -22,6 +22,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="pl.edu.agh.view.addevent.EventAddActivity"
+            android:label="@string/title_activity_event_add"
+            android:parentActivityName="com.example.ioproject.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ioproject.MainActivity" />
+        </activity>
+        <activity
+            android:name="com.example.ioproject.EventAddActivity"
+            android:label="@string/title_activity_event_add"
+            android:parentActivityName="com.example.ioproject.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ioproject.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

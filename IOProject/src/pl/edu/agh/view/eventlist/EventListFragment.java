@@ -33,7 +33,11 @@ public class EventListFragment extends ListFragment {
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-
+	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
 		ArrayList<EventListItem> todoItems = new ArrayList<EventListItem>();
 
 		EventManagementService ems = new EventManagementService(
