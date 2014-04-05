@@ -51,13 +51,17 @@
             android:id="@+id/EventListItem.event_description_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_margin="5dp"
             android:contentDescription="@string/EventListItem.event_description"
-            android:src="@drawable/event_description" />
+            android:src="@drawable/calendar_info" />
 
         <ImageButton
             android:id="@+id/EventListItem.event_edit_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_margin="5dp"
             android:contentDescription="@string/EventListItem.event_edit"
             android:src="@drawable/edit_event" />
 
@@ -65,8 +69,10 @@
             android:id="@+id/EventListItem.event_localization"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_margin="5dp"
             android:contentDescription="@string/EventListItem.event_localization"
-            android:src="@drawable/event_localization" />
+            android:src="@drawable/globe" />
     </LinearLayout>
 
 </LinearLayout>
