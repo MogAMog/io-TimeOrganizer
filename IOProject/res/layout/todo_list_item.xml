@@ -1,73 +1,72 @@
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:gravity="center_vertical" >
 
-    <CheckBox
-        android:id="@+id/checkBoxConstant"
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="34dp"
-        android:layout_marginTop="22dp"
-        android:scaleX="2.0"
-        android:scaleY="2.0" />
+        android:layout_height="match_parent"
+        android:layout_weight="3" >
 
-    <TextView
-        android:id="@+id/event_title"
+        <CheckBox
+            android:id="@+id/checkBox1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:scaleX="2.0"
+            android:scaleY="2.0" />
+
+        <TextView
+            android:id="@+id/EventListItem.event_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="15:00" />
+
+        <TextView
+            android:id="@+id/EventListItem.event_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="16:00" />
+
+        <TextView
+            android:id="@+id/EventListItem.event_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:text="Event Title"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/checkBoxConstant"
-        android:layout_marginLeft="15dp"
-        android:layout_toRightOf="@+id/checkBoxConstant"
-        android:text="title"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="right" >
 
-    <TextView
-        android:id="@+id/event_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/checkBoxConstant"
-        android:layout_below="@+id/checkBoxConstant"
-        android:layout_marginTop="15dp"
-        android:text="description" />
+        <ImageButton
+            android:id="@+id/EventListItem.event_description_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/EventListItem.event_description"
+            android:src="@drawable/event_description" />
 
-    <TextView
-        android:id="@+id/time_from"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/event_title"
-        android:layout_marginRight="42dp"
-        android:layout_toLeftOf="@+id/time_to"
-        android:text="from"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <ImageButton
+            android:id="@+id/EventListItem.event_edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/EventListItem.event_edit"
+            android:src="@drawable/edit_event" />
 
-    <TextView
-        android:id="@+id/time_to"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/time_from"
-        android:layout_alignBottom="@+id/time_from"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="40dp"
-        android:text="to"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        <ImageButton
+            android:id="@+id/EventListItem.event_localization"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/EventListItem.event_localization"
+            android:src="@drawable/event_localization" />
+    </LinearLayout>
 
-    <TextView
-        android:id="@+id/location_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/time_from"
-        android:layout_below="@+id/checkBoxConstant"
-        android:text="TextView" />
-
-    <TextView
-        android:id="@+id/location_address"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/location_name"
-        android:layout_below="@+id/location_name"
-        android:text="TextView" />
-
-</RelativeLayout>
+</LinearLayout>

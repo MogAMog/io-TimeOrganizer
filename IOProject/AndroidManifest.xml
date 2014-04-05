@@ -38,6 +38,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ioproject.MainActivity" />
         </activity>
+        <activity
+            android:name="pl.edu.agh.view.eventdescription.EventDescriptionActivity"
+            android:label="@string/title_activity_event_description" >
+        </activity>
     </application>
 
 </manifest>

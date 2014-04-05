@@ -45,8 +45,7 @@ public class EventListAdapter extends ArrayAdapter<EventListItem> {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		ViewHolder holder;
 		if (convertView == null) {
-			convertView = layoutInflater.inflate(R.layout.todo_list_item,
-					parent, false);
+			convertView = layoutInflater.inflate(R.layout.todo_list_item, parent, false);
 			holder = new ViewHolder();
 			initHolder(holder, convertView);
 			convertView.setTag(holder);
@@ -55,13 +54,12 @@ public class EventListAdapter extends ArrayAdapter<EventListItem> {
 		}
 
 		fillRow(holder, position);
-
 		return convertView;
 	}
 
 	private void fillRow(ViewHolder holder, int position) {
 		EventListItem item = items.get(position);
-		holder.description.setText(item.getEventDescription());
+//		holder.description.setText(item.getEventDescription());
 		holder.title.setText(item.getEventTitle());
 //		holder.locationAddress.setText(item.getLocationAddress());
 //		holder.locationName.setText(item.getDefaultLocationName());
@@ -70,15 +68,12 @@ public class EventListAdapter extends ArrayAdapter<EventListItem> {
 	}
 
 	private void initHolder(ViewHolder holder, View convertView) {
-		holder.title = (TextView) convertView.findViewById(R.id.event_title);
-		holder.description = (TextView) convertView
-				.findViewById(R.id.event_description);
-//		holder.locationAddress = (TextView) convertView
-//				.findViewById(R.id.location_address);
-//		holder.locationName = (TextView) convertView
-//				.findViewById(R.id.location_name);
-		holder.timeFrom = (TextView) convertView.findViewById(R.id.time_from);
-		holder.timeTo = (TextView) convertView.findViewById(R.id.time_to);
+		holder.title = (TextView) convertView.findViewById(R.id.EventListItem_event_title);
+//		holder.description = (TextView) convertView.findViewById(R.id.Eve);
+//		holder.locationAddress = (TextView) convertView.findViewById(R.id.location_address);
+//		holder.locationName = (TextView) convertView.findViewById(R.id.location_name);
+		holder.timeFrom = (TextView) convertView.findViewById(R.id.EventListItem_event_start_time);
+		holder.timeTo = (TextView) convertView.findViewById(R.id.EventListItem_event_end_time);
 	}
 
 	private String getReadableTime(Date date) {
@@ -88,7 +83,7 @@ public class EventListAdapter extends ArrayAdapter<EventListItem> {
 
 	static class ViewHolder {
 		TextView title;
-		TextView description;
+//		TextView description;
 		TextView locationAddress;
 		TextView locationName;
 		TextView timeFrom;
