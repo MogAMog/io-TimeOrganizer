@@ -51,51 +51,33 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		
 		
 		final EditText eventTitle = (EditText)findViewById(R.id.editTextEventTitle);
-		
-		TextWatcher textWatcher = new TextWatcher() {
-			
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-			}
-			
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-				
-			}
+		eventTitle.addTextChangedListener(new TextWatcher() {
 			
 			@Override
 			public void afterTextChanged(Editable s) {
 				event.setTitle(eventTitle.getText().toString());	
 			}
-		};
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {}
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+		});
 		
-		eventTitle.addTextChangedListener(textWatcher);
-		
+
 		final EditText eventDescription = (EditText)findViewById(R.id.editTextDescription);
-		
-		TextWatcher textWatcher1 = new TextWatcher() {
-			
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count,
-					int after) {
-				// TODO Auto-generated method stub
-				
-			}
+		eventDescription.addTextChangedListener(new TextWatcher() {
 			
 			@Override
 			public void afterTextChanged(Editable s) {
 				event.setDescription(eventDescription.getText().toString());
 			}
-		};
-		
-		eventDescription.addTextChangedListener(textWatcher1);
+			
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {}
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+		});
 		
 		CheckBox isEventConstant = (CheckBox) findViewById(R.id.checkBoxConstant);
 		isEventConstant.setOnCheckedChangeListener( new OnCheckedChangeListener() {
@@ -121,28 +103,17 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 			
 			@Override
 			public void onStopTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
 				eventDurationSeekBar.setSecondaryProgress(eventDurationSeekBar.getProgress());
-				
 			}
 			
 			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onProgressChanged(SeekBar seekBar, int progress,
-					boolean fromUser) {
-				
+			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 				textSeekBarProgress.setText("How many minutes long: " + progress);
-				
 			}
+			
+			@Override
+			public void onStartTrackingTouch(SeekBar seekBar) { }
 		});
-		
-		
-		
 	}
 
 	/**
@@ -250,11 +221,7 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		event.addEventDate(eventDate);
 		event.setAccount(account);
 		event.setPredecessorEvent(null);
-		//event.setTitle("Some title - ACTION LISTENERA BRAK :D");
-		//event.setDescription("Olaboga");
 		event.setDefaultLocation(new Location("Basen", "D17 AGH", "Krakow", 23.452398, 43.3423415, true));
-		//event.setConstant(false);
-		//event.setRequired(false);
 		eventManagementService.insert(event);
 		startActivity(new Intent(this, MainActivity.class));
 	}

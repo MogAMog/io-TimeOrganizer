@@ -19,16 +19,16 @@
             android:id="@+id/editTextEventTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/AddNewEvent.spacingBetweenItems"
-            android:hint="@string/event_title_event_add"
+            android:layout_marginTop="@dimen/AddNewEventView.spacingBetweenItems"
+            android:hint="@string/AddNewEventView.event_title_event_add"
             android:textAlignment="center" />
 
         <EditText
             android:id="@+id/editTextDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/AddNewEvent.spacingBetweenItems" 
-            android:hint="@string/event_decription_event_add"
+            android:layout_marginTop="@dimen/AddNewEventView.spacingBetweenItems" 
+            android:hint="@string/AddNewEventView.event_decription_event_add"
             android:minLines="4"
             android:scrollHorizontally="true"
             android:textAlignment="center" />
@@ -37,20 +37,20 @@
             android:id="@+id/buttonLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/AddNewEvent.spacingBetweenItems"
-            android:text="@string/event_location_event_add" />
+            android:layout_marginTop="@dimen/AddNewEventView.spacingBetweenItems"
+            android:text="@string/AddNewEventView.event_location_event_add" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="@dimen/AddNewEvent.spacingBetweenItems" >
+            android:layout_marginTop="@dimen/AddNewEventView.spacingBetweenItems" >
 
             <CheckBox
                 android:id="@+id/checkBoxConstant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/constant_checkbox_event_add" />
+                android:text="@string/AddNewEventView.constant_checkbox_event_add" />
 
             <CheckBox
                 android:id="@+id/checkBoxRequired"
@@ -58,14 +58,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="100dp"
                 android:layout_toRightOf="@id/checkBoxConstant"
-                android:text="@string/required_checkbox_event_add" />
+                android:text="@string/AddNewEventView.required_checkbox_event_add" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="@dimen/AddNewEvent.spacingBetweenItems" >
+            android:layout_marginTop="@dimen/AddNewEventView.spacingBetweenItems" >
 
             <ImageView
                 android:id="@+id/calendarIcon"
@@ -75,27 +75,27 @@
 
             <TextView
                 android:id="@+id/textViewCurrentDate"
-                android:layout_width="@dimen/AddNewEvent.timeAndDateInformationText"
+                android:layout_width="@dimen/AddNewEventView.timeAndDateInformationText"
                 android:layout_height="match_parent"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/calendarIcon"
-                android:text="@string/current_date_label_event_add" />
+                android:text="@string/AddNewEventView.current_date_label_event_add" />
 
             <Button
                 android:id="@+id/buttonPickDate"
-                android:layout_width="@dimen/AddNewEvent.timeAndDateButtonWidth"
+                android:layout_width="@dimen/AddNewEventView.timeAndDateButtonWidth"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/textViewCurrentDate"
                 android:onClick="showDatePickerDialog"
-                android:text="@string/pick_date_event_add" />
+                android:text="@string/AddNewEventView.pick_date_event_add" />
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical|center_horizontal"
-            android:layout_marginTop="@dimen/AddNewEvent.spacingBetweenItems" >
+            android:layout_marginTop="@dimen/AddNewEventView.spacingBetweenItems" >
 
             <ImageView
                 android:id="@+id/startTimeIcon"
@@ -105,16 +105,16 @@
 
             <TextView
                 android:id="@+id/textViewStartTime"
-                android:layout_width="@dimen/AddNewEvent.timeAndDateInformationText"
+                android:layout_width="@dimen/AddNewEventView.timeAndDateInformationText"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/startTimeIcon"
-                android:text="@string/text_view_start_time" />
+                android:text="@string/AddNewEventView.text_view_start_time" />
 
             <Button
                 android:id="@+id/buttonStartTime"
-                android:layout_width="@dimen/AddNewEvent.timeAndDateButtonWidth"
+                android:layout_width="@dimen/AddNewEventView.timeAndDateButtonWidth"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/textViewStartTime"
                 android:onClick="showStartTimePickerDialog"
@@ -125,7 +125,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="@dimen/AddNewEvent.spacingBetweenItems" >
+            android:layout_marginTop="@dimen/AddNewEventView.spacingBetweenItems" >
 
             <ImageView
                 android:id="@+id/endTimeIcon"
@@ -135,16 +135,16 @@
 
             <TextView
                 android:id="@+id/textViewEndTime"
-                android:layout_width="@dimen/AddNewEvent.timeAndDateInformationText"
+                android:layout_width="@dimen/AddNewEventView.timeAndDateInformationText"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_toRightOf="@id/endTimeIcon"
-                android:text="@string/text_view_end_time" />
+                android:text="@string/AddNewEventView.text_view_end_time" />
 
             <Button
                 android:id="@+id/buttonEndTime"
-                android:layout_width="@dimen/AddNewEvent.timeAndDateButtonWidth"
+                android:layout_width="@dimen/AddNewEventView.timeAndDateButtonWidth"
                 android:layout_height="wrap_content"
                 android:onClick="showEndTimePickerDialog"
                 android:layout_toRightOf="@id/textViewEndTime"
@@ -155,8 +155,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:layout_marginTop="@dimen/AddNewEvent.spacingBetweenItems"
-            android:layout_marginBottom="@dimen/AddNewEvent.spacingBetweenItems" >
+            android:layout_marginTop="@dimen/AddNewEventView.spacingBetweenItems"
+            android:layout_marginBottom="@dimen/AddNewEventView.spacingBetweenItems" >
 
             <TextView
                 android:id="@+id/textSeekBarProgress"

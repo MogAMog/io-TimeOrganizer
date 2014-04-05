@@ -4,8 +4,8 @@
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
     
-    <dimen name="AddNewEvent.spacingBetweenItems">15dp</dimen>
-    <dimen name="AddNewEvent.timeAndDateButtonWidth">150dp</dimen>
-    <dimen name="AddNewEvent.timeAndDateInformationText">150dp</dimen>
+    <dimen name="AddNewEventView.spacingBetweenItems">15dp</dimen>
+    <dimen name="AddNewEventView.timeAndDateButtonWidth">150dp</dimen>
+    <dimen name="AddNewEventView.timeAndDateInformationText">150dp</dimen>
 
 </resources>
