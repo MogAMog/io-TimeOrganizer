@@ -176,41 +176,39 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		TextView date = (TextView) findViewById(R.id.textViewCurrentDate);
 		date.setText(dateToWrite);
 	}
-
+	
 	@Override
 	public void setStartTime(int hour, int minute) {
-		Calendar calendar = new GregorianCalendar();
-		calendar.set(Calendar.HOUR_OF_DAY, hour);
-		calendar.set(Calendar.MINUTE, minute);
-		calendar.set(Calendar.SECOND, 0);
+		Calendar calendar = getCalendarInstanceWithTime(hour, minute);
 		eventDate.setStartTime(calendar.getTime());
-		
-		StringBuilder startTimeToWrite = new StringBuilder();
-		startTimeToWrite.append("Start time: ")
-				.append(calendar.get(Calendar.HOUR_OF_DAY))
-				.append(":")
-				.append(calendar.get(Calendar.MINUTE));
-		
 		TextView startTime = (TextView) findViewById(R.id.textViewStartTime);
-		startTime.setText(startTimeToWrite);
+		startTime.setText(getTimeDescription("Start time", calendar));
 	}
-
+	
 	@Override
 	public void setEndTime(int hour, int minute) {
+		Calendar calendar = getCalendarInstanceWithTime(hour, minute);
+		eventDate.setEndTime(calendar.getTime());	
+		TextView endTime = (TextView) findViewById(R.id.textViewEndTime);
+		endTime.setText(getTimeDescription("End time", calendar));
+	}
+
+	private String getTimeDescription(String label, Calendar calendar) {
+		StringBuilder startTimeToWrite = new StringBuilder();
+		startTimeToWrite.append(label)
+				.append(": ")
+				.append((calendar.get(Calendar.HOUR_OF_DAY) < 10 ? "0" : "") + calendar.get(Calendar.HOUR_OF_DAY))
+				.append(":")
+				.append((calendar.get(Calendar.MINUTE) < 10 ? "0" : "") + calendar.get(Calendar.MINUTE));
+		return startTimeToWrite.toString();
+	}
+
+	private Calendar getCalendarInstanceWithTime(int hour, int minute) {
 		Calendar calendar = new GregorianCalendar();
 		calendar.set(Calendar.HOUR_OF_DAY, hour);
 		calendar.set(Calendar.MINUTE, minute);
 		calendar.set(Calendar.SECOND, 0);
-		eventDate.setEndTime(calendar.getTime());
-		
-		StringBuilder endTimeToWrite = new StringBuilder();
-		endTimeToWrite.append("Start time: ")
-				.append(calendar.get(Calendar.HOUR_OF_DAY))
-				.append(":")
-				.append(calendar.get(Calendar.MINUTE));
-		
-		TextView endTime = (TextView) findViewById(R.id.textViewEndTime);
-		endTime.setText(endTimeToWrite);
+		return calendar;
 	}
 	
 	public void addNewEventAction(View view) {
@@ -223,7 +221,8 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		event.setPredecessorEvent(null);
 		event.setDefaultLocation(new Location("Basen", "D17 AGH", "Krakow", 23.452398, 43.3423415, true));
 		eventManagementService.insert(event);
-		startActivity(new Intent(this, MainActivity.class));
+		//startActivity(new Intent(this, MainActivity.class));
+		finish();
 	}
 
 	
