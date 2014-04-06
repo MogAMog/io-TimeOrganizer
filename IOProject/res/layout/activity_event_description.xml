@@ -15,8 +15,8 @@
             android:layout_margin="@dimen/EventDescription.tiles_margin"
             android:background="@drawable/event_rectangle_shape"
             android:text="@string/EventDescription.MainTile.event_main"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,9 +30,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/EventDescription.tiles_margin"
                 android:background="@drawable/event_rectangle_shape"
-                android:text="@string/Event.title"
-                android:textColor="@android:color/white"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:text="@string/Event.description"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/EventDescription.description"
@@ -40,8 +40,8 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/event_rectangle_shape"
                 android:text="@string/Event.description"
-                android:textColor="@android:color/white"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white" />
         </LinearLayout>
     </LinearLayout>
 
@@ -56,8 +56,8 @@
             android:layout_margin="@dimen/EventDescription.tiles_margin"
             android:background="@drawable/date_time_info_rectangle_shape"
             android:text="@string/EventDescription.MainTile.event_date_information"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,8 +73,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/date_time_info_rectangle_shape"
                 android:text="@string/EventDate.date"
-                android:textColor="@android:color/white"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/EventDescription.start_time"
@@ -84,8 +84,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/date_time_info_rectangle_shape"
                 android:text="@string/EventDate.start_time"
-                android:textColor="@android:color/white"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white" />
 
             <TextView
                 android:id="@+id/EventDescription.end_time"
@@ -94,8 +94,8 @@
                 android:layout_weight="1"
                 android:background="@drawable/date_time_info_rectangle_shape"
                 android:text="@string/EventDate.end_time"
-                android:textColor="@android:color/white"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white" />
         </LinearLayout>
     </LinearLayout>
 
@@ -110,8 +110,8 @@
             android:layout_margin="@dimen/EventDescription.tiles_margin"
             android:background="@drawable/location_info_rectangle_shape"
             android:text="@string/EventDescription.MainTile.event_location_information"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/EventDescription.location"
@@ -120,8 +120,8 @@
             android:layout_margin="@dimen/EventDescription.tiles_margin"
             android:background="@drawable/location_info_rectangle_shape"
             android:text="@string/EventDate.location"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white" />
     </LinearLayout>
 
     <LinearLayout
@@ -135,8 +135,8 @@
             android:layout_margin="@dimen/EventDescription.tiles_margin"
             android:background="@drawable/additional_information_rectangle_shape"
             android:text="@string/EventDescription.MainTile.event_additional_information"
-            android:textColor="@android:color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -149,8 +149,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/EventDescription.tiles_margin"
                 android:background="@drawable/additional_information_rectangle_shape"
-                android:orientation="horizontal"
-                android:gravity="center" >
+                android:gravity="center"
+                android:orientation="horizontal" >
 
                 <TextView
                     android:id="@+id/EventDescription.required"
@@ -158,8 +158,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/Event.required"
-                    android:textColor="@android:color/white"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white" />
 
                 <ImageView
                     android:id="@+id/EventDescription.required_image"
@@ -172,10 +172,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/additional_information_rectangle_shape"
                 android:layout_marginBottom="@dimen/EventDescription.tiles_margin"
-                android:orientation="horizontal"
-                android:gravity="center" >
+                android:background="@drawable/additional_information_rectangle_shape"
+                android:gravity="center"
+                android:orientation="horizontal" >
 
                 <TextView
                     android:id="@+id/EventDescription.constant"
@@ -183,8 +183,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/Event.constant"
-                    android:textColor="@android:color/white"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white" />
 
                 <ImageView
                     android:id="@+id/EventDescription.constant_image"
@@ -198,8 +198,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/additional_information_rectangle_shape"
-                android:orientation="horizontal"
-                android:gravity="center" >
+                android:gravity="center"
+                android:orientation="horizontal" >
 
                 <TextView
                     android:id="@+id/EventDescription.finished"
@@ -207,8 +207,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="@string/EventDate.finished"
-                    android:textColor="@android:color/white"
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white" />
 
                 <ImageView
                     android:id="@+id/EventDescription.finished_image"
@@ -219,5 +219,12 @@
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
+
+    <fragment
+        android:id="@+id/map"
+        class="com.google.android.gms.maps.MapFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="20dp" />
 
 </LinearLayout>

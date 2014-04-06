@@ -221,7 +221,7 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		event.addEventDate(eventDate);
 		event.setAccount(account);
 		event.setPredecessorEvent(null);
-		event.setDefaultLocation(new Location("Basen", "D17 AGH", "Krakow", 23.452398, 43.3423415, true));
+		event.setDefaultLocation(new Location("Basen", "D17 AGH", "Krakow", 50.068408, 19.901062, true));
 		eventManagementService.insert(event);
 		//startActivity(new Intent(this, MainActivity.class));
 		finish();

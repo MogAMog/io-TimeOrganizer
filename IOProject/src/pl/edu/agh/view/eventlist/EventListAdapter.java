@@ -85,14 +85,14 @@ public class EventListAdapter extends ArrayAdapter<EventListItem> {
 		holder.editEventButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getContext(), "Show event For: " + getItem(position).getEventTitle(), Toast.LENGTH_LONG).show();
+				Toast.makeText(getContext(), "Show event For: " + getItem(position).getTitle(), Toast.LENGTH_LONG).show();
 			}
 		});
 		
 		holder.showEventLocationButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getContext(), "Show Location For: " + getItem(position).getEventTitle(), Toast.LENGTH_LONG).show();
+				Toast.makeText(getContext(), "Show Location For: " + getItem(position).getTitle(), Toast.LENGTH_LONG).show();
 			}
 		});
 		return convertView;
@@ -101,7 +101,7 @@ public class EventListAdapter extends ArrayAdapter<EventListItem> {
 	private void fillRow(ViewHolder holder, int position) {
 		EventListItem item = items.get(position);
 		holder.isFinished.setChecked(item.isFinished());
-		holder.title.setText(item.getEventTitle());
+		holder.title.setText(item.getTitle());
 		holder.timeFrom.setText(getReadableTime(item.getStartTime()));
 		holder.timeTo.setText(getReadableTime(item.getEndTime()));
 	}

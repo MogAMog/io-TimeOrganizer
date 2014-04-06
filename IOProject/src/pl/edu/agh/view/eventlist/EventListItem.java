@@ -5,6 +5,7 @@ import java.util.Date;
 
 import pl.edu.agh.domain.Event;
 import pl.edu.agh.domain.EventDate;
+import pl.edu.agh.domain.Location;
 
 public class EventListItem implements Serializable {
 	private Event event;
@@ -15,14 +16,18 @@ public class EventListItem implements Serializable {
 		this.eventDate = eventDate;
 	}
 
-	public String getEventTitle() {
+	public String getTitle() {
 		return event.getTitle();
 	}
-
-	public String getEventDescription() {
+	
+	public String getDescription() {
 		return event.getDescription();
 	}
 
+	public Date getDate() {
+		return eventDate.getDate();
+	}
+	
 	public Date getStartTime() {
 		return eventDate.getStartTime();
 	}
@@ -30,43 +35,25 @@ public class EventListItem implements Serializable {
 	public Date getEndTime() {
 		return eventDate.getEndTime();
 	}
-
-	public boolean isRequired() {
-		return event.isRequired();
-	}
-
-	public boolean isConstant() {
-		return event.isConstant();
-	}
 	
 	public boolean isFinished() {
 		return eventDate.isFinished();
 	}
 	
+	public boolean isConstant() {
+		return event.isConstant();
+	}
+	
+	public boolean isRequired() {
+		return event.isRequired();
+	}
+	
+	public Location getLocation() {
+		return event.getDefaultLocation() != null ? event.getDefaultLocation() : eventDate.getLocation();
+	}
+	
 	public void setFinished(boolean isFinished) {
 		eventDate.setFinished(isFinished);
-	}
-
-	public String getDefaultLocationName() {
-		if (event.getDefaultLocation() != null)
-			return event.getDefaultLocation().getName();
-		else
-			return "";
-	}
-
-	public String getLocationAddress() {
-		if (event.getDefaultLocation() != null)
-			return event.getDefaultLocation().getAddress();
-		else
-			return "";
-	}
-
-	public Event getEvent() {
-		return event;
-	}
-
-	public EventDate getEventDate() {
-		return eventDate;
 	}
 	
 	
