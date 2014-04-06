@@ -25,8 +25,7 @@ public class EventListFragment extends ListFragment {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		return inflater.inflate(R.layout.todo_list_fragment, container, false);
 	}
 
@@ -40,8 +39,7 @@ public class EventListFragment extends ListFragment {
 		super.onResume();
 		ArrayList<EventListItem> todoItems = new ArrayList<EventListItem>();
 
-		EventManagementService ems = new EventManagementService(
-				new MainDatabaseHelper(getActivity()));
+		EventManagementService ems = new EventManagementService(new MainDatabaseHelper(getActivity()));
 
 		List<Event> events = ems.getAll();
 		for (Event event : events) {
@@ -50,8 +48,8 @@ public class EventListFragment extends ListFragment {
 			}
 		}
 
-		todoListAdapter = new EventListAdapter(getActivity(),
-				R.layout.todo_list_item, todoItems);
+		todoListAdapter = new EventListAdapter(getActivity(), R.layout.todo_list_item, todoItems);
 		setListAdapter(todoListAdapter);
 	}
+	
 }

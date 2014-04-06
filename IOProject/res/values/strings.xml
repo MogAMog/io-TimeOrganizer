@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">IOProject</string>
+    <string name="app_name">Time Optimizer</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="no_event_avaiable">Brak zdarzeń!</string>
-    <string name="title_activity_event_add">EventAddActivity</string>
+    <string name="title_activity_event_add">New Event Creator</string>
     <string name="add_event_main">Add event</string>
     <string name="start_time_event_add">Start time</string>
     <string name="end_time_event_add">End time</string>
@@ -13,6 +13,11 @@
     <string name="event_duration_event_add">Event duration: 0 minutes</string>
     <string name="addevent_event_add">Add event</string>
     <string name="title_activity_event_description">EventDescriptionActivity</string>
+
+    <!-- ************************************************************************************************* -->
+    <!-- ************************************* Standard Properties *************************************** -->
+    <!-- ************************************************************************************************* -->
+	<string name="Standard.back">Back</string>
 
     <!-- ************************************************************************************************* -->
     <!-- ************************************** Add New Event View *************************************** -->
@@ -39,10 +44,39 @@
     <string name="MainActivityView.ActionBar.help">Help</string>
 
     <!-- ************************************************************************************************* -->
-    <!-- ************************************** Main Activity View *************************************** -->
+    <!-- ************************************* "EventListItem View *************************************** -->
     <!-- ************************************************************************************************* -->
     <string name="EventListItem.event_description">Event Description</string>
     <string name="EventListItem.event_edit">Edit Event</string>
-	<string name="EventListItem.event_localization">Event Localization</string>
+    <string name="EventListItem.event_localization">Event Localization</string>
+
+    <!-- ************************************************************************************************* -->
+    <!-- *************************************** Event Properties **************************************** -->
+    <!-- ************************************************************************************************* -->
+    <string name="Event.title">Title</string>
+    <string name="Event.description">Description</string>
+    <string name="Event.constant">Is Constant</string>
+    <string name="Event.required">Is Required</string>
+
+    <!-- ************************************************************************************************* -->
+    <!-- *************************************** Event Properties **************************************** -->
+    <!-- ************************************************************************************************* -->
+    <string name="EventDate.location">Location</string>
+    <string name="EventDate.date">Date</string>
+    <string name="EventDate.start_time">Start time</string>
+    <string name="EventDate.end_time">End time</string>
+    <string name="EventDate.duration">Duration</string>
+    <string name="EventDate.finished">Is Finished</string>
+
+    <!-- ************************************************************************************************* -->
+    <!-- ************************************ Event Description View ************************************* -->
+    <!-- ************************************************************************************************* -->
+    <string name="EventDescription.MainTile.event_main">Event\nInformation</string>
+    <string name="EventDescription.MainTile.event_date_information">Date and Time\nInformation</string>
+    <string name="EventDescription.MainTile.event_location_information">Location\nInformation</string>
+    <string name="EventDescription.MainTile.event_additional_information">Additional\nInformation</string>
+    <string name="EventDescription.required_image_description">Required image</string>
+    <string name="EventDescription.constant_image_description">Constant image</string>
+    <string name="EventDescription.finished_image_description">Finished image</string>
 
 </resources>

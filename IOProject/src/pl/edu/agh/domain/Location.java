@@ -1,6 +1,8 @@
 package pl.edu.agh.domain;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable {
 
 	private long id = -1;
 	private String name;
@@ -81,9 +83,9 @@ public class Location {
 
 	@Override
 	public String toString() {
-		return "Location [id=" + id + ", name=" + name + ", address=" + address
-				+ ", city=" + city + ", latitude=" + latitude + ", longitude="
-				+ longitude + ", defaultLocation=" + defaultLocation + "]";
+		return new StringBuilder().append(name).append("\n")
+								  .append(address).append("\n")
+								  .append(city).toString();
 	}
 	
 }

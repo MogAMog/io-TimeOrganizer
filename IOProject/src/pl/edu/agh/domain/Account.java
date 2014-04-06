@@ -1,6 +1,8 @@
 package pl.edu.agh.domain;
 
-public class Account {
+import java.io.Serializable;
+
+public class Account implements Serializable {
 	
 	private long id = -1;
 	private String login;
