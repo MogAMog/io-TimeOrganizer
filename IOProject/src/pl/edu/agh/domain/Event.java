@@ -1,9 +1,10 @@
 package pl.edu.agh.domain;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Event {
+public class Event implements Serializable {
 
 	private long id = -1;
 	private Account account;

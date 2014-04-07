@@ -3,7 +3,42 @@
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:showAsAction="never"
+        android:showAsAction="always"
         android:title="@string/action_settings"/>
+    <item
+        android:id="@+id/MainActivity.ActionBar.AddNewEventMenu"
+        android:icon="@drawable/add"
+        android:orderInCategory="1"
+        android:showAsAction="always"
+        android:title="@string/MainActivityView.ActionBar.add_new_event">
+        <menu>
+            <item
+                android:id="@+id/MainActivity.ActionBar.AddNewEvent"
+                android:showAsAction="always"
+                android:title="@string/MainActivityView.ActionBar.add_new_event"/>
+            <item
+                android:id="@+id/MainActivity.ActionBar.AddNewConstantEvent"
+                android:showAsAction="always"
+                android:title="@string/MainActivityView.ActionBar.add_new_constant_event"/>
+        </menu>
+    </item>
+    <item
+        android:id="@+id/MainActivity.ActionBar.DeleteConstantEvent"
+        android:icon="@drawable/delete_event"
+        android:orderInCategory="2"
+        android:showAsAction="always"
+        android:title="@string/MainActivityView.ActionBar.delete_event"/>
+    <item
+        android:id="@+id/MainActivity.ActionBar.AddDefaultLocation"
+        android:icon="@drawable/location_map"
+        android:orderInCategory="3"
+        android:showAsAction="always"
+        android:title="@string/MainActivityView.ActionBar.add_default_location"/>
+    <item
+        android:id="@+id/MainActivity.ActionBar.Help"
+        android:icon="@drawable/system_help"
+        android:orderInCategory="4"
+        android:showAsAction="always"
+        android:title="@string/MainActivityView.ActionBar.help"/>
 
 </menu>

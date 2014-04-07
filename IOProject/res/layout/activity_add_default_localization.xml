@@ -1,0 +1,96 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_margin="20dp"
+    android:gravity="top|center_horizontal"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/AddDefaultLocalizationView.spacingBetweenItems" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/AddDefaultLocalizationView.localization_name_image_desc"
+            android:src="@drawable/globe_terrestre" />
+
+        <EditText
+            android:id="@+id/AddDefaultLocalizationView.localization_name"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/AddDefaultLocalizationView.localization_name" >
+
+            <requestFocus />
+        </EditText>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/AddDefaultLocalizationView.spacingBetweenItems" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/AddDefaultLocalizationView.localization_address_image_desc"
+            android:src="@drawable/retro_address" />
+
+        <EditText
+            android:id="@+id/AddDefaultLocalizationView.localization_address"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/AddDefaultLocalizationView.localization_address" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/AddDefaultLocalizationView.spacingBetweenItems" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/AddDefaultLocalizationView.localization_city"
+            android:src="@drawable/city" />
+
+        <EditText
+            android:id="@+id/AddDefaultLocalizationView.localization_city"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ems="10"
+            android:hint="@string/AddDefaultLocalizationView.localization_city" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/AddDefaultLocalizationView.localization_cooridnates_state"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/AddDefaultLocalizationView.coordinatesSpacing"
+        android:layout_marginBottom="@dimen/AddDefaultLocalizationView.coordinatesSpacing"
+        android:drawableLeft="@drawable/globe"
+        android:drawablePadding="15dp"
+        android:gravity="center_vertical"
+        android:text="@string/AddDefaultLocalizationView.localization_coordinates_state"
+        android:textColor="#FF0000" />
+
+    <fragment
+        android:id="@+id/AddDefaultLocalizationView.map"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/AddDefaultLocalizationView.google_map_height"
+        android:layout_margin="20dp"
+        class="com.google.android.gms.maps.MapFragment" />
+
+    <Button
+        android:id="@+id/AddDefaultLocalizationView.add_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/AddDefaultLocalizationActivity.add_localization_button_label" />
+
+</LinearLayout>

@@ -1,0 +1,168 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".EventAddActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="5dp" >
+
+        <EditText
+            android:id="@+id/editTextEventTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/AddNewEventView.spacingBetweenItems"
+            android:hint="@string/AddNewEventView.event_title_event_add"
+            android:textAlignment="center" />
+
+        <EditText
+            android:id="@+id/editTextDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/AddNewEventView.spacingBetweenItems"
+            android:hint="@string/AddNewEventView.event_decription_event_add"
+            android:minLines="4"
+            android:scrollHorizontally="true"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/buttonLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/AddNewEventView.spacingBetweenItems"
+            android:text="@string/AddNewEventView.event_location_event_add" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/AddNewEventView.spacingBetweenItems"
+            android:gravity="center" >
+
+            <CheckBox
+                android:id="@+id/checkBoxConstant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/AddNewEventView.constant_checkbox_event_add" />
+
+            <CheckBox
+                android:id="@+id/checkBoxRequired"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/AddNewEventView.required_checkbox_event_add" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/AddNewEventView.spacingBetweenItems"
+            android:gravity="center" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/calendar_icon" />
+
+            <TextView
+                android:id="@+id/textViewCurrentDate"
+                android:layout_width="@dimen/AddNewEventView.timeAndDateInformationText"
+                android:layout_height="wrap_content"
+                android:text="@string/AddNewEventView.current_date_label_event_add" />
+
+            <Button
+                android:id="@+id/buttonPickDate"
+                android:layout_width="@dimen/AddNewEventView.timeAndDateButtonWidth"
+                android:layout_height="wrap_content"
+                android:onClick="showDatePickerDialog"
+                android:text="@string/AddNewEventView.pick_date_event_add" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/AddNewEventView.spacingBetweenItems"
+            android:gravity="center" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/clock_blue" />
+
+            <TextView
+                android:id="@+id/textViewStartTime"
+                android:layout_width="@dimen/AddNewEventView.timeAndDateInformationText"
+                android:layout_height="wrap_content"
+                android:text="@string/AddNewEventView.text_view_start_time" />
+
+            <Button
+                android:id="@+id/buttonStartTime"
+                android:layout_width="@dimen/AddNewEventView.timeAndDateButtonWidth"
+                android:layout_height="wrap_content"
+                android:onClick="showStartTimePickerDialog"
+                android:text="@string/start_time_event_add" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/AddNewEventView.spacingBetweenItems"
+            android:gravity="center" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/clock_blue" />
+
+            <TextView
+                android:id="@+id/textViewEndTime"
+                android:layout_width="@dimen/AddNewEventView.timeAndDateInformationText"
+                android:layout_height="wrap_content"
+                android:text="@string/AddNewEventView.text_view_end_time" />
+
+            <Button
+                android:id="@+id/buttonEndTime"
+                android:layout_width="@dimen/AddNewEventView.timeAndDateButtonWidth"
+                android:layout_height="wrap_content"
+                android:onClick="showEndTimePickerDialog"
+                android:text="@string/end_time_event_add" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/AddNewEventView.spacingBetweenItems"
+            android:layout_marginTop="@dimen/AddNewEventView.spacingBetweenItems"
+            android:gravity="center"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/textSeekBarProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:text="@string/event_duration_event_add" />
+
+            <SeekBar
+                android:id="@+id/seekBarEventDuration"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:max="180" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/buttonAddEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="addNewEventAction"
+            android:text="@string/addevent_event_add" />
+    </LinearLayout>
+
+</ScrollView>

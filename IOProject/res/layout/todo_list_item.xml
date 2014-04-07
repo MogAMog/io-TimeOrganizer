@@ -1,0 +1,78 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:baselineAligned="false"
+    android:gravity="center_vertical" >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="5"
+        android:gravity="center_vertical" >
+
+        <CheckBox
+            android:id="@+id/EventListItem.finished_checkbox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:scaleX="2.0"
+            android:scaleY="2.0" />
+
+        <TextView
+            android:id="@+id/EventListItem.event_start_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/EventListItem.event_end_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp" />
+
+        <TextView
+            android:id="@+id/EventListItem.event_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="right" >
+
+        <ImageButton
+            android:id="@+id/EventListItem.event_description_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_margin="5dp"
+            android:background="@null"
+            android:contentDescription="@string/EventListItem.event_description"
+            android:src="@drawable/calendar_info"
+            android:onClick="showSomeActoin" />
+
+        <ImageButton
+            android:id="@+id/EventListItem.event_edit_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+            android:background="@null"
+            android:contentDescription="@string/EventListItem.event_edit"
+            android:src="@drawable/edit_event" />
+
+        <ImageButton
+            android:id="@+id/EventListItem.event_localization"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_margin="5dp"
+            android:background="@null"
+            android:contentDescription="@string/EventListItem.event_localization"
+            android:src="@drawable/globe" />
+    </LinearLayout>
+
+</LinearLayout>

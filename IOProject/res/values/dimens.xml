@@ -3,5 +3,16 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+    
+    <dimen name="AddNewEventView.spacingBetweenItems">15dp</dimen>
+    <dimen name="AddNewEventView.timeAndDateButtonWidth">150dp</dimen>
+    <dimen name="AddNewEventView.timeAndDateInformationText">150dp</dimen>
+    
+    <dimen name="EventDescription.main_tile_width">150dp</dimen>
+    <dimen name="EventDescription.tiles_margin">5dp</dimen>
+    
+    <dimen name="AddDefaultLocalizationView.spacingBetweenItems">15dp</dimen>
+    <dimen name="AddDefaultLocalizationView.coordinatesSpacing">40dp</dimen>
+    <dimen name="AddDefaultLocalizationView.google_map_height">450dp</dimen>
 
 </resources>
