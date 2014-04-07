@@ -9,6 +9,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -82,6 +83,16 @@ public class AddDefaultLocalizationActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.add_default_localization, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()) {
+		case R.id.AddDefaultLocalizationView_Menu_back:
+			finish();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 }
