@@ -17,7 +17,7 @@
     <!-- ************************************************************************************************* -->
     <!-- ************************************* Standard Properties *************************************** -->
     <!-- ************************************************************************************************* -->
-	<string name="Standard.back">Back</string>
+    <string name="Standard.back">Back</string>
 
     <!-- ************************************************************************************************* -->
     <!-- ************************************** Add New Event View *************************************** -->
@@ -78,5 +78,23 @@
     <string name="EventDescription.required_image_description">Required image</string>
     <string name="EventDescription.constant_image_description">Constant image</string>
     <string name="EventDescription.finished_image_description">Finished image</string>
+
+    <!-- ************************************************************************************************* -->
+    <!-- ************************************* Add Default Location ************************************** -->
+    <!-- ************************************************************************************************* -->
+    <string name="title_activity_add_default_localization">Add Default Localization Activity</string>
+    <string name="AddDefaultLocalizationView.localization_name_image_desc">Name image</string>
+    <string name="AddDefaultLocalizationView.localization_address_image_desc">Address Image</string>
+    <string name="AddDefaultLocalizationView.localization_city_image_desc">City Image</string>
+    <string name="AddDefaultLocalizationView.localization_coordinates_image_desc">Coordinates Image</string>
+    <string name="AddDefaultLocalizationView.localization_name">Enter localization name</string>
+    <string name="AddDefaultLocalizationView.localization_address">Enter address</string>
+    <string name="AddDefaultLocalizationView.localization_city">Enter city</string>
+    <string name="AddDefaultLocalizationView.localization_coordinates_state">Coordinates have not been chosen</string>
+    <string name="AddDefaultLocalizationActivity.current_localization_title">Your current localization</string>
+    <string name="AddDefaultLocalizationActivity.current_chosen_localization">Currently chosen localization</string>
+    <string name="AddDefaultLocalizationActivity.corrdinates_chosen_ok">Coordinates chosen</string>
+    <string name="AddDefaultLocalizationActivity.add_localization_button_label">Add localization</string>
+    
 
 </resources>
