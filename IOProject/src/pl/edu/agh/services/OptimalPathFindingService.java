@@ -71,9 +71,73 @@ public class OptimalPathFindingService {
 		}
 		eventList = tempEventList;
 	}
+	
 	public List<EventDate> getEventDateOrder(){
-		//TODO
+		calculateOptimalEventOrder();
 		return eventList;
 		
+	}
+	
+	private boolean canEventFitBetween(EventDate event, EventDate beforeEvent, EventDate afterEvent){
+		return beforeEvent.getEndTime().getTime() + getTimeDistance(beforeEvent,event) + event.getDuration().getTime() + getTimeDistance(event,afterEvent) < afterEvent.getStartTime().getTime();
+		
+	}
+	
+	private boolean areOverlaping(EventDate event1, EventDate event2){
+		return event1.getEndTime().getTime() + getTimeDistance(event1,event2) > event2.getStartTime().getTime();
+	}
+	
+	private long getTimeDistance(EventDate event1, EventDate event2) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+	private void fitEventAfter(EventDate event, EventDate beforeEvent, List<EventDate> tempEventList){
+		int eventIterator = 0;
+		while(tempEventList.get(eventIterator).getId() != beforeEvent.getId() && eventIterator < tempEventList.size()){
+			eventIterator++;
+		}
+		if(tempEventList.get(eventIterator).getId() != beforeEvent.getId()){
+			tempEventList.add(eventIterator, event);
+		}
+	}
+	
+	private void calculateOptimalEventOrder(){
+		List<EventDate> tempEventList = new ArrayList<EventDate>();
+		try {
+			placeConstantRequiredEvents(tempEventList);
+			placeRequiredEvents(tempEventList);
+			placeConstantEvents(tempEventList);
+			placeNonConstantEvents(tempEventList);
+			eventList = tempEventList;
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}
+	private void placeNonConstantEvents(List<EventDate> tempEventList) {
+		// TODO Auto-generated method stub
+		
+	}
+	private void placeConstantEvents(List<EventDate> tempEventList) {
+		// TODO
+		
+	}
+	private void placeRequiredEvents(List<EventDate> tempEventList) {
+		// TODO Auto-generated method stub
+		
+	}
+	private void placeConstantRequiredEvents(List<EventDate> tempEventList) throws Exception {
+		for(EventDate event : constantRequiredEventSet){
+			long eventStartTime = event.getStartTime().getTime();
+			int newEventLocation;
+			for(newEventLocation = 0;newEventLocation < tempEventList.size() && tempEventList.get(newEventLocation).getStartTime().getTime() < eventStartTime;newEventLocation++){
+			}
+			tempEventList.add(newEventLocation, event);
+		}
+		int eventIterator;
+		for(eventIterator = 1; eventIterator < tempEventList.size(); eventIterator++){
+			if(areOverlaping(tempEventList.get(eventIterator-1), tempEventList.get(eventIterator)))throw new Exception("Unable to find optimal schedule.");
+		}
 	}
 }
