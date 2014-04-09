@@ -1,5 +1,6 @@
 package com.example.ioproject;
 
+import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
 import pl.edu.agh.view.adddefaultlocalization.AddDefaultLocalizationActivity;
 import pl.edu.agh.view.addevent.EventAddActivity;
 import android.app.Activity;
@@ -15,6 +16,8 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		this.deleteDatabase(MainDatabaseHelper.DATABASE_NAME);
 	}
 
 	@Override

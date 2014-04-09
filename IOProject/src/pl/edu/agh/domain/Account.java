@@ -2,9 +2,11 @@ package pl.edu.agh.domain;
 
 import java.io.Serializable;
 
+import pl.edu.agh.domain.databasemanagement.DatabaseProperties;
+
 public class Account implements Serializable {
 	
-	private long id = -1;
+	private long id = DatabaseProperties.UNSAVED_ENTITY_ID;
 	private String login;
 	private String password;
 	private String email;

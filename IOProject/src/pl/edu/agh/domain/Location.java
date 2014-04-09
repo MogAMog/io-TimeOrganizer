@@ -2,9 +2,11 @@ package pl.edu.agh.domain;
 
 import java.io.Serializable;
 
+import pl.edu.agh.domain.databasemanagement.DatabaseProperties;
+
 public class Location implements Serializable {
 
-	private long id = -1;
+	private long id = DatabaseProperties.UNSAVED_ENTITY_ID;
 	private String name;
 	private String address;
 	private String city;

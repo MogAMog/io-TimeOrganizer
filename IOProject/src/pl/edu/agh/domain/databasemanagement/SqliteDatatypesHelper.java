@@ -22,12 +22,6 @@ public class SqliteDatatypesHelper {
 	private static final List<Class<?>> REAL_CLASSES;
 	private static final List<Class<?>> NONE_CLASSES;
 	
-//	private static final List<String> INTEGER_CLASSES_NAMES;
-//	private static final List<String> NUMERIC_CLASSES_NAMES;
-//	private static final List<String> TEXT_CLASSES_NAMES;
-//	private static final List<String> REAL_CLASSES_NAMES;
-//	private static final List<String> NONE_CLASSES_NAMES;
-	
 	private static final String TEXT_TYPE = "TEXT";
 	private static final String NUMERIC_TYPE = "NUMERIC";
 	private static final String REAL_TYPE = "REAL";
@@ -62,38 +56,6 @@ public class SqliteDatatypesHelper {
 		NONE_CLASSES = new ArrayList<Class<?>>();
 		NONE_CLASSES.add(Blob.class);
 		NONE_CLASSES.add(Serializable.class);
-
-//		INTEGER_CLASSES_NAMES = new ArrayList<String>();
-//		INTEGER_CLASSES_NAMES.add("Byte");
-//		INTEGER_CLASSES_NAMES.add("Short");
-//		INTEGER_CLASSES_NAMES.add("Integer");
-//		INTEGER_CLASSES_NAMES.add("Long");
-//		INTEGER_CLASSES_NAMES.add("byte");
-//		INTEGER_CLASSES_NAMES.add("short");
-//		INTEGER_CLASSES_NAMES.add("int");
-//		INTEGER_CLASSES_NAMES.add("long");
-//		INTEGER_CLASSES_NAMES.add("BigInteger");
-//		
-//		NUMERIC_CLASSES_NAMES = new ArrayList<String>();
-//		NUMERIC_CLASSES_NAMES.add(Double.class);
-//		NUMERIC_CLASSES_NAMES.add(BigDecimal.class);
-//		NUMERIC_CLASSES_NAMES.add(Boolean.class);
-//		
-//		TEXT_CLASSES_NAMES = new ArrayList<String>();
-//		TEXT_CLASSES_NAMES.add("Character");
-//		TEXT_CLASSES_NAMES.add("String");
-//		TEXT_CLASSES_NAMES.add("Date");
-//		TEXT_CLASSES_NAMES.add("Timestamp");
-//		TEXT_CLASSES_NAMES.add("Calendar");
-//		TEXT_CLASSES_NAMES.add("Clob");
-//		TEXT_CLASSES_NAMES.add();
-//		
-//		REAL_CLASSES_NAMES = new ArrayList<String>();
-//		REAL_CLASSES_NAMES.add(Float.class);
-//		
-//		NONE_CLASSES_NAMES = new ArrayList<String>();
-//		NONE_CLASSES_NAMES.add(Blob.class);
-//		NONE_CLASSES_NAMES.add(Serializable.class);
 	}
 	
 	private static boolean checkNumericTypes(Object object) {
@@ -196,31 +158,5 @@ public class SqliteDatatypesHelper {
 	
 	public static String getSqliteDatabaseType(char value) {
 		return TEXT_TYPE;
-	}
-
-	public static String parseDateTime(Date date) {
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss", Locale.getDefault());
-		return simpleDateFormat.format(date);
-	}
-	
-	public static Date parseFromStringToDate(String sqliteDateTime) {
-		String[] date = sqliteDateTime.split(" ")[0].split(":");
-		Calendar calendar = new GregorianCalendar();
-		calendar.set(Calendar.YEAR, Integer.valueOf(date[0]));
-		calendar.set(Calendar.MONTH, Integer.valueOf(date[1]) - 1);
-		calendar.set(Calendar.DAY_OF_MONTH, Integer.valueOf(date[2]));
-		//calendar.set(Calendar.DAY_OF_MONTH, 0);
-		//calendar.set(Calendar.DAY_OF_MONTH, 0);
-		//calendar.set(Calendar.DAY_OF_MONTH, 0);
-		return calendar.getTime();
-	}
-	
-	public static Date parseFromStringToTime(String sqliteDateTime) {
-		String[] time = sqliteDateTime.split(" ")[1].split(":");
-		Calendar calendar = new GregorianCalendar();
-		calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(time[0]));
-		calendar.set(Calendar.MINUTE, Integer.valueOf(time[1]));
-		calendar.set(Calendar.SECOND, Integer.valueOf(time[2]));
-		return calendar.getTime();
 	}
 }

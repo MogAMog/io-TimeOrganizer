@@ -40,9 +40,9 @@ public class OptimalPathFindingService {
 		}
 	}
 	public void inputEventDate(EventDate eventDate, Date startDate, Date endDate) throws Exception{
-		if(eventDate.getDuration().getTime() > (endDate.getTime() - startDate.getTime())){
-			throw new Exception("Event lasts too long for this gap.");
-		}
+//		if(eventDate.getDuration().getTime() > (endDate.getTime() - startDate.getTime())){
+//			throw new Exception("Event lasts too long for this gap.");
+//		}
 		List<EventDate> tempEventList = new ArrayList<EventDate>();
 		EventDate tempEventDate = null;
 		EventDate prevEventDate = null;
@@ -51,18 +51,18 @@ public class OptimalPathFindingService {
 			tempEventList.add(tempEventDate);
 			prevEventDate = tempEventDate;
 		}
-		if(prevEventDate != null && tempEventDate != null && (Math.max(prevEventDate.getEndTime().getTime(),startDate.getTime()) + eventDate.getDuration().getTime() > Math.min(tempEventDate.getStartTime().getTime(),endDate.getTime()))){
-			throw new Exception("Event lasts too long for this gap.");
-		}
-		if(prevEventDate != null && (Math.max(prevEventDate.getEndTime().getTime(),startDate.getTime()) + eventDate.getDuration().getTime() > endDate.getTime())){
-			throw new Exception("Event lasts too long for this gap.");
-		}
-		if(tempEventDate != null && (startDate.getTime() + eventDate.getDuration().getTime() > Math.min(tempEventDate.getStartTime().getTime(),endDate.getTime()))){
-			throw new Exception("Event lasts too long for this gap.");
-		}
-		eventDate.setStartTime(new Date(Math.max(prevEventDate.getEndTime().getTime(),startDate.getTime())));
-		eventDate.setEndTime(new Date(Math.max(prevEventDate.getEndTime().getTime(),startDate.getTime())+eventDate.getDuration().getTime()));
-		tempEventList.add(eventDate);
+//		if(prevEventDate != null && tempEventDate != null && (Math.max(prevEventDate.getEndTime().getTime(),startDate.getTime()) + eventDate.getDuration().getTime() > Math.min(tempEventDate.getStartTime().getTime(),endDate.getTime()))){
+//			throw new Exception("Event lasts too long for this gap.");
+//		}
+//		if(prevEventDate != null && (Math.max(prevEventDate.getEndTime().getTime(),startDate.getTime()) + eventDate.getDuration().getTime() > endDate.getTime())){
+//			throw new Exception("Event lasts too long for this gap.");
+//		}
+//		if(tempEventDate != null && (startDate.getTime() + eventDate.getDuration().getTime() > Math.min(tempEventDate.getStartTime().getTime(),endDate.getTime()))){
+//			throw new Exception("Event lasts too long for this gap.");
+//		}
+//		eventDate.setStartTime(new Date(Math.max(prevEventDate.getEndTime().getTime(),startDate.getTime())));
+//		eventDate.setEndTime(new Date(Math.max(prevEventDate.getEndTime().getTime(),startDate.getTime())+eventDate.getDuration().getTime()));
+//		tempEventList.add(eventDate);
 		if(tempEventDate != null){
 			tempEventList.add(tempEventDate);
 		}
@@ -78,11 +78,11 @@ public class OptimalPathFindingService {
 		
 	}
 	
-	private boolean canEventFitBetween(EventDate event, EventDate beforeEvent, EventDate afterEvent){
-		return beforeEvent.getEndTime().getTime() + getTimeDistance(beforeEvent,event) + event.getDuration().getTime() + getTimeDistance(event,afterEvent) < afterEvent.getStartTime().getTime();
-		
-	}
-	
+//	private boolean canEventFitBetween(EventDate event, EventDate beforeEvent, EventDate afterEvent){
+//		return beforeEvent.getEndTime().getTime() + getTimeDistance(beforeEvent,event) + event.getDuration().getTime() + getTimeDistance(event,afterEvent) < afterEvent.getStartTime().getTime();
+//		
+//	}
+//	
 	private boolean areOverlaping(EventDate event1, EventDate event2){
 		return event1.getEndTime().getTime() + getTimeDistance(event1,event2) > event2.getStartTime().getTime();
 	}

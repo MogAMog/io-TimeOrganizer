@@ -11,6 +11,7 @@ import pl.edu.agh.domain.EventDate;
 import pl.edu.agh.domain.Location;
 import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
 import pl.edu.agh.services.EventManagementService;
+import pl.edu.agh.tools.DateTimeTools;
 import pl.edu.agh.view.addevent.DatePickerFragment.SetDateInterface;
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -44,7 +45,6 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_event_add);
-		// Show the Up button in the action bar.
 		setupActionBar();
 		
 		eventDate = new EventDate();
@@ -166,17 +166,8 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		calendar.set(Calendar.MONTH, month);
 		calendar.set(Calendar.DAY_OF_MONTH, day);
 		eventDate.setDate(calendar.getTime());
-		
-		StringBuilder dateToWrite = new StringBuilder();
-		dateToWrite.append("Date: ")
-				.append(calendar.get(Calendar.DAY_OF_MONTH))
-				.append(".")
-				.append(calendar.get(Calendar.MONTH))
-				.append(".")
-				.append(calendar.get(Calendar.YEAR));
-		
 		TextView date = (TextView) findViewById(R.id.textViewCurrentDate);
-		date.setText(dateToWrite);
+		date.setText(new StringBuilder().append("Date: ").append(DateTimeTools.convertDateToString(calendar)));
 	}
 	
 	@Override
@@ -196,13 +187,7 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	}
 
 	private String getTimeDescription(String label, Calendar calendar) {
-		StringBuilder startTimeToWrite = new StringBuilder();
-		startTimeToWrite.append(label)
-				.append(": ")
-				.append((calendar.get(Calendar.HOUR_OF_DAY) < 10 ? "0" : "") + calendar.get(Calendar.HOUR_OF_DAY))
-				.append(":")
-				.append((calendar.get(Calendar.MINUTE) < 10 ? "0" : "") + calendar.get(Calendar.MINUTE));
-		return startTimeToWrite.toString();
+		return new StringBuilder().append(label).append(": ").append(DateTimeTools.convertTimeToString(calendar)).toString();
 	}
 
 	private Calendar getCalendarInstanceWithTime(int hour, int minute) {
@@ -215,7 +200,7 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	
 	public void addNewEventAction(View view) {
 		Account account = new Account("Janek", "Kowalski", "Zdzisia");
-		eventDate.setDuration( new GregorianCalendar(2014, Calendar.APRIL, 1, 11, 55).getTime());
+		eventDate.setDuration(15);
 		eventDate.setFinished(false);
 		eventDate.setLocation(null);
 		event.addEventDate(eventDate);

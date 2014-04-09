@@ -3,24 +3,24 @@ package pl.edu.agh.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import pl.edu.agh.domain.databasemanagement.DatabaseProperties;
+
 public class EventDate implements Serializable {
 
-	private long id = -1;
+	private long id = DatabaseProperties.UNSAVED_ENTITY_ID;
 	private Event event;
 	private Location location;
 	private Date date;
 	private Date startTime;
 	private Date endTime;
-	private Date duration;
+	private int duration;
 	private boolean finished;
 	
 	public EventDate() {
 		super();
 	}
 
-	public EventDate(Location location, Date date, Date startTime, Date endTime, Date duration, boolean finished) {
-		super();
-		//this.event = event;
+	public EventDate(Location location, Date date, Date startTime, Date endTime, int duration, boolean finished) {
 		this.location = location;
 		this.date = date;
 		this.startTime = startTime;
@@ -69,11 +69,11 @@ public class EventDate implements Serializable {
 		this.endTime = endTime;
 	}
 
-	public Date getDuration() {
+	public int getDuration() {
 		return duration;
 	}
 
-	public void setDuration(Date duration) {
+	public void setDuration(int duration) {
 		this.duration = duration;
 	}
 

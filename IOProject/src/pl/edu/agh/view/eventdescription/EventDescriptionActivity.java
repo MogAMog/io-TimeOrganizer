@@ -1,6 +1,6 @@
 package pl.edu.agh.view.eventdescription;
 
-import pl.edu.agh.tools.DataTimeTools;
+import pl.edu.agh.tools.DateTimeTools;
 import pl.edu.agh.view.eventlist.EventListAdapter;
 import pl.edu.agh.view.eventlist.EventListItem;
 import android.app.Activity;
@@ -25,13 +25,17 @@ public class EventDescriptionActivity extends Activity {
 		setContentView(R.layout.activity_event_description);
 
 		EventListItem eventListItem = (EventListItem) getIntent().getSerializableExtra(EventListAdapter.CURRENT_EVENT_LIST_ITEM_KEY);
-		initializeActivityTextViews(eventListItem);
+		setTextViewText(R.id.EventDescription_title, getString(R.string.Event_title), eventListItem.getTitle());
+		setTextViewText(R.id.EventDescription_description, getString(R.string.Event_title), eventListItem.getDescription());
+		setTextViewText(R.id.EventDescription_date, getString(R.string.EventDate_date), DateTimeTools.convertDateToString(eventListItem.getDate()));
+		setTextViewText(R.id.EventDescription_start_time, getString(R.string.EventDate_start_time), DateTimeTools.convertTimeToString(eventListItem.getStartTime()));
+		setTextViewText(R.id.EventDescription_end_time, getString(R.string.EventDate_end_time), DateTimeTools.convertTimeToString(eventListItem.getEndTime()));
+		((TextView) findViewById(R.id.EventDescription_location)).setText(eventListItem.getLocation().toString());
 		setRequirementPicture(R.id.EventDescription_required_image, eventListItem.isRequired());
 		setRequirementPicture(R.id.EventDescription_constant_image, eventListItem.isConstant());
 		setRequirementPicture(R.id.EventDescription_finished_image, eventListItem.isFinished());
 
-		GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(
-				R.id.map)).getMap();
+		GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.EventDescription_map)).getMap();
 		map.setMyLocationEnabled(true);
 
 		LatLng sydney = new LatLng(eventListItem.getLocation().getLatitude(),
@@ -49,43 +53,14 @@ public class EventDescriptionActivity extends Activity {
 
 	private void setRequirementPicture(int imageViewResId, boolean isTrue) {
 		if (isTrue) {
-			((ImageView) findViewById(imageViewResId))
-					.setImageResource(R.drawable.accept);
+			((ImageView) findViewById(imageViewResId)).setImageResource(R.drawable.accept);
 		} else {
-			((ImageView) findViewById(imageViewResId))
-					.setImageResource(R.drawable.decline);
+			((ImageView) findViewById(imageViewResId)).setImageResource(R.drawable.decline);
 		}
 	}
-
-	private void initializeActivityTextViews(EventListItem eventListItem) {
-		((TextView) findViewById(R.id.EventDescription_title))
-				.setText(new StringBuilder()
-						.append(getString(R.string.Event_title)).append(": ")
-						.append(eventListItem.getTitle()).toString());
-		((TextView) findViewById(R.id.EventDescription_description))
-				.setText(new StringBuilder()
-						.append(getString(R.string.Event_title)).append(": ")
-						.append(eventListItem.getDescription()));
-		((TextView) findViewById(R.id.EventDescription_date))
-				.setText(new StringBuilder()
-						.append(getString(R.string.EventDate_date))
-						.append(": ")
-						.append(DataTimeTools.parseDateFromDate(eventListItem
-								.getDate())));
-		((TextView) findViewById(R.id.EventDescription_start_time))
-				.setText(new StringBuilder()
-						.append(getString(R.string.EventDate_start_time))
-						.append(": ")
-						.append(DataTimeTools.parseTimeFromDate(eventListItem
-								.getStartTime())));
-		((TextView) findViewById(R.id.EventDescription_end_time))
-				.setText(new StringBuilder()
-						.append(getString(R.string.EventDate_end_time))
-						.append(": ")
-						.append(DataTimeTools.parseTimeFromDate(eventListItem
-								.getEndTime())));
-		((TextView) findViewById(R.id.EventDescription_location))
-				.setText(eventListItem.getLocation().toString());
+	
+	private void setTextViewText(int textViewId, String label, String value) { 
+		((TextView)findViewById(textViewId)).setText(new StringBuilder().append(label).append(": ").append(value).toString());
 	}
 
 	@Override

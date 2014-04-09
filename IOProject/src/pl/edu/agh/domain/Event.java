@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+import pl.edu.agh.domain.databasemanagement.DatabaseProperties;
+
 public class Event implements Serializable {
 
-	private long id = -1;
+	private long id = DatabaseProperties.UNSAVED_ENTITY_ID;
 	private Account account;
 	private Event predecessorEvent;
 	private Location defaultLocation;
