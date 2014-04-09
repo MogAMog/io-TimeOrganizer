@@ -14,5 +14,7 @@
     <dimen name="AddDefaultLocalizationView.spacingBetweenItems">15dp</dimen>
     <dimen name="AddDefaultLocalizationView.coordinatesSpacing">40dp</dimen>
     <dimen name="AddDefaultLocalizationView.google_map_height">450dp</dimen>
+    
+    <dimen name="AddNewConstantEventView.spacingBetweenItems">15dp</dimen>
 
 </resources>

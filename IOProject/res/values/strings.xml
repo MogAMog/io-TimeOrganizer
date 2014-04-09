@@ -33,6 +33,35 @@
     <string name="AddNewEventView.text_view_end_time">End time not set</string>
     <string name="AddNewEventView.duration_event_add">Duration</string>
     <string name="AddNewEventView.set_date">Set date</string>
+    
+    
+    
+            <!-- ************************************************************************************************* -->
+    <!-- ************************************** Add New Constant Event View *************************************** -->
+    <!-- ************************************************************************************************* -->
+    
+    <string name="AddNewConstantEventView.event_title">Add event title</string>
+    <string name="AddNewConstantEventView.event_description">Add event description</string>
+    <string name="AddNewConstantEventView.event_location_event_add">Location</string>
+    <string name="AddNewConstantEventView.required_checkbox_event_add">Required</string>
+	<string name="AddNewConstantEventView.checkBoxMonday">Monday</string>
+    <string name="AddNewConstantEventView.checkBoxTuesday">Tuesday</string>
+    <string name="AddNewConstantEventView.checkBoxWednesday">Wednesday</string>
+    <string name="AddNewConstantEventView.checkBoxThursday">Thursday</string>
+    <string name="AddNewConstantEventView.checkBoxFriday">Friday</string>
+    <string name="AddNewConstantEventView.checkBoxSaturday">Saturday</string>
+    <string name="AddNewConstantEventView.checkBoxSunday">Sunday</string>
+    <string name="AddNewConstantEvent.spinner_prompt">Choose the interspace</string>
+    <string name="AddNewConstantEventView.textStartDate">Start date not set</string>
+    <string name="AddNewConstantEventView.buttonStartDate">Pick start date</string>
+    <string name="AddNewConstantEventView.textEndDate">End date not set</string>
+    <string name="AddNewConstantEventView.buttonEndDate">Pick end date</string>
+    
+    <string name="AddNewConstantEventView.noSelectionItem">No selection</string>
+    <string name="AddNewConstantEventView.EveryWeekItem">Every week</string>
+    <string name="AddNewConstantEventView.EveryTwoWeeksItem">Every two weeks</string>
+    <string name="AddNewConstantEventView.EveryFourWeeksItem">Every four weeks</string>
+    
 
     <!-- ************************************************************************************************* -->
     <!-- ************************************** Main Activity View *************************************** -->
@@ -95,6 +124,6 @@
     <string name="AddDefaultLocalizationActivity.current_chosen_localization">Currently chosen localization</string>
     <string name="AddDefaultLocalizationActivity.corrdinates_chosen_ok">Coordinates chosen</string>
     <string name="AddDefaultLocalizationActivity.add_localization_button_label">Add localization</string>
-    
+    <string name="title_activity_constant_event_add">ConstantEventAddActivity</string>
 
 </resources>

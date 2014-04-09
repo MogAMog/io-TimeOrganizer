@@ -1,6 +1,7 @@
 package com.example.ioproject;
 
 import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
+import pl.edu.agh.view.addconstantevent.ConstantEventAddActivity;
 import pl.edu.agh.view.adddefaultlocalization.AddDefaultLocalizationActivity;
 import pl.edu.agh.view.addevent.EventAddActivity;
 import android.app.Activity;
@@ -35,6 +36,9 @@ public class MainActivity extends Activity {
     		case R.id.MainActivity_ActionBar_AddDefaultLocation:
     			startActivity(new Intent(this, AddDefaultLocalizationActivity.class));
     			return true;
+    		case R.id.MainActivity_ActionBar_AddNewConstantEvent:
+    			addNewConstantEventAction(item.getActionView());
+    			return true;
     	}
     	return super.onOptionsItemSelected(item);
     }
@@ -43,4 +47,7 @@ public class MainActivity extends Activity {
 		startActivity(new Intent(this, EventAddActivity.class));
 	}
 
+	public void addNewConstantEventAction(View view) {
+		startActivity(new Intent(this, ConstantEventAddActivity.class));
+	}
 }
