@@ -5,8 +5,10 @@ import java.util.List;
 
 import pl.edu.agh.domain.Event;
 import pl.edu.agh.domain.EventDate;
+import pl.edu.agh.domain.databasemanagement.DatabaseProperties;
 import pl.edu.agh.domain.databasemanagement.IDatabaseDmlProvider;
 import pl.edu.agh.domain.tables.EventTable;
+import pl.edu.agh.tools.BooleanTools;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -30,22 +32,22 @@ public class EventManagementService implements IDatabaseDmlProvider<Event> {
 		ContentValues values = new ContentValues();
 		values.put(EventTable.COLUMN_NAME_TITLE, insertObject.getTitle());
 		values.put(EventTable.COLUMN_NAME_DESCRIPTION, insertObject.getDescription());
-		values.put(EventTable.COLUMN_NAME_IS_CONSTANT, insertObject.isConstant() ? 1 : 0);
-		values.put(EventTable.COLUMN_NAME_IS_REQUIRED, insertObject.isRequired() ? 1 : 0);
+		values.put(EventTable.COLUMN_NAME_IS_CONSTANT, BooleanTools.convertBooleanToInt(insertObject.isConstant()));
+		values.put(EventTable.COLUMN_NAME_IS_REQUIRED, BooleanTools.convertBooleanToInt(insertObject.isRequired()));
 		if(insertObject.getPredecessorEvent() != null) {
-			if(insertObject.getPredecessorEvent().getId() <= 0) {
+			if(insertObject.getPredecessorEvent().getId() == DatabaseProperties.UNSAVED_ENTITY_ID) {
 				insert(insertObject.getPredecessorEvent());
 			}
 			values.put(EventTable.COLUMN_NAME_PREDECESSOR_EVENT_ID, insertObject.getPredecessorEvent().getId());
 		}
 		if(insertObject.getAccount() != null) {
-			if(insertObject.getAccount().getId() <= 0) {
+			if(insertObject.getAccount().getId() == DatabaseProperties.UNSAVED_ENTITY_ID) {
 				accountManagementService.insert(insertObject.getAccount());
 			}
 			values.put(EventTable.COLUMN_NAME_ACCOUNT_ID, insertObject.getAccount().getId());
 		}
 		if(insertObject.getDefaultLocation() != null) {
-			if(insertObject.getDefaultLocation().getId() <= 0) {
+			if(insertObject.getDefaultLocation().getId() == DatabaseProperties.UNSAVED_ENTITY_ID) {
 				locationManagementService.insert(insertObject.getDefaultLocation());
 			}
 			values.put(EventTable.COLUMN_NAME_DEFAULT_LOCATION_ID, insertObject.getDefaultLocation().getId());
@@ -98,8 +100,8 @@ public class EventManagementService implements IDatabaseDmlProvider<Event> {
 		event.setId(cursor.getLong(cursor.getColumnIndex(EventTable._ID)));
 		event.setTitle(cursor.getString(cursor.getColumnIndex(EventTable.COLUMN_NAME_TITLE)));
 		event.setDescription(cursor.getString(cursor.getColumnIndex(EventTable.COLUMN_NAME_DESCRIPTION)));
-		event.setConstant(cursor.getInt(cursor.getColumnIndex(EventTable.COLUMN_NAME_IS_CONSTANT)) == 1 ? true : false);
-		event.setRequired(cursor.getInt(cursor.getColumnIndex(EventTable.COLUMN_NAME_IS_REQUIRED)) == 1 ? true : false);
+		event.setConstant(BooleanTools.convertIntToBoolean(cursor.getInt(cursor.getColumnIndex(EventTable.COLUMN_NAME_IS_CONSTANT))));
+		event.setRequired(BooleanTools.convertIntToBoolean(cursor.getInt(cursor.getColumnIndex(EventTable.COLUMN_NAME_IS_REQUIRED))));
 		event.setAccount(accountManagementService.getByIdAllData(cursor.getLong(cursor.getColumnIndex(EventTable.COLUMN_NAME_ACCOUNT_ID))));
 		event.setEventDates(eventDateManagementService.getAllEventDatesForEventId(event));
 		event.setPredecessorEvent(null);

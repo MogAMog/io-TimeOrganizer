@@ -1,9 +1,7 @@
 package pl.edu.agh.view.addevent;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.Locale;
 
 import pl.edu.agh.domain.Account;
 import pl.edu.agh.domain.Event;
@@ -15,7 +13,6 @@ import pl.edu.agh.tools.DateTimeTools;
 import pl.edu.agh.view.addevent.DatePickerFragment.SetDateInterface;
 import android.app.Activity;
 import android.app.DialogFragment;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.text.Editable;
@@ -31,7 +28,6 @@ import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
-import com.example.ioproject.MainActivity;
 import com.example.ioproject.R;
 
 
@@ -122,14 +118,11 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	 * Set up the {@link android.app.ActionBar}.
 	 */
 	private void setupActionBar() {
-
 		getActionBar().setDisplayHomeAsUpEnabled(true);
-
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.event_add, menu);
 		return true;
 	}
@@ -166,24 +159,21 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		calendar.set(Calendar.MONTH, month);
 		calendar.set(Calendar.DAY_OF_MONTH, day);
 		eventDate.setDate(calendar.getTime());
-		TextView date = (TextView) findViewById(R.id.textViewCurrentDate);
-		date.setText(new StringBuilder().append("Date: ").append(DateTimeTools.convertDateToString(calendar)));
+		((TextView) findViewById(R.id.textViewCurrentDate)).setText(new StringBuilder().append("Date: ").append(DateTimeTools.convertDateToString(calendar)));;
 	}
 	
 	@Override
 	public void setStartTime(int hour, int minute) {
 		Calendar calendar = getCalendarInstanceWithTime(hour, minute);
 		eventDate.setStartTime(calendar.getTime());
-		TextView startTime = (TextView) findViewById(R.id.textViewStartTime);
-		startTime.setText(getTimeDescription("Start time", calendar));
+		((TextView) findViewById(R.id.textViewStartTime)).setText(getTimeDescription("Start time", calendar));
 	}
 	
 	@Override
 	public void setEndTime(int hour, int minute) {
 		Calendar calendar = getCalendarInstanceWithTime(hour, minute);
 		eventDate.setEndTime(calendar.getTime());	
-		TextView endTime = (TextView) findViewById(R.id.textViewEndTime);
-		endTime.setText(getTimeDescription("End time", calendar));
+		((TextView) findViewById(R.id.textViewEndTime)).setText(getTimeDescription("End time", calendar));
 	}
 
 	private String getTimeDescription(String label, Calendar calendar) {
@@ -208,7 +198,6 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		event.setPredecessorEvent(null);
 		event.setDefaultLocation(new Location("Basen", "D17 AGH", "Krakow", 50.068408, 19.901062, true));
 		eventManagementService.insert(event);
-		//startActivity(new Intent(this, MainActivity.class));
 		finish();
 	}
 

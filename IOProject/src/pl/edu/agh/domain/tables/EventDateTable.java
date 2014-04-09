@@ -45,7 +45,7 @@ public class EventDateTable implements BaseColumns, IDatabaseTableSchema {
 		columnsWithNames.put(COLUMN_NAME_DATE, SqliteDatatypesHelper.getSqliteDatabaseType(Date.class));
 		columnsWithNames.put(COLUMN_NAME_START_TIME, SqliteDatatypesHelper.getSqliteDatabaseType(Date.class));
 		columnsWithNames.put(COLUMN_NAME_END_TIME, SqliteDatatypesHelper.getSqliteDatabaseType(Date.class));
-		columnsWithNames.put(COLUMN_NAME_DURATION, SqliteDatatypesHelper.getSqliteDatabaseType(Date.class));
+		columnsWithNames.put(COLUMN_NAME_DURATION, SqliteDatatypesHelper.getSqliteDatabaseType(Integer.class));
 		columnsWithNames.put(COLUMN_NAME_FINISHED, SqliteDatatypesHelper.getSqliteDatabaseType(Boolean.class));
 		return columnsWithNames;
 	}

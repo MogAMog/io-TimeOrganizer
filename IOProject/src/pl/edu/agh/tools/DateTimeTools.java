@@ -10,7 +10,7 @@ public class DateTimeTools {
 
 	private static SimpleDateFormat fullDateFormat = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss", Locale.getDefault());
 	private static SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy", Locale.getDefault());
-	private static SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm", Locale.getDefault());
+	private static SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss", Locale.getDefault());
 	private static final String DATE_SEPARATOR = ".";
 	private static final String TIME_SEPARATOR = ":";
 	
@@ -19,7 +19,7 @@ public class DateTimeTools {
 	 * @param fullDate
 	 */
 	public static Date convertStringToFullDate(String fullDate) {
-		String[] date = fullDate.split(" ")[0].split(DATE_SEPARATOR);
+		String[] date = fullDate.split(" ")[0].split("\\" + DATE_SEPARATOR);
 		Calendar calendar = new GregorianCalendar();
 		calendar.set(Calendar.YEAR, Integer.valueOf(date[0]));
 		calendar.set(Calendar.MONTH, Integer.valueOf(date[1]) - 1);
@@ -36,7 +36,7 @@ public class DateTimeTools {
 	 * @param date
 	 */
 	public static Date convertStringToDate(String dateString) {
-		String[] date = dateString.split(DATE_SEPARATOR);
+		String[] date = dateString.split("\\" + DATE_SEPARATOR);
 		Calendar calendar = new GregorianCalendar();
 		calendar.set(Calendar.YEAR, Integer.valueOf(date[0]));
 		calendar.set(Calendar.MONTH, Integer.valueOf(date[1]) - 1);
