@@ -62,13 +62,13 @@
 
             <TextView
                 android:id="@+id/ConstantEventAdd.textStartDate"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
                 android:layout_height="wrap_content"
                 android:text="@string/AddNewConstantEventView.textStartDate" />
 
             <Button
                 android:id="@+id/ConstantEventAdd.buttonStartDate"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
                 android:layout_height="wrap_content"
                 android:text="@string/AddNewConstantEventView.buttonStartDate"
                 android:onClick="showStartDatePickerDialog" />
@@ -87,13 +87,13 @@
 
             <TextView
                 android:id="@+id/ConstantEventAdd.textEndDate"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
                 android:layout_height="wrap_content"
                 android:text="@string/AddNewConstantEventView.textEndDate" />
 
             <Button
                 android:id="@+id/ConstantEventAdd.buttonEndDate"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
                 android:layout_height="wrap_content"
                 android:text="@string/AddNewConstantEventView.buttonEndDate"
                 android:onClick="showEndDatePickerDialog" />
@@ -160,6 +160,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
+            android:gravity="center" >
+
+            <TextView
+                android:id="@+id/textViewSpinneLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/AddNewConstantEventView.spinnerLabel" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center" >
 
             <Spinner
@@ -185,13 +199,13 @@
 
             <TextView
                 android:id="@+id/ConstantEventAdd.textStartTime"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
                 android:layout_height="wrap_content"
                 android:text="@string/AddNewEventView.text_view_start_time" />
 
             <Button
                 android:id="@+id/ConstantEventAdd.buttonStartTime"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
                 android:layout_height="wrap_content"
                 android:text="@string/start_time_event_add"
                 android:onClick="showStartTimePickerDialog" />
@@ -212,13 +226,13 @@
 
             <TextView
                 android:id="@+id/ConstantEventAdd.textEndTime"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
                 android:layout_height="wrap_content"
                 android:text="@string/AddNewEventView.text_view_end_time" />
 
             <Button
                 android:id="@+id/ConstantEventAdd.buttonEndTime"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
                 android:layout_height="wrap_content"
                 android:text="@string/end_time_event_add"
                 android:onClick="showEndTimePickerDialog" />
