@@ -7,17 +7,33 @@ import pl.edu.agh.domain.Account;
 import pl.edu.agh.domain.databasemanagement.IDatabaseDmlProvider;
 import pl.edu.agh.domain.tables.AccountTable;
 import pl.edu.agh.domain.tables.EventTable;
+import pl.edu.agh.errors.FormValidationError;
+import pl.edu.agh.services.interfaces.IEntityValidation;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class AccountManagementService implements IDatabaseDmlProvider<Account> {
+public class AccountManagementService implements IDatabaseDmlProvider<Account>, IEntityValidation<Account> {
 
 	private SQLiteOpenHelper dbHelper;
 
 	public AccountManagementService(SQLiteOpenHelper dbHelper) {
 		this.dbHelper = dbHelper;
 	}
+	
+	@Override
+	public List<FormValidationError> validate(Account entity) {
+		List<FormValidationError> errors = new ArrayList<FormValidationError>();
+		if(entity.getPassword() == null) {
+			errors.add(new FormValidationError("Account.Password.NotNull"));
+		}
+		if(entity.getPassword() == null) {
+			errors.add(new FormValidationError("Account.Login.NotNull"));
+		}
+		return errors;
+	}
+
+
 
 	@Override
 	public long insert(Account insertObject) {

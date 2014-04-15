@@ -33,7 +33,12 @@
     <string name="AddNewEventView.text_view_end_time">End time not set</string>
     <string name="AddNewEventView.duration_event_add">Duration</string>
     <string name="AddNewEventView.set_date">Set date</string>
-    
+    <string name="AddNewEventView.title_description_legend">Title and Description</string>
+    <string name="AddNewEventView.localization_legend">Localization</string>
+    <string name="AddNewEventView.date_time_legend">Date and Time</string>
+    <string name="AddNewEventView.requirements_legend">Requirements</string>
+    <string name="AddNewEventView.SeekBar.TextView.Minutes">How many minutes long: </string>
+    <string name="AddNewEventView.NotConstantMode.Disabled">Not required in this mode</string>
     
     
             <!-- ************************************************************************************************* -->

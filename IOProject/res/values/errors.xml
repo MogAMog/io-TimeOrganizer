@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="Account.Password.NotNull">Password must be entered</string>
+    <string name="Account.Login.NotNull">Login must be entered</string>
+    
+    <string name="Event.Location.NotNull">Location must be chosen</string>
+    <string name="Event.Date.NotNull"></string>
+    <string name="Event.StartTime.NotNull"></string>
+    <string name="Event.EndTime.NotNull"></string>
+    <string name="Event.Duration.NotNull"></string>
+    <string name="Event.Duration.NotNull"></string>
+    <string name="Event.Duration.NotNull"></string>
+    
+</resources>

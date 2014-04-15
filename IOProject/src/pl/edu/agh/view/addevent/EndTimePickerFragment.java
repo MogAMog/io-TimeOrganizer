@@ -15,7 +15,8 @@ import android.widget.TimePicker;
 public class EndTimePickerFragment extends DialogFragment {
 
 	private SetTimePeriodInterface rootActivity;
-
+	private Calendar calendar = new GregorianCalendar();
+	
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -28,10 +29,11 @@ public class EndTimePickerFragment extends DialogFragment {
 		OnTimeSetListener onTimeSetListener = new OnTimeSetListener() {
 			@Override
 			public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+				calendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
+				calendar.set(Calendar.MINUTE, minute);
 				rootActivity.setEndTime(hourOfDay, minute);
 			}
 		};
-		Calendar c = new GregorianCalendar();
-		return new TimePickerDialog(getActivity(), onTimeSetListener, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), true);
+		return new TimePickerDialog(getActivity(), onTimeSetListener, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true);
 	}
 }

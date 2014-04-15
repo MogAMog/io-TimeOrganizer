@@ -20,6 +20,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -36,6 +37,15 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	private EventDate eventDate;
 	private Event event;
 	private EventManagementService eventManagementService;
+	private DialogFragment startTimePickerFragment;
+	private DialogFragment endTimePickerFragment;
+	private DialogFragment datePickerFragment;
+	private SeekBar eventDurationSeekBar; 
+	private TextView textSeekBarProgress;
+	private Button startTimeButton;
+	private Button endTimeButton;
+	private TextView startTimeTextView;
+	private TextView endTimeTextView;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +56,15 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		eventDate = new EventDate();
 		event = new Event();
 		eventManagementService = new EventManagementService(new MainDatabaseHelper(this));
+		startTimePickerFragment = new StartTimePickerFragment();
+		endTimePickerFragment = new EndTimePickerFragment();
+		datePickerFragment = new DatePickerFragment();
+		startTimeButton = ((Button)findViewById(R.id.buttonStartTime));
+		endTimeButton = ((Button)findViewById(R.id.buttonEndTime));
+		startTimeTextView = ((TextView) findViewById(R.id.textViewStartTime));
+		endTimeTextView = ((TextView) findViewById(R.id.textViewEndTime));
+		eventDurationSeekBar = (SeekBar) findViewById(R.id.seekBarEventDuration);
+		textSeekBarProgress = (TextView) findViewById(R.id.textSeekBarProgress);
 		
 		
 		final EditText eventTitle = (EditText)findViewById(R.id.editTextEventTitle);
@@ -79,9 +98,15 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		
 		CheckBox isEventConstant = (CheckBox) findViewById(R.id.checkBoxConstant);
 		isEventConstant.setOnCheckedChangeListener( new OnCheckedChangeListener() {
-			
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				if(isChecked) { 
+					enableStartEndTimeButtons();
+					disableSeekBar();
+				} else {
+					disableStartEndTimeButtons();
+					enabledSeekBar();
+				}
 				event.setConstant(isChecked);				
 			}
 		});
@@ -94,9 +119,7 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 			}
 		});
 		
-		final SeekBar eventDurationSeekBar = (SeekBar) findViewById(R.id.seekBarEventDuration);
-		final TextView textSeekBarProgress = (TextView) findViewById(R.id.textSeekBarProgress);
-		textSeekBarProgress.setText("How many minutes long: " + eventDurationSeekBar.getProgress());
+		textSeekBarProgress.setText(getString(R.string.AddNewEventView_SeekBar_TextView_Minutes) + eventDurationSeekBar.getProgress());
 		eventDurationSeekBar.setOnSeekBarChangeListener( new OnSeekBarChangeListener() {
 			
 			@Override
@@ -106,7 +129,8 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 			
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-				textSeekBarProgress.setText("How many minutes long: " + progress);
+				textSeekBarProgress.setText(getString(R.string.AddNewEventView_SeekBar_TextView_Minutes) + progress);
+				eventDate.setDuration(progress);
 			}
 			
 			@Override
@@ -138,18 +162,15 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	}
 	
 	public void showDatePickerDialog(View v) {
-		DialogFragment newFragment = new DatePickerFragment();
-		newFragment.show(getFragmentManager(), "datePicker");
+		datePickerFragment.show(getFragmentManager(), "datePicker");
 	}
 	
 	public void showStartTimePickerDialog(View v) {
-		DialogFragment newFragment = new StartTimePickerFragment();
-		newFragment.show(getFragmentManager(), "timePicker");
+		startTimePickerFragment.show(getFragmentManager(), "startTimePicker");
 	}
 	
 	public void showEndTimePickerDialog(View v) {
-		DialogFragment newFragment = new EndTimePickerFragment();
-		newFragment.show(getFragmentManager(), "timePicker");
+		endTimePickerFragment.show(getFragmentManager(), "endTimePicker");
 	}
 
 	@Override
@@ -159,21 +180,21 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		calendar.set(Calendar.MONTH, month);
 		calendar.set(Calendar.DAY_OF_MONTH, day);
 		eventDate.setDate(calendar.getTime());
-		((TextView) findViewById(R.id.textViewCurrentDate)).setText(new StringBuilder().append("Date: ").append(DateTimeTools.convertDateToString(calendar)));;
+		((TextView) findViewById(R.id.textViewCurrentDate)).setText(new StringBuilder().append(getString(R.string.EventDate_date)).append(": ").append(DateTimeTools.convertDateToString(calendar)));;
 	}
 	
 	@Override
 	public void setStartTime(int hour, int minute) {
 		Calendar calendar = getCalendarInstanceWithTime(hour, minute);
 		eventDate.setStartTime(calendar.getTime());
-		((TextView) findViewById(R.id.textViewStartTime)).setText(getTimeDescription("Start time", calendar));
+		startTimeTextView.setText(getTimeDescription(getString(R.string.EventDate_start_time), calendar));
 	}
 	
 	@Override
 	public void setEndTime(int hour, int minute) {
 		Calendar calendar = getCalendarInstanceWithTime(hour, minute);
 		eventDate.setEndTime(calendar.getTime());	
-		((TextView) findViewById(R.id.textViewEndTime)).setText(getTimeDescription("End time", calendar));
+		endTimeTextView.setText(getTimeDescription(getString(R.string.EventDate_end_time), calendar));
 	}
 
 	private String getTimeDescription(String label, Calendar calendar) {
@@ -188,9 +209,32 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		return calendar;
 	}
 	
+	private void disableStartEndTimeButtons() {
+		startTimeButton.setEnabled(false);
+		endTimeButton.setEnabled(false);
+		startTimeTextView.setText(getString(R.string.AddNewEventView_NotConstantMode_Disabled));
+		endTimeTextView.setText(getString(R.string.AddNewEventView_NotConstantMode_Disabled));
+	}
+	
+	private void enableStartEndTimeButtons() {
+		startTimeButton.setEnabled(true);
+		endTimeButton.setEnabled(true);
+		startTimeTextView.setText(getString(R.string.AddNewEventView_text_view_start_time));
+		endTimeTextView.setText(getString(R.string.AddNewEventView_text_view_end_time));
+	}
+	
+	private void enabledSeekBar() {
+		eventDurationSeekBar.setEnabled(true);
+		textSeekBarProgress.setText(getString(R.string.AddNewEventView_SeekBar_TextView_Minutes) + eventDurationSeekBar.getProgress());
+	}
+	
+	private void disableSeekBar() {
+		eventDurationSeekBar.setEnabled(false);
+		textSeekBarProgress.setText("");
+	}
+	
 	public void addNewEventAction(View view) {
 		Account account = new Account("Janek", "Kowalski", "Zdzisia");
-		eventDate.setDuration(15);
 		eventDate.setFinished(false);
 		eventDate.setLocation(null);
 		event.addEventDate(eventDate);

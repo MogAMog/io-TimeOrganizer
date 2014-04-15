@@ -18,6 +18,7 @@ public class DatePickerFragment extends DialogFragment {
 	}
 	
 	private SetDateInterface rootActivity;
+	private Calendar calendar = new GregorianCalendar();
 	
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -25,11 +26,13 @@ public class DatePickerFragment extends DialogFragment {
 		OnDateSetListener listener = new OnDateSetListener() {
 			@Override
 			public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+				calendar.set(Calendar.YEAR, year);
+				calendar.set(Calendar.MONTH, monthOfYear);
+				calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 				rootActivity.setDate(year, monthOfYear, dayOfMonth); 				
 			}
 		};
-		final Calendar c = new GregorianCalendar();
-		return new DatePickerDialog(getActivity(), listener, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
+		return new DatePickerDialog(getActivity(), listener, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 	}
 
 	@Override

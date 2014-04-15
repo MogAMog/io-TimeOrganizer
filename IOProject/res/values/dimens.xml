@@ -16,5 +16,12 @@
     <dimen name="AddDefaultLocalizationView.google_map_height">450dp</dimen>
     
     <dimen name="AddNewConstantEventView.spacingBetweenItems">15dp</dimen>
-
+    
+    <dimen name="Shape.Frame.Title.PaddingLeftRight">10dp</dimen>
+    <dimen name="Shape.Frame.Title.PaddingTopDown">2dp</dimen>
+    <dimen name="Shape.Frame.Title.MarginLeft">30dp</dimen>
+	<dimen name="Shape.Frame.MainFrame.Margin">10dp</dimen>
+	<dimen name="Shape.Frame.MainFrame.Padding">15dp</dimen>
+	<dimen name="Shape.Frame.MarginTopDown">10dp</dimen>
+    
 </resources>

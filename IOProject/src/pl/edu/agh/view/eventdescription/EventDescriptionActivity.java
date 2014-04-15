@@ -53,7 +53,7 @@ public class EventDescriptionActivity extends Activity {
 
 	private void setRequirementPicture(int imageViewResId, boolean isTrue) {
 		if (isTrue) {
-			((ImageView) findViewById(imageViewResId)).setImageResource(R.drawable.accept);
+			((ImageView) findViewById(imageViewResId)).setImageResource(R.drawable.icon_accept);
 		} else {
 			((ImageView) findViewById(imageViewResId)).setImageResource(R.drawable.decline);
 		}
