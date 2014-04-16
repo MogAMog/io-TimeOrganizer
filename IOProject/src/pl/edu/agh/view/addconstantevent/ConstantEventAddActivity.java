@@ -46,18 +46,16 @@ import com.example.ioproject.R;
 public class ConstantEventAddActivity extends Activity implements SetDatePeriodInterface, SetTimePeriodInterface {
 	
 	private Event event;
-	private Set<EventDate> eventDates;
 	private Calendar startDate;
 	private Calendar endDate;
 	private EventManagementService eventManagementService;
 	private boolean[] areDaysOfWeekSelected;
-	private Date stime;
-	private Date etime;
+	private Date startTime;
+	private Date endTime;
 	private int duration = 0;
 	
 	private Spinner spinner;
-	private String selectedItem = "everyday";
-	
+	private String selectedItem = getString(R.string.AddNewConstantEventView_noSelectionItem);
 		
 
 	@Override
@@ -68,7 +66,6 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		setupActionBar();
 		
 		event = new Event();
-		eventDates = new HashSet<EventDate>();
 		eventManagementService = new EventManagementService(new MainDatabaseHelper(this));
 		areDaysOfWeekSelected = new boolean[7];
 		
@@ -116,7 +113,7 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		
 		final SeekBar eventDurationSeekBar = (SeekBar) findViewById(R.id.ConstantEventAdd_seekBarDuration);
 		final TextView textSeekBarProgress = (TextView) findViewById(R.id.ConstantEventAdd_textSeekBarProgress);
-		textSeekBarProgress.setText("How many minutes long: " + eventDurationSeekBar.getProgress());
+		textSeekBarProgress.setText(getString(R.string.AddNewConstantEventView_spinnerLabel) + eventDurationSeekBar.getProgress());
 		eventDurationSeekBar.setOnSeekBarChangeListener( new OnSeekBarChangeListener() {
 			
 			@Override
@@ -131,7 +128,7 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress,
 					boolean fromUser) {
-				textSeekBarProgress.setText("How many minutes long: " + progress);
+				textSeekBarProgress.setText(getString(R.string.AddNewConstantEventView_spinnerLabel) + progress);
 				duration = progress;
 			}
 		});
@@ -243,7 +240,7 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 	@Override
 	public void setStartTime(int hour, int minute) {
 		Calendar calendar = getCalendarInstanceWithTime(hour, minute);
-		stime = calendar.getTime();
+		startTime = calendar.getTime();
 		TextView startTime = (TextView) findViewById(R.id.ConstantEventAdd_textStartTime);
 		startTime.setText(getTimeDescription("Start time", calendar));		
 	}
@@ -251,7 +248,7 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 	@Override
 	public void setEndTime(int hour, int minute) {
 		Calendar calendar = getCalendarInstanceWithTime(hour, minute);
-		etime = calendar.getTime();
+		endTime = calendar.getTime();
 		TextView endTime = (TextView) findViewById(R.id.ConstantEventAdd_textEndTime);
 		endTime.setText(getTimeDescription("End time", calendar));
 	}
@@ -335,8 +332,8 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 	
 	public void addNewConstantEventAction(View view) {
 		Location location = new Location("Basen", "D17 AGH", "Krakow", 50.068408, 19.901062, true);
-		Date startTime = stime;
-		Date endTime = etime;
+		//Date startTime = startTime;
+		//Date endTime = etime;
 		
 		calculateEventDates(location, endDate, startTime, endTime, duration, false);
 		

@@ -67,6 +67,8 @@
     <string name="AddNewConstantEventView.EveryTwoWeeksItem">Every two weeks</string>
     <string name="AddNewConstantEventView.EveryFourWeeksItem">Every four weeks</string>
     
+    <string name="AddNewConstantEventView.spinnerLabel">Select how often the event should occur</string>
+    <string name="AddNewConstantEventView.seekBarLabel">How many minutes long:</string>
 
     <!-- ************************************************************************************************* -->
     <!-- ************************************** Main Activity View *************************************** -->

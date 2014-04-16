@@ -16,6 +16,8 @@
     <dimen name="AddDefaultLocalizationView.google_map_height">450dp</dimen>
     
     <dimen name="AddNewConstantEventView.spacingBetweenItems">15dp</dimen>
+    <dimen name="AddNewConstantEventViewtimeAndDateButtonWidth">150dp</dimen>
+    <dimen name="AddNewConstantEventView.timeAndDateInformationText">150dp</dimen>
     
     <dimen name="Shape.Frame.Title.PaddingLeftRight">10dp</dimen>
     <dimen name="Shape.Frame.Title.PaddingTopDown">2dp</dimen>
