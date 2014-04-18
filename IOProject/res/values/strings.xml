@@ -25,7 +25,7 @@
     <string name="AddNewEventView.event_title_event_add">Add event title</string>
     <string name="AddNewEventView.event_decription_event_add">Add event description</string>
     <string name="AddNewEventView.event_location_event_add">Location</string>
-    <string name="AddNewEventView.constant_checkbox_event_add">Constant</string>
+    <string name="AddNewEventView.fixed_time_checkbox_event_add">Fixed Time</string>
     <string name="AddNewEventView.required_checkbox_event_add">Required</string>
     <string name="AddNewEventView.pick_date_event_add">Pick date</string>
     <string name="AddNewEventView.current_date_label_event_add">Date not set</string>

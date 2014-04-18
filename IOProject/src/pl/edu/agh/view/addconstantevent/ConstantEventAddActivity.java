@@ -37,9 +37,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.example.ioproject.R;
-import com.google.android.gms.wallet.EnableWalletOptimizationReceiver;
 
 
 public class ConstantEventAddActivity extends Activity implements SetDatePeriodInterface, SetTimePeriodInterface {

@@ -1,7 +1,6 @@
 package pl.edu.agh.view.addevent;
 
 import java.util.Calendar;
-import java.util.GregorianCalendar;
 
 import pl.edu.agh.domain.Account;
 import pl.edu.agh.domain.Event;
@@ -71,12 +70,11 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		textSeekBarProgress = (TextView) findViewById(R.id.textSeekBarProgress);
 		
 		
-		final EditText eventTitle = (EditText)findViewById(R.id.editTextEventTitle);
-		eventTitle.addTextChangedListener(new TextWatcher() {
+		((EditText)findViewById(R.id.editTextEventTitle)).addTextChangedListener(new TextWatcher() {
 			
 			@Override
 			public void afterTextChanged(Editable s) {
-				event.setTitle(eventTitle.getText().toString());	
+				event.setTitle(((EditText)findViewById(R.id.editTextEventTitle)).getText().toString());	
 			}
 			
 			@Override
@@ -86,12 +84,11 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		});
 		
 
-		final EditText eventDescription = (EditText)findViewById(R.id.editTextDescription);
-		eventDescription.addTextChangedListener(new TextWatcher() {
+		((EditText)findViewById(R.id.editTextDescription)).addTextChangedListener(new TextWatcher() {
 			
 			@Override
 			public void afterTextChanged(Editable s) {
-				event.setDescription(eventDescription.getText().toString());
+				event.setDescription(((EditText)findViewById(R.id.editTextDescription)).getText().toString());
 			}
 			
 			@Override
@@ -100,8 +97,7 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 		});
 		
-		CheckBox isEventConstant = (CheckBox) findViewById(R.id.checkBoxConstant);
-		isEventConstant.setOnCheckedChangeListener( new OnCheckedChangeListener() {
+		((CheckBox) findViewById(R.id.checkBoxFixedTime)).setOnCheckedChangeListener( new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if(isChecked) { 
@@ -115,8 +111,7 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 			}
 		});
 		
-		CheckBox isEventRequired = (CheckBox) findViewById(R.id.checkBoxRequired);
-		isEventRequired.setOnCheckedChangeListener( new OnCheckedChangeListener() {
+		((CheckBox) findViewById(R.id.checkBoxRequired)).setOnCheckedChangeListener( new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				event.setRequired(isChecked);				
@@ -179,38 +174,27 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 
 	@Override
 	public void setDate(int year, int month, int day) {
-		Calendar calendar = new GregorianCalendar();
-		calendar.set(Calendar.YEAR, year);
-		calendar.set(Calendar.MONTH, month);
-		calendar.set(Calendar.DAY_OF_MONTH, day);
+		Calendar calendar = DateTimeTools.getCalendarInstanceWithDate(year, month, day);
 		eventDate.setDate(calendar.getTime());
 		((TextView) findViewById(R.id.textViewCurrentDate)).setText(new StringBuilder().append(getString(R.string.EventDate_date)).append(": ").append(DateTimeTools.convertDateToString(calendar)));;
 	}
 	
 	@Override
 	public void setStartTime(int hour, int minute) {
-		Calendar calendar = getCalendarInstanceWithTime(hour, minute);
+		Calendar calendar = DateTimeTools.getCalendarInstanceWithTime(hour, minute);
 		eventDate.setStartTime(calendar.getTime());
 		startTimeTextView.setText(getTimeDescription(getString(R.string.EventDate_start_time), calendar));
 	}
 	
 	@Override
 	public void setEndTime(int hour, int minute) {
-		Calendar calendar = getCalendarInstanceWithTime(hour, minute);
+		Calendar calendar = DateTimeTools.getCalendarInstanceWithTime(hour, minute);
 		eventDate.setEndTime(calendar.getTime());	
 		endTimeTextView.setText(getTimeDescription(getString(R.string.EventDate_end_time), calendar));
 	}
 
 	private String getTimeDescription(String label, Calendar calendar) {
 		return new StringBuilder().append(label).append(": ").append(DateTimeTools.convertTimeToString(calendar)).toString();
-	}
-
-	private Calendar getCalendarInstanceWithTime(int hour, int minute) {
-		Calendar calendar = new GregorianCalendar();
-		calendar.set(Calendar.HOUR_OF_DAY, hour);
-		calendar.set(Calendar.MINUTE, minute);
-		calendar.set(Calendar.SECOND, 0);
-		return calendar;
 	}
 	
 	private void disableStartEndTimeButtons() {

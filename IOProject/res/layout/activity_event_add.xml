@@ -113,10 +113,10 @@
                 android:padding="@dimen/Shape.Frame.MainFrame.Padding" >
 
                 <CheckBox
-                    android:id="@+id/checkBoxConstant"
+                    android:id="@+id/checkBoxFixedTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/AddNewEventView.constant_checkbox_event_add" />
+                    android:text="@string/AddNewEventView.fixed_time_checkbox_event_add" />
 
                 <CheckBox
                     android:id="@+id/checkBoxRequired"
