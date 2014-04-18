@@ -1,4 +1,4 @@
-package pl.edu.agh.view.addevent;
+package pl.edu.agh.view.fragments.pickers;
 
 public interface SetTimePeriodInterface {
 

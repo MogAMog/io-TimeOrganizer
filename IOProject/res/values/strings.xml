@@ -41,10 +41,9 @@
     <string name="AddNewEventView.NotConstantMode.Disabled">Not required in this mode</string>
     
     
-            <!-- ************************************************************************************************* -->
+    <!-- ************************************************************************************************* -->
     <!-- ************************************** Add New Constant Event View *************************************** -->
     <!-- ************************************************************************************************* -->
-    
     <string name="AddNewConstantEventView.event_title">Add event title</string>
     <string name="AddNewConstantEventView.event_description">Add event description</string>
     <string name="AddNewConstantEventView.event_location_event_add">Location</string>
@@ -63,12 +62,17 @@
     <string name="AddNewConstantEventView.buttonEndDate">Pick end date</string>
     
     <string name="AddNewConstantEventView.noSelectionItem">No selection</string>
+    <string name="AddNewConstantEventView.Everyday">Everyday</string>
     <string name="AddNewConstantEventView.EveryWeekItem">Every week</string>
     <string name="AddNewConstantEventView.EveryTwoWeeksItem">Every two weeks</string>
     <string name="AddNewConstantEventView.EveryFourWeeksItem">Every four weeks</string>
     
     <string name="AddNewConstantEventView.spinnerLabel">Select how often the event should occur</string>
     <string name="AddNewConstantEventView.seekBarLabel">How many minutes long:</string>
+    
+    <string name="AddNewConstantEventView.frequency_legend">Frequency</string>
+    <string name="AddNewConstantEventView.date_legend">Date</string>
+    <string name="AddNewConstantEventView.time_legend">Time</string>
 
     <!-- ************************************************************************************************* -->
     <!-- ************************************** Main Activity View *************************************** -->

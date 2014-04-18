@@ -1,4 +1,4 @@
-package pl.edu.agh.view.addconstantevent;
+package pl.edu.agh.view.fragments.pickers;
 
 public interface SetDatePeriodInterface {
 	void setStartDate(int year, int month, int day);

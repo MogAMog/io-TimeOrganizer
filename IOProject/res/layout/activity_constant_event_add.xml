@@ -11,269 +11,391 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="795dp"
-        android:orientation="vertical" 
-        android:gravity="center">
+        android:gravity="center"
+        android:orientation="vertical" >
 
-        <EditText
-            android:id="@+id/ConstantEventAdd_eventTitle"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
-            android:ems="10"
-            android:hint="@string/AddNewConstantEventView.event_title" >
+            android:layout_marginBottom="@dimen/Shape.Frame.MarginTopDown"
+            android:layout_marginTop="@dimen/Shape.Frame.MarginTopDown"
+            android:orientation="vertical" >
 
-        </EditText>
-
-        <EditText
-            android:id="@+id/ConstantEventAdd_eventDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
-            android:ems="10"
-            android:hint="@string/AddNewConstantEventView.event_description"
-            android:minLines="4"
-            android:scrollHorizontally="true"
-            android:textAlignment="center" />
-
-        <Button
-            android:id="@+id/ConstantEventAdd.buttonLocation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
-            android:text="@string/AddNewConstantEventView.event_location_event_add" />
-
-        <CheckBox
-            android:id="@+id/ConstantEventAdd_checkBoxRequired"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-             android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
-            android:text="@string/AddNewConstantEventView.required_checkbox_event_add" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
-            android:gravity="center" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/calendar_icon" />
-
-            <TextView
-                android:id="@+id/ConstantEventAdd.textStartDate"
-                android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
-                android:layout_height="wrap_content"
-                android:text="@string/AddNewConstantEventView.textStartDate" />
-
-            <Button
-                android:id="@+id/ConstantEventAdd.buttonStartDate"
-                android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
-                android:layout_height="wrap_content"
-                android:text="@string/AddNewConstantEventView.buttonStartDate"
-                android:onClick="showStartDatePickerDialog" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
-            android:gravity="center" >
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/calendar_icon" />
-
-            <TextView
-                android:id="@+id/ConstantEventAdd.textEndDate"
-                android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
-                android:layout_height="wrap_content"
-                android:text="@string/AddNewConstantEventView.textEndDate" />
-
-            <Button
-                android:id="@+id/ConstantEventAdd.buttonEndDate"
-                android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
-                android:layout_height="wrap_content"
-                android:text="@string/AddNewConstantEventView.buttonEndDate"
-                android:onClick="showEndDatePickerDialog" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
-            android:gravity="center" >
-
-            <CheckBox
-                android:id="@+id/checkBoxMONDAY"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/AddNewConstantEventView.checkBoxMonday" />
-
-            <CheckBox
-                android:id="@+id/checkBoxTUESDAY"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/AddNewConstantEventView.checkBoxTuesday" />
-
-            <CheckBox
-                android:id="@+id/checkBoxWEDNESDAY"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/AddNewConstantEventView.checkBoxWednesday" />
-
-            <CheckBox
-                android:id="@+id/checkBoxTHURSDAY"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/AddNewConstantEventView.checkBoxThursday" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
-            android:gravity="center" >
-
-            <CheckBox
-                android:id="@+id/checkBoxFRIDAY"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/AddNewConstantEventView.checkBoxFriday" />
-
-            <CheckBox
-                android:id="@+id/checkBoxSATURDAY"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/AddNewConstantEventView.checkBoxSaturday" />
-
-            <CheckBox
-                android:id="@+id/checkBoxSUNDAY"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/AddNewConstantEventView.checkBoxSunday" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
-            android:gravity="center" >
-
-            <TextView
-                android:id="@+id/textViewSpinneLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/AddNewConstantEventView.spinnerLabel" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center" >
-
-            <Spinner
-                android:id="@+id/ConstantEventAdd.spinner"
-                android:layout_width="0dip"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
-                android:layout_weight="1"
-                android:prompt="@string/AddNewConstantEvent.spinner_prompt" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center" >
-
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/clock_blue" />
-
-            <TextView
-                android:id="@+id/ConstantEventAdd.textStartTime"
-                android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
-                android:layout_height="wrap_content"
-                android:text="@string/AddNewEventView.text_view_start_time" />
-
-            <Button
-                android:id="@+id/ConstantEventAdd.buttonStartTime"
-                android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
-                android:layout_height="wrap_content"
-                android:text="@string/start_time_event_add"
-                android:onClick="showStartTimePickerDialog" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
-            android:gravity="center" >
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/clock_blue" />
-
-            <TextView
-                android:id="@+id/ConstantEventAdd.textEndTime"
-                android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
-                android:layout_height="wrap_content"
-                android:text="@string/AddNewEventView.text_view_end_time" />
-
-            <Button
-                android:id="@+id/ConstantEventAdd.buttonEndTime"
-                android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
-                android:layout_height="wrap_content"
-                android:text="@string/end_time_event_add"
-                android:onClick="showEndTimePickerDialog" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
-            android:orientation="vertical"
-            android:gravity="center" >
-
-            <TextView
-                android:id="@+id/ConstantEventAdd.textSeekBarProgress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/event_duration_event_add" />
-
-            <SeekBar
-                android:id="@+id/ConstantEventAdd.seekBarDuration"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems" />
+                android:layout_margin="@dimen/Shape.Frame.MainFrame.Margin"
+                android:background="@drawable/shape_frame_black"
+                android:orientation="vertical"
+                android:padding="5dp" >
 
-        </LinearLayout>
+                <EditText
+                    android:id="@+id/ConstantEventAdd_eventTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
+                    android:ems="10"
+                    android:hint="@string/AddNewConstantEventView.event_title" >
+                </EditText>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center" >
+                <EditText
+                    android:id="@+id/ConstantEventAdd_eventDescription"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
+                    android:ems="10"
+                    android:hint="@string/AddNewConstantEventView.event_description"
+                    android:minLines="4"
+                    android:scrollHorizontally="true"
+                    android:textAlignment="center" />
+            </LinearLayout>
 
-            <Button
-                android:id="@+id/ConstantEventAdd.buttonAddEvent"
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/addevent_event_add"
-                android:onClick="addNewConstantEventAction" />
+                android:layout_marginLeft="@dimen/Shape.Frame.Title.MarginLeft"
+                android:background="@drawable/shape_frame_black"
+                android:paddingBottom="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:paddingLeft="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingRight="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingTop="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:text="@string/AddNewEventView.title_description_legend" />
+        </RelativeLayout>
 
-        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/Shape.Frame.MarginTopDown"
+            android:layout_marginTop="@dimen/Shape.Frame.MarginTopDown"
+            android:orientation="vertical" >
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/Shape.Frame.MainFrame.Margin"
+                android:background="@drawable/shape_frame_green"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:padding="@dimen/Shape.Frame.MainFrame.Padding" >
+
+                <Button
+                    android:id="@+id/ConstantEventAdd.buttonLocation"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
+                    android:text="@string/AddNewConstantEventView.event_location_event_add" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/Shape.Frame.Title.MarginLeft"
+                android:background="@drawable/shape_frame_green"
+                android:paddingBottom="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:paddingLeft="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingRight="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingTop="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:text="@string/AddNewEventView.localization_legend" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/Shape.Frame.MarginTopDown"
+            android:layout_marginTop="@dimen/Shape.Frame.MarginTopDown"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/Shape.Frame.MainFrame.Margin"
+                android:background="@drawable/shape_frame_red"
+                android:orientation="vertical"
+                android:padding="@dimen/Shape.Frame.MainFrame.Padding" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/calendar_icon" />
+
+                    <TextView
+                        android:id="@+id/ConstantEventAdd.textStartDate"
+                        android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
+                        android:layout_height="wrap_content"
+                        android:text="@string/AddNewConstantEventView.textStartDate" />
+
+                    <Button
+                        android:id="@+id/ConstantEventAdd.buttonStartDate"
+                        android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
+                        android:layout_height="wrap_content"
+                        android:onClick="showStartDatePickerDialog"
+                        android:text="@string/AddNewConstantEventView.buttonStartDate" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/calendar_icon" />
+
+                    <TextView
+                        android:id="@+id/ConstantEventAdd.textEndDate"
+                        android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
+                        android:layout_height="wrap_content"
+                        android:text="@string/AddNewConstantEventView.textEndDate" />
+
+                    <Button
+                        android:id="@+id/ConstantEventAdd.buttonEndDate"
+                        android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
+                        android:layout_height="wrap_content"
+                        android:onClick="showEndDatePickerDialog"
+                        android:text="@string/AddNewConstantEventView.buttonEndDate" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/Shape.Frame.Title.MarginLeft"
+                android:background="@drawable/shape_frame_red"
+                android:paddingBottom="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:paddingLeft="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingRight="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingTop="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:text="@string/AddNewConstantEventView.date_legend" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/Shape.Frame.MarginTopDown"
+            android:layout_marginTop="@dimen/Shape.Frame.MarginTopDown"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/Shape.Frame.MainFrame.Margin"
+                android:background="@drawable/shape_frame_orange"
+                android:orientation="vertical"
+                android:padding="@dimen/Shape.Frame.MainFrame.Padding" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:id="@+id/textViewSpinneLabel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/AddNewConstantEventView.spinnerLabel"
+                        android:layout_marginRight="@dimen/AddNewConstantEventView.spacingBetweenItems" />
+
+                    <Spinner
+                        android:id="@+id/ConstantEventAdd.spinner"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_frame_black"
+                        android:padding="5dp"
+                        android:prompt="@string/AddNewConstantEvent.spinner_prompt" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
+                    android:gravity="center" >
+
+                    <CheckBox
+                        android:id="@+id/checkBoxMONDAY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/AddNewConstantEventView.checkBoxMonday" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxTUESDAY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/AddNewConstantEventView.checkBoxTuesday" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxWEDNESDAY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/AddNewConstantEventView.checkBoxWednesday" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxTHURSDAY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/AddNewConstantEventView.checkBoxThursday" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
+                    android:gravity="center" >
+
+                    <CheckBox
+                        android:id="@+id/checkBoxFRIDAY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/AddNewConstantEventView.checkBoxFriday" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxSATURDAY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/AddNewConstantEventView.checkBoxSaturday" />
+
+                    <CheckBox
+                        android:id="@+id/checkBoxSUNDAY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/AddNewConstantEventView.checkBoxSunday" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/Shape.Frame.Title.MarginLeft"
+                android:background="@drawable/shape_frame_orange"
+                android:paddingBottom="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:paddingLeft="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingRight="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingTop="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:text="@string/AddNewConstantEventView.frequency_legend" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/Shape.Frame.MarginTopDown"
+            android:layout_marginTop="@dimen/Shape.Frame.MarginTopDown"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/Shape.Frame.MainFrame.Margin"
+                android:background="@drawable/shape_frame_violet"
+                android:orientation="vertical"
+                android:padding="@dimen/Shape.Frame.MainFrame.Padding" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:id="@+id/imageView1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/clock_blue" />
+
+                    <TextView
+                        android:id="@+id/ConstantEventAdd.textStartTime"
+                        android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
+                        android:layout_height="wrap_content"
+                        android:text="@string/AddNewEventView.text_view_start_time" />
+
+                    <Button
+                        android:id="@+id/ConstantEventAdd.buttonStartTime"
+                        android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
+                        android:layout_height="wrap_content"
+                        android:onClick="showStartTimePickerDialog"
+                        android:text="@string/start_time_event_add" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/clock_blue" />
+
+                    <TextView
+                        android:id="@+id/ConstantEventAdd.textEndTime"
+                        android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
+                        android:layout_height="wrap_content"
+                        android:text="@string/AddNewEventView.text_view_end_time" />
+
+                    <Button
+                        android:id="@+id/ConstantEventAdd.buttonEndTime"
+                        android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
+                        android:layout_height="wrap_content"
+                        android:onClick="showEndTimePickerDialog"
+                        android:text="@string/end_time_event_add" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/Shape.Frame.Title.MarginLeft"
+                android:background="@drawable/shape_frame_violet"
+                android:paddingBottom="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:paddingLeft="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingRight="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingTop="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:text="@string/AddNewConstantEventView.time_legend" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/Shape.Frame.MarginTopDown"
+            android:layout_marginTop="@dimen/Shape.Frame.MarginTopDown"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/Shape.Frame.MainFrame.Margin"
+                android:background="@drawable/shape_frame_blue"
+                android:orientation="vertical"
+                android:padding="@dimen/Shape.Frame.MainFrame.Padding" >
+
+                <CheckBox
+                    android:id="@+id/ConstantEventAdd_checkBoxRequired"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
+                    android:text="@string/AddNewConstantEventView.required_checkbox_event_add" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/Shape.Frame.Title.MarginLeft"
+                android:background="@drawable/shape_frame_blue"
+                android:paddingBottom="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:paddingLeft="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingRight="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingTop="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:text="@string/AddNewEventView.requirements_legend" />
+        </RelativeLayout>
     </LinearLayout>
 
 </ScrollView>

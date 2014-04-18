@@ -85,4 +85,22 @@ public class DateTimeTools {
 		return timeFormat.format(date);
 	}
 
+	public static Calendar getCalendarInstanceWithDate(int year, int month, int day) {
+		Calendar calendar = new GregorianCalendar();
+		calendar.set(Calendar.YEAR, year);
+		calendar.set(Calendar.MONTH, month);
+		calendar.set(Calendar.DAY_OF_MONTH, day);
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		return calendar;
+	}
+	
+	public static Calendar getCalendarInstanceWithTime(int hour, int minute) {
+		Calendar calendar = new GregorianCalendar();
+		calendar.set(Calendar.HOUR_OF_DAY, hour);
+		calendar.set(Calendar.MINUTE, minute);
+		calendar.set(Calendar.SECOND, 0);
+		return calendar;
+	}
 }
