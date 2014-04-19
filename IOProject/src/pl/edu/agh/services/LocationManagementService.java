@@ -10,6 +10,7 @@ import pl.edu.agh.domain.databasemanagement.IDatabaseDmlProvider;
 import pl.edu.agh.domain.tables.LocationTable;
 import pl.edu.agh.errors.FormValidationError;
 import pl.edu.agh.services.interfaces.IEntityValidation;
+import pl.edu.agh.tools.StringTools;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -26,7 +27,7 @@ public class LocationManagementService implements IDatabaseDmlProvider<Location>
 	@Override
 	public List<FormValidationError> validate(Location entity) {
 		List<FormValidationError> errors = new ArrayList<FormValidationError>();
-		if(entity.getName() == null) {
+		if(StringTools.isNullOrEmpty(entity.getName())) {
 			errors.add(new FormValidationError(R.string.Validation_Location_Name_NotNull));
 		}
 		if(entity.getLatitude() == null || entity.getLongitude() == null) {

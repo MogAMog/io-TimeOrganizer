@@ -1,7 +1,11 @@
 package pl.edu.agh.view.adddefaultlocalization;
 
+import java.util.List;
+
 import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
+import pl.edu.agh.errors.FormValidationError;
 import pl.edu.agh.services.LocationManagementService;
+import pl.edu.agh.view.fragments.dialogs.ErrorDialog;
 import android.app.Activity;
 import android.graphics.Color;
 import android.location.Criteria;
@@ -27,6 +31,7 @@ public class AddDefaultLocalizationActivity extends Activity {
 
 	private LatLng chosenLatLng;
 	private TextView coordinatesState;
+	private pl.edu.agh.domain.Location location = new pl.edu.agh.domain.Location();
 	private LocationManagementService locationManagementService;
 	
 	@Override
@@ -56,22 +61,22 @@ public class AddDefaultLocalizationActivity extends Activity {
 				chosenLatLng = point;
 				coordinatesState.setText(getString(R.string.AddDefaultLocalizationActivity_corrdinates_chosen_ok));
 				coordinatesState.setTextColor(Color.GREEN);
+				location.setLatitude(chosenLatLng.latitude);
+				location.setLongitude(chosenLatLng.longitude);
 			}
 		});
 		
 		((TextView)findViewById(R.id.AddDefaultLocalizationView_add_button)).setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if(chosenLatLng == null) {
-					Toast.makeText(getBaseContext(), "Localization has not been chosen!", Toast.LENGTH_LONG).show();
+				location.setName(((TextView)findViewById(R.id.AddDefaultLocalizationView_localization_name)).getText().toString());
+				location.setAddress(((TextView)findViewById(R.id.AddDefaultLocalizationView_localization_address)).getText().toString());
+				location.setCity(((TextView)findViewById(R.id.AddDefaultLocalizationView_localization_city)).getText().toString());
+				location.setDefaultLocation(true);
+				List<FormValidationError> errors = locationManagementService.validate(location);
+				if(!errors.isEmpty()) {
+					ErrorDialog.createDialog(v.getContext(), errors).show();
 				} else {
-					pl.edu.agh.domain.Location location = new pl.edu.agh.domain.Location();
-					location.setName(((TextView)findViewById(R.id.AddDefaultLocalizationView_localization_name)).getText().toString());
-					location.setAddress(((TextView)findViewById(R.id.AddDefaultLocalizationView_localization_address)).getText().toString());
-					location.setCity(((TextView)findViewById(R.id.AddDefaultLocalizationView_localization_city)).getText().toString());
-					location.setLatitude(chosenLatLng.latitude);
-					location.setLongitude(chosenLatLng.longitude);
-					location.setDefaultLocation(true);
 					locationManagementService.insert(location);
 					finish();
 				}

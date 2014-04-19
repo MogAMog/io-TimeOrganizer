@@ -131,6 +131,9 @@
     <string name="AddDefaultLocalizationActivity.current_chosen_localization">Currently chosen localization</string>
     <string name="AddDefaultLocalizationActivity.corrdinates_chosen_ok">Coordinates chosen</string>
     <string name="AddDefaultLocalizationActivity.add_localization_button_label">Add localization</string>
+    <string name="AddDefaultLocalizationActivity.LegendTitle.Name">Name</string>
+    <string name="AddDefaultLocalizationActivity.LegendTitle.Address">Address</string>
+    <string name="AddDefaultLocalizationActivity.LegendTitle.Coordinates">Coordinates</string>
     <string name="title_activity_constant_event_add">ConstantEventAddActivity</string>
 
     <!-- ************************************************************************************************* -->

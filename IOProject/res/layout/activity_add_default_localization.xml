@@ -5,87 +5,168 @@
     android:gravity="top|center_horizontal"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/AddDefaultLocalizationView.spacingBetweenItems" >
+        android:layout_marginBottom="@dimen/Shape.Frame.MarginTopDown"
+        android:layout_marginTop="@dimen/Shape.Frame.MarginTopDown"
+        android:orientation="vertical" >
 
-        <ImageView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/Shape.Frame.MainFrame.Margin"
+            android:background="@drawable/shape_frame_green"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:padding="@dimen/Shape.Frame.MainFrame.Padding" >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/AddDefaultLocalizationView.localization_name_image_desc"
+                android:src="@drawable/globe_terrestre" />
+
+            <EditText
+                android:id="@+id/AddDefaultLocalizationView.localization_name"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="@string/AddDefaultLocalizationView.localization_name" >
+
+                <requestFocus />
+            </EditText>
+        </LinearLayout>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/AddDefaultLocalizationView.localization_name_image_desc"
-            android:src="@drawable/globe_terrestre" />
+            android:layout_marginLeft="@dimen/Shape.Frame.Title.MarginLeft"
+            android:background="@drawable/shape_frame_green"
+            android:paddingBottom="@dimen/Shape.Frame.Title.PaddingTopDown"
+            android:paddingLeft="@dimen/Shape.Frame.Title.PaddingLeftRight"
+            android:paddingRight="@dimen/Shape.Frame.Title.PaddingLeftRight"
+            android:paddingTop="@dimen/Shape.Frame.Title.PaddingTopDown"
+            android:text="@string/AddDefaultLocalizationActivity.LegendTitle.Name" />
+    </RelativeLayout>
 
-        <EditText
-            android:id="@+id/AddDefaultLocalizationView.localization_name"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/AddDefaultLocalizationView.localization_name" >
-
-            <requestFocus />
-        </EditText>
-    </LinearLayout>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/AddDefaultLocalizationView.spacingBetweenItems" >
+        android:layout_marginBottom="@dimen/Shape.Frame.MarginTopDown"
+        android:layout_marginTop="@dimen/Shape.Frame.MarginTopDown"
+        android:orientation="vertical" >
 
-        <ImageView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/Shape.Frame.MainFrame.Margin"
+            android:background="@drawable/shape_frame_blue"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/Shape.Frame.MainFrame.Padding" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/AddDefaultLocalizationView.spacingBetweenItems" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/AddDefaultLocalizationView.localization_address_image_desc"
+                    android:src="@drawable/retro_address" />
+
+                <EditText
+                    android:id="@+id/AddDefaultLocalizationView.localization_address"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="@string/AddDefaultLocalizationView.localization_address" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/AddDefaultLocalizationView.spacingBetweenItems" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/AddDefaultLocalizationView.localization_city"
+                    android:src="@drawable/city" />
+
+                <EditText
+                    android:id="@+id/AddDefaultLocalizationView.localization_city"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="@string/AddDefaultLocalizationView.localization_city" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/AddDefaultLocalizationView.localization_address_image_desc"
-            android:src="@drawable/retro_address" />
+            android:layout_marginLeft="@dimen/Shape.Frame.Title.MarginLeft"
+            android:background="@drawable/shape_frame_blue"
+            android:paddingBottom="@dimen/Shape.Frame.Title.PaddingTopDown"
+            android:paddingLeft="@dimen/Shape.Frame.Title.PaddingLeftRight"
+            android:paddingRight="@dimen/Shape.Frame.Title.PaddingLeftRight"
+            android:paddingTop="@dimen/Shape.Frame.Title.PaddingTopDown"
+            android:text="@string/AddDefaultLocalizationActivity.LegendTitle.Address" />
+    </RelativeLayout>
 
-        <EditText
-            android:id="@+id/AddDefaultLocalizationView.localization_address"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/AddDefaultLocalizationView.localization_address" />
-    </LinearLayout>
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/AddDefaultLocalizationView.spacingBetweenItems" >
+        android:layout_marginBottom="@dimen/Shape.Frame.MarginTopDown"
+        android:layout_marginTop="@dimen/Shape.Frame.MarginTopDown"
+        android:orientation="vertical" >
 
-        <ImageView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/Shape.Frame.MainFrame.Margin"
+            android:background="@drawable/shape_frame_violet"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/Shape.Frame.MainFrame.Padding" >
+
+            <TextView
+                android:id="@+id/AddDefaultLocalizationView.localization_cooridnates_state"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/AddDefaultLocalizationView.coordinatesSpacing"
+                android:layout_marginTop="@dimen/AddDefaultLocalizationView.coordinatesSpacing"
+                android:drawableLeft="@drawable/globe"
+                android:drawablePadding="15dp"
+                android:gravity="center_vertical"
+                android:text="@string/AddDefaultLocalizationView.localization_coordinates_state"
+                android:textColor="#FF0000" />
+
+            <fragment
+                android:id="@+id/AddDefaultLocalizationView.map"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/AddDefaultLocalizationView.google_map_height"
+                android:layout_margin="20dp"
+                class="com.google.android.gms.maps.MapFragment" />
+        </LinearLayout>
+
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:contentDescription="@string/AddDefaultLocalizationView.localization_city"
-            android:src="@drawable/city" />
-
-        <EditText
-            android:id="@+id/AddDefaultLocalizationView.localization_city"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:hint="@string/AddDefaultLocalizationView.localization_city" />
-    </LinearLayout>
-
-    <TextView
-        android:id="@+id/AddDefaultLocalizationView.localization_cooridnates_state"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/AddDefaultLocalizationView.coordinatesSpacing"
-        android:layout_marginBottom="@dimen/AddDefaultLocalizationView.coordinatesSpacing"
-        android:drawableLeft="@drawable/globe"
-        android:drawablePadding="15dp"
-        android:gravity="center_vertical"
-        android:text="@string/AddDefaultLocalizationView.localization_coordinates_state"
-        android:textColor="#FF0000" />
-
-    <fragment
-        android:id="@+id/AddDefaultLocalizationView.map"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/AddDefaultLocalizationView.google_map_height"
-        android:layout_margin="20dp"
-        class="com.google.android.gms.maps.MapFragment" />
+            android:layout_marginLeft="@dimen/Shape.Frame.Title.MarginLeft"
+            android:background="@drawable/shape_frame_violet"
+            android:paddingBottom="@dimen/Shape.Frame.Title.PaddingTopDown"
+            android:paddingLeft="@dimen/Shape.Frame.Title.PaddingLeftRight"
+            android:paddingRight="@dimen/Shape.Frame.Title.PaddingLeftRight"
+            android:paddingTop="@dimen/Shape.Frame.Title.PaddingTopDown"
+            android:text="@string/AddDefaultLocalizationActivity.LegendTitle.Coordinates" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/AddDefaultLocalizationView.add_button"

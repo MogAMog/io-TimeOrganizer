@@ -11,6 +11,7 @@ import pl.edu.agh.domain.tables.AccountTable;
 import pl.edu.agh.domain.tables.EventTable;
 import pl.edu.agh.errors.FormValidationError;
 import pl.edu.agh.services.interfaces.IEntityValidation;
+import pl.edu.agh.tools.StringTools;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -28,10 +29,10 @@ public class AccountManagementService implements IDatabaseDmlProvider<Account>, 
 	@Override
 	public List<FormValidationError> validate(Account entity) {
 		List<FormValidationError> errors = new ArrayList<FormValidationError>();
-		if(entity.getPassword() == null) {
+		if(StringTools.isNullOrEmpty(entity.getPassword())) {
 			errors.add(new FormValidationError(R.string.Validation_Account_Password_NotNull));
 		}
-		if(entity.getLogin() == null) {
+		if(StringTools.isNullOrEmpty(entity.getLogin())) {
 			errors.add(new FormValidationError(R.string.Validation_Account_Login_NotNull));
 		}
 		return errors;

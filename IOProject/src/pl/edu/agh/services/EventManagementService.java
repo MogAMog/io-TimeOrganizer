@@ -13,6 +13,7 @@ import pl.edu.agh.domain.tables.EventTable;
 import pl.edu.agh.errors.FormValidationError;
 import pl.edu.agh.services.interfaces.IEntityValidation;
 import pl.edu.agh.tools.BooleanTools;
+import pl.edu.agh.tools.StringTools;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -37,7 +38,7 @@ public class EventManagementService implements IDatabaseDmlProvider<Event>, IEnt
 		if(entity.getAccount() == null) {
 			errors.add(new FormValidationError(R.string.Validation_Event_Account_NotNull));
 		}
-		if(entity.getTitle() == null || entity.getTitle().isEmpty()) {
+		if(StringTools.isNullOrEmpty(entity.getTitle())) {
 			errors.add(new FormValidationError(R.string.Validation_Event_Title_NotNull));
 		}
 		if(entity.getDefaultLocation() != null) {
