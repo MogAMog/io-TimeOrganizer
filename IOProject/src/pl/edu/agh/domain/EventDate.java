@@ -5,6 +5,7 @@ import java.util.Date;
 
 import pl.edu.agh.domain.databasemanagement.DatabaseProperties;
 
+@SuppressWarnings("serial")
 public class EventDate implements Serializable {
 
 	private long id = DatabaseProperties.UNSAVED_ENTITY_ID;
@@ -13,8 +14,8 @@ public class EventDate implements Serializable {
 	private Date date;
 	private Date startTime;
 	private Date endTime;
-	private int duration;
-	private boolean finished;
+	private Integer duration;
+	private Boolean finished;
 	
 	public EventDate() {
 		super();
@@ -69,7 +70,7 @@ public class EventDate implements Serializable {
 		this.endTime = endTime;
 	}
 
-	public int getDuration() {
+	public Integer getDuration() {
 		return duration;
 	}
 
@@ -77,11 +78,11 @@ public class EventDate implements Serializable {
 		this.duration = duration;
 	}
 
-	public boolean isFinished() {
+	public Boolean isFinished() {
 		return finished;
 	}
 
-	public void setFinished(boolean finished) {
+	public void setFinished(Boolean finished) {
 		this.finished = finished;
 	}
 	

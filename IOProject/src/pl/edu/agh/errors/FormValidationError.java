@@ -2,13 +2,13 @@ package pl.edu.agh.errors;
 
 public class FormValidationError {
 
-	private String messageKey;
+	private int messageKey;
 	
-	public FormValidationError(String messageKey) {
+	public FormValidationError(int messageKey) {
 		this.messageKey = messageKey;
 	}
 
-	public String getMessageKey() {
+	public int getMessageKey() {
 		return messageKey;
 	}
 	

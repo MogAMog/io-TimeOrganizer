@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import pl.edu.agh.domain.databasemanagement.DatabaseProperties;
 
+@SuppressWarnings("serial")
 public class Account implements Serializable {
 	
 	private long id = DatabaseProperties.UNSAVED_ENTITY_ID;

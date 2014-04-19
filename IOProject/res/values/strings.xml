@@ -39,8 +39,7 @@
     <string name="AddNewEventView.requirements_legend">Requirements</string>
     <string name="AddNewEventView.SeekBar.TextView.Minutes">How many minutes long: </string>
     <string name="AddNewEventView.NotConstantMode.Disabled">Not required in this mode</string>
-    
-    
+
     <!-- ************************************************************************************************* -->
     <!-- ************************************** Add New Constant Event View *************************************** -->
     <!-- ************************************************************************************************* -->
@@ -48,7 +47,7 @@
     <string name="AddNewConstantEventView.event_description">Add event description</string>
     <string name="AddNewConstantEventView.event_location_event_add">Location</string>
     <string name="AddNewConstantEventView.required_checkbox_event_add">Required</string>
-	<string name="AddNewConstantEventView.checkBoxMonday">Monday</string>
+    <string name="AddNewConstantEventView.checkBoxMonday">Monday</string>
     <string name="AddNewConstantEventView.checkBoxTuesday">Tuesday</string>
     <string name="AddNewConstantEventView.checkBoxWednesday">Wednesday</string>
     <string name="AddNewConstantEventView.checkBoxThursday">Thursday</string>
@@ -60,16 +59,13 @@
     <string name="AddNewConstantEventView.buttonStartDate">Pick start date</string>
     <string name="AddNewConstantEventView.textEndDate">End date not set</string>
     <string name="AddNewConstantEventView.buttonEndDate">Pick end date</string>
-    
     <string name="AddNewConstantEventView.noSelectionItem">No selection</string>
     <string name="AddNewConstantEventView.Everyday">Everyday</string>
     <string name="AddNewConstantEventView.EveryWeekItem">Every week</string>
     <string name="AddNewConstantEventView.EveryTwoWeeksItem">Every two weeks</string>
     <string name="AddNewConstantEventView.EveryFourWeeksItem">Every four weeks</string>
-    
     <string name="AddNewConstantEventView.spinnerLabel">Select how often the event should occur</string>
     <string name="AddNewConstantEventView.seekBarLabel">How many minutes long:</string>
-    
     <string name="AddNewConstantEventView.frequency_legend">Frequency</string>
     <string name="AddNewConstantEventView.date_legend">Date</string>
     <string name="AddNewConstantEventView.time_legend">Time</string>
@@ -136,5 +132,31 @@
     <string name="AddDefaultLocalizationActivity.corrdinates_chosen_ok">Coordinates chosen</string>
     <string name="AddDefaultLocalizationActivity.add_localization_button_label">Add localization</string>
     <string name="title_activity_constant_event_add">ConstantEventAddActivity</string>
+
+    <!-- ************************************************************************************************* -->
+    <!-- ****************************************** Validation ******************************************* -->
+    <!-- ************************************************************************************************* -->
+    <string name="Validation.Account.Password.NotNull">Password must be provided.</string>
+    <string name="Validation.Account.Login.NotNull">Login must be provided.</string>
+    <string name="Validation.Event.Account.NotNull">Location must be chosen.</string>
+    <string name="Validation.Event.Title.NotNull">Title must be provided.</string>
+    <string name="Validation.Event.IsRequired.NotNull">Required requirement must be chosen.</string>
+    <string name="Validation.Event.IsConstant.NotNull">Constant requirement must be chosen.</string>
+    <string name="Validation.Event.FrequencyNotChosen">Event frequency was not chosen.</string>
+    <string name="Validation.Event.OneDayMustBeChosen">At least one day of week must be checked.</string>
+    <string name="Validation.EventDate.Event.NotNull">Event must be chosen.</string>
+    <string name="Validation.EventDate.Location.NotNull">Event Location must be chosen.</string>
+    <string name="Validation.EventDate.Date.NotNull">Date must be chosen.</string>
+    <string name="Validation.EventDate.StartTime.NotNull">Start Time must be chosen.</string>
+    <string name="Validation.EventDate.EndTime.NotNull">End Time must be chosen.</string>
+    <string name="Validation.EventDate.Duration.NotNull">Duration must be provided.</string>
+    <string name="Validation.EventDate.IsFinished.NotNull"></string>
+    <string name="Validation.EventDate.EndTimeBeforeStartTime">Chosen End Time is before Start Time.</string>
+    <string name="Validation.EventDate.PastDate">Date is past date.</string>
+    <string name="Validation.Location.Name.NotNull">Name must be provided.</string>
+    <string name="Validation.Location.Coordinates.NotNull">Coordinates has not been chosen, choose place on the map.</string>
+    <string name="Validation.Location.IsDefault.NotNull"></string>
+    <string name="ErrorDialog.ImageDescription">Error Icon</string>
+    <string name="ErrorDialog.Title">ERRORS FOUND!</string>
 
 </resources>

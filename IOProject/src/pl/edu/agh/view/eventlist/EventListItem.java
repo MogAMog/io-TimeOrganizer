@@ -7,6 +7,7 @@ import pl.edu.agh.domain.Event;
 import pl.edu.agh.domain.EventDate;
 import pl.edu.agh.domain.Location;
 
+@SuppressWarnings("serial")
 public class EventListItem implements Serializable {
 	private Event event;
 	private EventDate eventDate;

@@ -1,14 +1,17 @@
 package pl.edu.agh.view.addevent;
 
 import java.util.Calendar;
+import java.util.List;
 
-import pl.edu.agh.domain.Account;
 import pl.edu.agh.domain.Event;
 import pl.edu.agh.domain.EventDate;
 import pl.edu.agh.domain.Location;
 import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
+import pl.edu.agh.errors.FormValidationError;
+import pl.edu.agh.services.AccountManagementService;
 import pl.edu.agh.services.EventManagementService;
 import pl.edu.agh.tools.DateTimeTools;
+import pl.edu.agh.view.fragments.dialogs.ErrorDialog;
 import pl.edu.agh.view.fragments.pickers.DatePickerFragment;
 import pl.edu.agh.view.fragments.pickers.EndTimePickerFragment;
 import pl.edu.agh.view.fragments.pickers.SetTimePeriodInterface;
@@ -222,15 +225,19 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	}
 	
 	public void addNewEventAction(View view) {
-		Account account = new Account("Janek", "Kowalski", "Zdzisia");
 		eventDate.setFinished(false);
 		eventDate.setLocation(null);
 		event.addEventDate(eventDate);
-		event.setAccount(account);
+		event.setAccount(AccountManagementService.DEFAULT_ACCOUNT);
 		event.setPredecessorEvent(null);
 		event.setDefaultLocation(new Location("Basen", "D17 AGH", "Krakow", 50.068408, 19.901062, true));
-		eventManagementService.insert(event);
-		finish();
+		List<FormValidationError> errors = eventManagementService.validate(event);
+		if(!errors.isEmpty()) {
+			ErrorDialog.createDialog(this, errors).show();
+		} else {
+			eventManagementService.insert(event);
+			finish();
+		}
 	}
 
 	

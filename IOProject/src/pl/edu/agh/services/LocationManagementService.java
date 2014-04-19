@@ -3,15 +3,19 @@ package pl.edu.agh.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.ioproject.R;
+
 import pl.edu.agh.domain.Location;
 import pl.edu.agh.domain.databasemanagement.IDatabaseDmlProvider;
 import pl.edu.agh.domain.tables.LocationTable;
+import pl.edu.agh.errors.FormValidationError;
+import pl.edu.agh.services.interfaces.IEntityValidation;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 
 
-public class LocationManagementService implements IDatabaseDmlProvider<Location> {
+public class LocationManagementService implements IDatabaseDmlProvider<Location>, IEntityValidation<Location> {
 
 	private SQLiteOpenHelper dbHelper;
 
@@ -19,6 +23,21 @@ public class LocationManagementService implements IDatabaseDmlProvider<Location>
 		this.dbHelper = dbHelper;
 	}
 	
+	@Override
+	public List<FormValidationError> validate(Location entity) {
+		List<FormValidationError> errors = new ArrayList<FormValidationError>();
+		if(entity.getName() == null) {
+			errors.add(new FormValidationError(R.string.Validation_Location_Name_NotNull));
+		}
+		if(entity.getLatitude() == null || entity.getLongitude() == null) {
+			errors.add(new FormValidationError(R.string.Validation_Location_Coordinates_NotNull));
+		}
+		if(entity.isDefaultLocation() == null) {
+			errors.add(new FormValidationError(R.string.Validation_Location_IsDefault_NotNull));
+		}
+		return errors;
+	}
+
 	@Override
 	public long insert(Location insertObject) {
 		ContentValues values = new ContentValues();

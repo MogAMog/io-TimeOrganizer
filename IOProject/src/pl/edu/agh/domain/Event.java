@@ -6,6 +6,7 @@ import java.util.Set;
 
 import pl.edu.agh.domain.databasemanagement.DatabaseProperties;
 
+@SuppressWarnings("serial")
 public class Event implements Serializable {
 
 	private long id = DatabaseProperties.UNSAVED_ENTITY_ID;
@@ -15,8 +16,8 @@ public class Event implements Serializable {
 	private Set<EventDate> eventDates = new HashSet<EventDate>();
 	private String title;
 	private String description;
-	private boolean required;
-	private boolean constant;
+	private Boolean required;
+	private Boolean constant;
 	
 	public Event() {
 		super();

@@ -4,15 +4,16 @@ import java.io.Serializable;
 
 import pl.edu.agh.domain.databasemanagement.DatabaseProperties;
 
+@SuppressWarnings("serial")
 public class Location implements Serializable {
 
 	private long id = DatabaseProperties.UNSAVED_ENTITY_ID;
 	private String name;
 	private String address;
 	private String city;
-	private double latitude;
-	private double longitude;
-	private boolean defaultLocation;
+	private Double latitude;
+	private Double longitude;
+	private Boolean defaultLocation;
 	
 	public Location() {
 		super();
@@ -59,27 +60,27 @@ public class Location implements Serializable {
 		this.city = city;
 	}
 
-	public double getLatitude() {
+	public Double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(double latitude) {
+	public void setLatitude(Double latitude) {
 		this.latitude = latitude;
 	}
 
-	public double getLongitude() {
+	public Double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(double longitude) {
+	public void setLongitude(Double longitude) {
 		this.longitude = longitude;
 	}
 
-	public boolean isDefaultLocation() {
+	public Boolean isDefaultLocation() {
 		return defaultLocation;
 	}
 
-	public void setDefaultLocation(boolean defaultLocation) {
+	public void setDefaultLocation(Boolean defaultLocation) {
 		this.defaultLocation = defaultLocation;
 	}
 

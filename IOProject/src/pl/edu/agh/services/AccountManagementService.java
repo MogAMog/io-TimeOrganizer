@@ -3,6 +3,8 @@ package pl.edu.agh.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.ioproject.R;
+
 import pl.edu.agh.domain.Account;
 import pl.edu.agh.domain.databasemanagement.IDatabaseDmlProvider;
 import pl.edu.agh.domain.tables.AccountTable;
@@ -15,6 +17,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class AccountManagementService implements IDatabaseDmlProvider<Account>, IEntityValidation<Account> {
 
+	public static final Account DEFAULT_ACCOUNT = new Account("Admin", "Admin", "nomail@gmail.com");
+	
 	private SQLiteOpenHelper dbHelper;
 
 	public AccountManagementService(SQLiteOpenHelper dbHelper) {
@@ -25,10 +29,10 @@ public class AccountManagementService implements IDatabaseDmlProvider<Account>, 
 	public List<FormValidationError> validate(Account entity) {
 		List<FormValidationError> errors = new ArrayList<FormValidationError>();
 		if(entity.getPassword() == null) {
-			errors.add(new FormValidationError("Account.Password.NotNull"));
+			errors.add(new FormValidationError(R.string.Validation_Account_Password_NotNull));
 		}
-		if(entity.getPassword() == null) {
-			errors.add(new FormValidationError("Account.Login.NotNull"));
+		if(entity.getLogin() == null) {
+			errors.add(new FormValidationError(R.string.Validation_Account_Login_NotNull));
 		}
 		return errors;
 	}

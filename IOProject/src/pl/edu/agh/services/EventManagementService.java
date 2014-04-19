@@ -3,17 +3,21 @@ package pl.edu.agh.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.ioproject.R;
+
 import pl.edu.agh.domain.Event;
 import pl.edu.agh.domain.EventDate;
 import pl.edu.agh.domain.databasemanagement.DatabaseProperties;
 import pl.edu.agh.domain.databasemanagement.IDatabaseDmlProvider;
 import pl.edu.agh.domain.tables.EventTable;
+import pl.edu.agh.errors.FormValidationError;
+import pl.edu.agh.services.interfaces.IEntityValidation;
 import pl.edu.agh.tools.BooleanTools;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class EventManagementService implements IDatabaseDmlProvider<Event> {
+public class EventManagementService implements IDatabaseDmlProvider<Event>, IEntityValidation<Event> {
 
 	private SQLiteOpenHelper dbHelper;
 	private AccountManagementService accountManagementService;
@@ -27,6 +31,32 @@ public class EventManagementService implements IDatabaseDmlProvider<Event> {
 		this.locationManagementService = new LocationManagementService(dbHelper);
 	}
 	
+	@Override
+	public List<FormValidationError> validate(Event entity) {
+		List<FormValidationError> errors = new ArrayList<FormValidationError>();
+		if(entity.getAccount() == null) {
+			errors.add(new FormValidationError(R.string.Validation_Event_Account_NotNull));
+		}
+		if(entity.getTitle() == null || entity.getTitle().isEmpty()) {
+			errors.add(new FormValidationError(R.string.Validation_Event_Title_NotNull));
+		}
+		if(entity.getDefaultLocation() != null) {
+			errors.addAll(locationManagementService.validate(entity.getDefaultLocation()));
+		}
+//		if(entity.isRequired() == null) {
+//			errors.addAll(new FormValidationError("R.string.Validation_Event_IsRequired_NotNull"));
+//		}
+//		if(entity.isConstant() == null) {
+//			errors.addAll(new FormValidationError("R.string.Validation_Event_IsConstant_NotNull"));
+//		}
+		for(EventDate eventDate : entity.getEventDates()) {
+			errors.addAll(eventDateManagementService.validate(eventDate));
+		}
+		return errors;
+	}
+
+
+
 	@Override
 	public long insert(Event insertObject) {
 		ContentValues values = new ContentValues();
