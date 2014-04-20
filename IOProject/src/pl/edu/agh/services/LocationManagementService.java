@@ -10,6 +10,7 @@ import pl.edu.agh.domain.databasemanagement.IDatabaseDmlProvider;
 import pl.edu.agh.domain.tables.LocationTable;
 import pl.edu.agh.errors.FormValidationError;
 import pl.edu.agh.services.interfaces.IEntityValidation;
+import pl.edu.agh.tools.BooleanTools;
 import pl.edu.agh.tools.StringTools;
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -18,6 +19,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class LocationManagementService implements IDatabaseDmlProvider<Location>, IEntityValidation<Location> {
 
+	private static final String NOT_DEFAULT_LOCALIZATION_COMMON_NAME = "DefaultName";
+	
 	private SQLiteOpenHelper dbHelper;
 
 	public LocationManagementService(SQLiteOpenHelper dbHelper) {
@@ -83,6 +86,46 @@ public class LocationManagementService implements IDatabaseDmlProvider<Location>
 		} finally {
 			cursor.close();
 		}
+	}
+	
+	//@Override
+	public List<Location> getDefaultLocalizationsAllData() {
+		List<Location> locations = new ArrayList<Location>();
+		Cursor cursor = null;
+		try {
+			String selection = LocationTable.COLUMN_NAME_DEFAULT + " = ?";
+			String[] selectionArguments = new String[] { Integer.toString(BooleanTools.convertBooleanToInt(true)) };
+			cursor = dbHelper.getReadableDatabase().query(LocationTable.TABLE_NAME, null, selection, selectionArguments, null, null, null);
+			cursor.moveToFirst();
+			while(!cursor.isAfterLast()) {
+				locations.add(getLocationFromCursor(cursor));
+				cursor.moveToNext();
+			}
+			return locations;
+		} finally {
+			cursor.close();
+		}
+	}
+	
+	public Location getLocationByName(String name) {
+		Cursor cursor = null;
+		try {
+			String selection = LocationTable.COLUMN_NAME_NAME + " = ?";
+			String[] selectionArgument = new String[] { name };
+			cursor = dbHelper.getReadableDatabase().query(LocationTable.TABLE_NAME, null,selection, selectionArgument, null, null, null);
+			cursor.moveToFirst();
+			Location location = getLocationFromCursor(cursor);	
+			return location;
+		} finally {
+			cursor.close();
+		}
+	}
+	
+	public void setValuesForNotDefaultLocation(Location location) {
+		location.setName(NOT_DEFAULT_LOCALIZATION_COMMON_NAME);
+		location.setAddress("");
+		location.setCity("");
+		location.setDefaultLocation(false);
 	}
 	
 	private Location getLocationFromCursor(Cursor cursor) {

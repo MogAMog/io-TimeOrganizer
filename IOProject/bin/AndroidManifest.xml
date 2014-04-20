@@ -77,6 +77,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.ioproject.MainActivity" />
         </activity>
+        <activity
+            android:name="pl.edu.agh.view.onetimelocalization.OneTimeLocalizationActivity"
+            android:label="@string/title_activity_one_time_localization" >
+        </activity>
     </application>
 
 </manifest>

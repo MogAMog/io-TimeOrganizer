@@ -64,7 +64,10 @@
     <string name="AddNewConstantEventView.EveryWeekItem">Every week</string>
     <string name="AddNewConstantEventView.EveryTwoWeeksItem">Every two weeks</string>
     <string name="AddNewConstantEventView.EveryFourWeeksItem">Every four weeks</string>
-    <string name="AddNewConstantEventView.spinnerLabel">Select how often the event should occur</string>
+    <string name="AddNewConstantEventView.spinnerLabel">Select how often the event should occur: </string>
+    <string name="AddNewConstantEventView.defaultLocalizationSpinnerLabel">Select default localization for event from list: </string>
+    <string name="AddNewConstantEventView.oneTimeLocalizationLabel">If you would like to provide one time location: </string>
+    <string name="AddNewConstantEventView.oneTimeLocalizationButtonLabel">Select location</string>
     <string name="AddNewConstantEventView.seekBarLabel">How many minutes long:</string>
     <string name="AddNewConstantEventView.frequency_legend">Frequency</string>
     <string name="AddNewConstantEventView.date_legend">Date</string>
@@ -161,5 +164,11 @@
     <string name="Validation.Location.IsDefault.NotNull"></string>
     <string name="ErrorDialog.ImageDescription">Error Icon</string>
     <string name="ErrorDialog.Title">ERRORS FOUND!</string>
+
+    <!-- ************************************************************************************************* -->
+    <!-- ********************************** One Time Localiation View ************************************ -->
+    <!-- ************************************************************************************************* -->
+    <string name="title_activity_one_time_localization">OneTimeLocalizationActivity</string>
+    <string name="OneTimeLocalizationView.chooseLocalizationButtonLabel">Select location</string>
 
 </resources>
