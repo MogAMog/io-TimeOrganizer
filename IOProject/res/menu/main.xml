@@ -33,7 +33,18 @@
         android:icon="@drawable/location_map"
         android:orderInCategory="3"
         android:showAsAction="always"
-        android:title="@string/MainActivityView.ActionBar.add_default_location"/>
+        android:title="@string/MainActivityView.ActionBar.add_default_location">
+        <menu>
+            <item
+                android:id="@+id/MainActivity.ActionBar.Localization.AddDefaultLocalization"
+                android:showAsAction="always"
+                android:title="@string/MainActivityView.ActionBar.Localization.AddDefaultLocalization"/>
+            <item
+                android:id="@+id/MainActivity.ActionBar.Localiation.ShowDefaultLocalizationList"
+                android:showAsAction="always"
+                android:title="@string/MainActivityView.ActionBar.Localization.ShowDefaultLocalizationList"/>
+        </menu>
+    </item>
     <item
         android:id="@+id/MainActivity.ActionBar.Help"
         android:icon="@drawable/system_help"

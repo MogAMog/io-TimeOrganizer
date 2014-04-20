@@ -33,11 +33,14 @@ public class MainActivity extends Activity {
     		case R.id.MainActivity_ActionBar_AddNewEvent:
     			addNewEventAction(item.getActionView());
     			return true;
-    		case R.id.MainActivity_ActionBar_AddDefaultLocation:
-    			startActivity(new Intent(this, AddDefaultLocalizationActivity.class));
-    			return true;
     		case R.id.MainActivity_ActionBar_AddNewConstantEvent:
     			addNewConstantEventAction(item.getActionView());
+    			return true;
+    		case R.id.MainActivity_ActionBar_Localization_AddDefaultLocalization:
+    			startActivity(new Intent(this, AddDefaultLocalizationActivity.class));
+    			return true;
+    		case R.id.MainActivity_ActionBar_Localiation_ShowDefaultLocalizationList:
+    			//startActivity(new Intent(this, AddDefaultLocalizationActivity.class));
     			return true;
     	}
     	return super.onOptionsItemSelected(item);

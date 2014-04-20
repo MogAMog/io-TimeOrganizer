@@ -81,6 +81,8 @@
     <string name="MainActivityView.ActionBar.delete_event">Delete Constant Event</string>
     <string name="MainActivityView.ActionBar.add_default_location">Add Default Location</string>
     <string name="MainActivityView.ActionBar.help">Help</string>
+    <string name="MainActivityView.ActionBar.Localization.AddDefaultLocalization">Add Default Localization</string>
+    <string name="MainActivityView.ActionBar.Localization.ShowDefaultLocalizationList">Show Default Localization List</string>
 
     <!-- ************************************************************************************************* -->
     <!-- ************************************* "EventListItem View *************************************** -->
