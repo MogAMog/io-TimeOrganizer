@@ -25,15 +25,15 @@ public class EventDescriptionActivity extends Activity {
 		setContentView(R.layout.activity_event_description);
 
 		EventListItem eventListItem = (EventListItem) getIntent().getSerializableExtra(EventListAdapter.CURRENT_EVENT_LIST_ITEM_KEY);
-		setTextViewText(R.id.EventDescription_title, getString(R.string.Event_title), eventListItem.getTitle());
-		setTextViewText(R.id.EventDescription_description, getString(R.string.Event_title), eventListItem.getDescription());
-		setTextViewText(R.id.EventDescription_date, getString(R.string.EventDate_date), DateTimeTools.convertDateToString(eventListItem.getDate()));
-		setTextViewText(R.id.EventDescription_start_time, getString(R.string.EventDate_start_time), DateTimeTools.convertTimeToString(eventListItem.getStartTime()));
-		setTextViewText(R.id.EventDescription_end_time, getString(R.string.EventDate_end_time), DateTimeTools.convertTimeToString(eventListItem.getEndTime()));
-		((TextView) findViewById(R.id.EventDescription_location)).setText(eventListItem.getLocation().toString());
-		setRequirementPicture(R.id.EventDescription_required_image, eventListItem.isRequired());
-		setRequirementPicture(R.id.EventDescription_constant_image, eventListItem.isConstant());
-		setRequirementPicture(R.id.EventDescription_finished_image, eventListItem.isFinished());
+		setTextViewText(R.id.EventDescription_Title_Id, getString(R.string.Event_Title), eventListItem.getTitle());
+		setTextViewText(R.id.EventDescription_Description_Id, getString(R.string.Event_Description), eventListItem.getDescription());
+		setTextViewText(R.id.EventDescription_Date_Id, getString(R.string.EventDate_Date), DateTimeTools.convertDateToString(eventListItem.getDate()));
+		setTextViewText(R.id.EventDescription_StartTime_Id, getString(R.string.EventDate_StartTime), DateTimeTools.convertTimeToString(eventListItem.getStartTime()));
+		setTextViewText(R.id.EventDescription_EndTime_Id, getString(R.string.EventDate_EndTime), DateTimeTools.convertTimeToString(eventListItem.getEndTime()));
+		((TextView) findViewById(R.id.EventDescription_Location_Id)).setText(eventListItem.getLocation().toString());
+		setRequirementPicture(R.id.EventDescription_Required_ImageView_Id, eventListItem.isRequired());
+		setRequirementPicture(R.id.EventDescription_Constant_ImageView_Id, eventListItem.isConstant());
+		setRequirementPicture(R.id.EventDescription_Finished_ImageView_Id, eventListItem.isFinished());
 
 		GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.EventDescription_map)).getMap();
 		map.setMyLocationEnabled(true);
@@ -67,16 +67,6 @@ public class EventDescriptionActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.event_description, menu);
 		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.EventDescription_ActionBar_Back:
-			finish();
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
 	}
 
 }

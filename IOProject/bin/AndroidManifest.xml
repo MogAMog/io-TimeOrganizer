@@ -70,7 +70,7 @@
             android:label="@string/title_activity_add_default_localization" >
         </activity>
         <activity
-            android:name="pl.edu.agh.view.addconstantevent.ConstantEventAddActivity"
+            android:name="pl.edu.agh.view.addevent.ConstantEventAddActivity"
             android:label="@string/title_activity_constant_event_add"
             android:parentActivityName="com.example.ioproject.MainActivity" >
             <meta-data

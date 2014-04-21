@@ -29,7 +29,6 @@
     <!-- ************************************************************************************************* -->
     <!-- ************************************** Add New Constant Event View *************************************** -->
     <!-- ************************************************************************************************* -->
-    <string name="AddNewConstantEvent.spinner_prompt">Choose the interspace</string>
 
     <!-- ************************************************************************************************* -->
     <!-- ************************************** Main Activity View *************************************** -->
@@ -173,18 +172,18 @@
     <string name="EventDateFold.StartDate.Label"></string>
     <string name="EventDateFold.StartDate.Label.NoSet">Start Date not set</string>
     <string name="EventDateFold.StartDate.Button.Label">Pick Start Date</string>
-    <string name="EventDateFold.EndDate.Label"></string>
+    <string name="EventDateFold.EndDate.Label">TEST - CHANGE</string>
     <string name="EventDateFold.EndDate.Label.NoSet">End Date not set</string>
     <string name="EventDateFold.EndDate.Button.Label">Pick End Date</string>
     <string name="EventTimeFold.Legend">Time</string>
-    <string name="EventTimeFold.StartTime.Label"></string>
+    <string name="EventTimeFold.StartTime.Label">TEST - CHANGE</string>
     <string name="EventTimeFold.StartTime.Label.NoSet">Start Time not set</string>
     <string name="EventTimeFold.StartTime.Button.Label">Pick Start Time</string>
-    <string name="EventTimeFold.EndTime.Label"></string>
+    <string name="EventTimeFold.EndTime.Label">TEST - CHANGE</string>
     <string name="EventTimeFold.EndTime.Label.NoSet">End Time not set</string>
     <string name="EventTimeFold.EndTime.Button.Label">Pick End Time</string>
     <string name="EventDateAndTimeFold.Legend">Date and Time</string>
-    <string name="EventDateFold.Date.Label"></string>
+    <string name="EventDateFold.Date.Label">TEST - CHANGE</string>
     <string name="EventDateFold.Date.Label.NoSet">Date not set</string>
     <string name="EventDateFold.Date.Button.Label">Pick Date</string>
     <string name="EventTimeFold.Duration.Label">How many minutes long: </string>

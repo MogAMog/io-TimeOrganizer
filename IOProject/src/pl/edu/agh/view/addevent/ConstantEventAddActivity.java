@@ -8,7 +8,6 @@ import java.util.List;
 
 import pl.edu.agh.domain.Account;
 import pl.edu.agh.domain.Event;
-import pl.edu.agh.domain.EventDate;
 import pl.edu.agh.domain.Location;
 import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
 import pl.edu.agh.services.AccountManagementService;
@@ -93,7 +92,7 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		
 		weekdayCheckboxes = new CheckBox[7];
 		areDaysOfWeekSelected = new boolean[7];
-		selectedItem = getString(R.string.AddNewConstantEventView_noSelectionItem);
+		selectedItem = getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection);
 		//defaultLocations = locationManagementService.getDefaultLocalizationsAllData();
 		
 		((EditText) findViewById(R.id.ConstantEventAdd_eventTitle)).addTextChangedListener(new TextWatcher() {
@@ -130,11 +129,11 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		
 		spinner = (Spinner) findViewById(R.id.ConstantEventAdd_spinner);
 		List<String> list = new ArrayList<String>();
-		list.add(getString(R.string.AddNewConstantEventView_noSelectionItem));
-		list.add(getString(R.string.AddNewConstantEventView_Everyday));
-		list.add(getString(R.string.AddNewConstantEventView_EveryWeekItem));
-		list.add(getString(R.string.AddNewConstantEventView_EveryTwoWeeksItem));
-		list.add(getString(R.string.AddNewConstantEventView_EveryFourWeeksItem));
+		list.add(getString(R.string.EventFrequencyFold_List_NoSelection));
+		list.add(getString(R.string.EventFrequencyFold_List_Item_Everyday));
+		list.add(getString(R.string.EventFrequencyFold_List_Item_EveryWeekItem));
+		list.add(getString(R.string.EventFrequencyFold_List_Item_EveryTwoWeeksItem));
+		list.add(getString(R.string.EventFrequencyFold_List_Item_EveryFourWeeksItem));
 		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
 		spinner.setAdapter(dataAdapter);
 		spinner.setOnItemSelectedListener( new OnItemSelectedListener() {
@@ -142,7 +141,7 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				spinner.setSelection(position);
 				selectedItem = (String) spinner.getSelectedItem();
-				if(selectedItem.equals(getString(R.string.AddNewConstantEventView_Everyday))) {
+				if(selectedItem.equals(getString(R.string.EventFrequencyFold_List_Item_Everyday))) {
 					markAllDayCheckBoxesTrue();
 				} else {
 					enableAllCheckBoxes();
@@ -154,7 +153,7 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 			}
 		});
 		
-		defaultLocalizationSpinner = (Spinner)findViewById(R.id.ConstantEventAdd_defaultLocalizationSpinner);
+		defaultLocalizationSpinner = (Spinner)findViewById(R.id.LocationChoiceFold_DefaultLocationList_Id);
 		
 		setDayCheckboxProperties(R.id.checkBoxSUNDAY, Calendar.SUNDAY);
 		setDayCheckboxProperties(R.id.checkBoxMONDAY, Calendar.MONDAY);
@@ -171,10 +170,10 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 	@Override
 	protected void onResume() {
 		super.onResume();
-		selectedLocalizationName = getString(R.string.AddNewConstantEventView_noSelectionItem);
+		selectedLocalizationName = getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection);
 		defaultLocations = locationManagementService.getDefaultLocalizationsAllData();
 		List<String> defaultLocationsAdapterList = new ArrayList<String>();
-		defaultLocationsAdapterList.add(getString(R.string.AddNewConstantEventView_noSelectionItem));
+		defaultLocationsAdapterList.add(getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection));
 		for(Location location : defaultLocations) {
 			defaultLocationsAdapterList.add(location.getName());
 		}
@@ -184,10 +183,10 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				defaultLocalizationSpinner.setSelection(position);
 				selectedLocalizationName = (String) defaultLocalizationSpinner.getSelectedItem();
-				if(selectedLocalizationName.equals(getString(R.string.AddNewConstantEventView_noSelectionItem))) {
-					((TextView)findViewById(R.id.AddNewConstantEventView_oneTimeLocaliationButton)).setEnabled(true);
+				if(selectedLocalizationName.equals(getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection))) {
+					((TextView)findViewById(R.id.LocationChoiceFold_OneTimeLocation_Button_Id)).setEnabled(true);
 				} else {
-					((TextView)findViewById(R.id.AddNewConstantEventView_oneTimeLocaliationButton)).setEnabled(false);
+					((TextView)findViewById(R.id.LocationChoiceFold_OneTimeLocation_Button_Id)).setEnabled(false);
 				}
 			}
 
@@ -306,10 +305,10 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 	}
 	
 	public void calculateEventDates(Location location, Calendar edate, Date startTime, Date endTime, boolean isFinished) {
-		Calendar currentDay = startDate;
+/*		Calendar currentDay = startDate;
 		int duration = 0;
 		
-		if (!selectedItem.equals(getString(R.string.AddNewConstantEventView_noSelectionItem))) {
+		if (!selectedItem.equals(getString(R.string.Fre))) {
 			while(!currentDay.getTime().after(edate.getTime())) {
 				int dayNumber = currentDay.get(Calendar.DAY_OF_WEEK);
 		
@@ -333,7 +332,7 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 					currentDay.add(Calendar.DATE, 1);
 				}
 			}
-		}
+		}*/
 		
 
 	}
@@ -356,7 +355,7 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 			case(ONE_TIME_LOCATION_ACTIVITY_ID):
 				if(resultCode == RESULT_OK) {
 					oneTimeLocation = (Location)data.getSerializableExtra(OneTimeLocalizationActivity.LOCATION_RESULT_KEY);
-					((ImageView)findViewById(R.id.AddNewConstantEventView_oneTimeLocaliationImage)).setImageResource(R.drawable.icon_accept);
+					((ImageView)findViewById(R.id.LocationChoiceFold_OneTimeLocation_ImageView_Id)).setImageResource(R.drawable.icon_accept);
 					break;
 				}
 			default: super.onActivityResult(requestCode, resultCode, data);		
@@ -364,7 +363,7 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 	}
 	
 	private Location getLocationForEvent() {
-		if(selectedLocalizationName.equals(getString(R.string.AddNewConstantEventView_noSelectionItem))) {
+		if(selectedLocalizationName.equals(getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection))) {
 			return locationManagementService.getLocationByName(selectedLocalizationName);
 		} else {
 			locationManagementService.setValuesForNotDefaultLocation(oneTimeLocation);

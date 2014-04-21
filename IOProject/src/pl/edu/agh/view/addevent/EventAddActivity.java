@@ -87,19 +87,19 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		startTimePickerFragment = new StartTimePickerFragment();
 		endTimePickerFragment = new EndTimePickerFragment();
 		datePickerFragment = new DatePickerFragment();
-		startTimeButton = ((Button)findViewById(R.id.buttonStartTime));
-		endTimeButton = ((Button)findViewById(R.id.buttonEndTime));
-		startTimeTextView = ((TextView) findViewById(R.id.textViewStartTime));
-		endTimeTextView = ((TextView) findViewById(R.id.textViewEndTime));
-		eventDurationSeekBar = (SeekBar) findViewById(R.id.seekBarEventDuration);
-		textSeekBarProgress = (TextView) findViewById(R.id.textSeekBarProgress);
-		defaultLocalizationSpinner = (Spinner)findViewById(R.id.ConstantEventAdd_defaultLocalizationSpinner);
+		startTimeButton = ((Button)findViewById(R.id.EventTimeFold_StartTime_Button_Id));
+		endTimeButton = ((Button)findViewById(R.id.EventTimeFold_EndTime_Button_Id));
+		startTimeTextView = ((TextView) findViewById(R.id.EventTimeFold_StartTime_TextView_Id));
+		endTimeTextView = ((TextView) findViewById(R.id.EventTimeFold_EndTime_TextView_Id));
+		eventDurationSeekBar = (SeekBar) findViewById(R.id.EventTimeFold_Duration_SeekBar_Id);
+		textSeekBarProgress = (TextView) findViewById(R.id.EventTimeFold_Duration_TextView_Id);
+		defaultLocalizationSpinner = (Spinner)findViewById(R.id.LocationChoiceFold_DefaultLocationList_Id);
 		
-		((EditText)findViewById(R.id.editTextEventTitle)).addTextChangedListener(new TextWatcher() {
+		((EditText)findViewById(R.id.EventTitleAndDescriptionFold_AddEventTitle_Id)).addTextChangedListener(new TextWatcher() {
 			
 			@Override
 			public void afterTextChanged(Editable s) {
-				event.setTitle(((EditText)findViewById(R.id.editTextEventTitle)).getText().toString());	
+				event.setTitle(((EditText)findViewById(R.id.EventTitleAndDescriptionFold_AddEventTitle_Id)).getText().toString());	
 			}
 			
 			@Override
@@ -109,11 +109,11 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		});
 		
 
-		((EditText)findViewById(R.id.editTextDescription)).addTextChangedListener(new TextWatcher() {
+		((EditText)findViewById(R.id.EventTitleAndDescriptionFold_AddEventDescription_Id)).addTextChangedListener(new TextWatcher() {
 			
 			@Override
 			public void afterTextChanged(Editable s) {
-				event.setDescription(((EditText)findViewById(R.id.editTextDescription)).getText().toString());
+				event.setDescription(((EditText)findViewById(R.id.EventTitleAndDescriptionFold_AddEventDescription_Id)).getText().toString());
 			}
 			
 			@Override
@@ -122,7 +122,7 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 		});
 		
-		((CheckBox) findViewById(R.id.checkBoxFixedTime)).setOnCheckedChangeListener( new OnCheckedChangeListener() {
+		((CheckBox) findViewById(R.id.EventRequirementFold_FixedTime_Id)).setOnCheckedChangeListener( new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				if(isChecked) { 
@@ -136,14 +136,14 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 			}
 		});
 		
-		((CheckBox) findViewById(R.id.checkBoxRequired)).setOnCheckedChangeListener( new OnCheckedChangeListener() {
+		((CheckBox) findViewById(R.id.EventRequirementFold_Required_Id)).setOnCheckedChangeListener( new OnCheckedChangeListener() {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 				event.setRequired(isChecked);				
 			}
 		});
 		
-		textSeekBarProgress.setText(getString(R.string.AddNewEventView_SeekBar_TextView_Minutes) + eventDurationSeekBar.getProgress());
+		textSeekBarProgress.setText(getString(R.string.EventTimeFold_Duration_Label) + eventDurationSeekBar.getProgress());
 		eventDurationSeekBar.setOnSeekBarChangeListener( new OnSeekBarChangeListener() {
 			
 			@Override
@@ -153,7 +153,7 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 			
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-				textSeekBarProgress.setText(getString(R.string.AddNewEventView_SeekBar_TextView_Minutes) + progress);
+				textSeekBarProgress.setText(getString(R.string.EventTimeFold_Duration_Label) + progress);
 				eventDate.setDuration(progress);
 			}
 			
@@ -165,10 +165,10 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	@Override
 	protected void onResume() {
 		super.onResume();
-		selectedLocalizationName = getString(R.string.AddNewConstantEventView_noSelectionItem);
+		selectedLocalizationName = getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection);
 		defaultLocations = locationManagementService.getDefaultLocalizationsAllData();
 		List<String> defaultLocationsAdapterList = new ArrayList<String>();
-		defaultLocationsAdapterList.add(getString(R.string.AddNewConstantEventView_noSelectionItem));
+		defaultLocationsAdapterList.add(getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection));
 		for(Location location : defaultLocations) {
 			defaultLocationsAdapterList.add(location.getName());
 		}
@@ -178,10 +178,10 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				defaultLocalizationSpinner.setSelection(position);
 				selectedLocalizationName = (String) defaultLocalizationSpinner.getSelectedItem();
-				if(selectedLocalizationName.equals(getString(R.string.AddNewConstantEventView_noSelectionItem))) {
-					((TextView)findViewById(R.id.AddNewConstantEventView_oneTimeLocaliationButton)).setEnabled(true);
+				if(selectedLocalizationName.equals(getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection))) {
+					((TextView)findViewById(R.id.LocationChoiceFold_OneTimeLocation_Button_Id)).setEnabled(true);
 				} else {
-					((TextView)findViewById(R.id.AddNewConstantEventView_oneTimeLocaliationButton)).setEnabled(false);
+					((TextView)findViewById(R.id.LocationChoiceFold_OneTimeLocation_Button_Id)).setEnabled(false);
 				}
 			}
 
@@ -230,21 +230,21 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	public void setDate(int year, int month, int day) {
 		Calendar calendar = DateTimeTools.getCalendarInstanceWithDate(year, month, day);
 		eventDate.setDate(calendar.getTime());
-		((TextView) findViewById(R.id.textViewCurrentDate)).setText(new StringBuilder().append(getString(R.string.EventDate_date)).append(": ").append(DateTimeTools.convertDateToString(calendar)));;
+		((TextView) findViewById(R.id.EventDateFold_Date_TextView_Id)).setText(new StringBuilder().append(getString(R.string.EventDate_Date)).append(": ").append(DateTimeTools.convertDateToString(calendar)));;
 	}
 	
 	@Override
 	public void setStartTime(int hour, int minute) {
 		Calendar calendar = DateTimeTools.getCalendarInstanceWithTime(hour, minute);
 		eventDate.setStartTime(calendar.getTime());
-		startTimeTextView.setText(getTimeDescription(getString(R.string.EventDate_start_time), calendar));
+		startTimeTextView.setText(getTimeDescription(getString(R.string.EventTimeFold_StartTime_Label), calendar));
 	}
 	
 	@Override
 	public void setEndTime(int hour, int minute) {
 		Calendar calendar = DateTimeTools.getCalendarInstanceWithTime(hour, minute);
 		eventDate.setEndTime(calendar.getTime());	
-		endTimeTextView.setText(getTimeDescription(getString(R.string.EventDate_end_time), calendar));
+		endTimeTextView.setText(getTimeDescription(getString(R.string.EventTimeFold_EndTime_Label), calendar));
 	}
 
 	private String getTimeDescription(String label, Calendar calendar) {
@@ -254,20 +254,20 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	private void disableStartEndTimeButtons() {
 		startTimeButton.setEnabled(false);
 		endTimeButton.setEnabled(false);
-		startTimeTextView.setText(getString(R.string.AddNewEventView_NotConstantMode_Disabled));
-		endTimeTextView.setText(getString(R.string.AddNewEventView_NotConstantMode_Disabled));
+		startTimeTextView.setText(getString(R.string.AddNewEventView_NotFixedMode_Disabled));
+		endTimeTextView.setText(getString(R.string.AddNewEventView_NotFixedMode_Disabled));
 	}
 	
 	private void enableStartEndTimeButtons() {
 		startTimeButton.setEnabled(true);
 		endTimeButton.setEnabled(true);
-		startTimeTextView.setText(getString(R.string.AddNewEventView_text_view_start_time));
-		endTimeTextView.setText(getString(R.string.AddNewEventView_text_view_end_time));
+		startTimeTextView.setText(getString(R.string.EventTimeFold_StartTime_Label_NoSet));
+		endTimeTextView.setText(getString(R.string.EventTimeFold_EndTime_Label_NoSet));
 	}
 	
 	private void enabledSeekBar() {
 		eventDurationSeekBar.setEnabled(true);
-		textSeekBarProgress.setText(getString(R.string.AddNewEventView_SeekBar_TextView_Minutes) + eventDurationSeekBar.getProgress());
+		textSeekBarProgress.setText(getString(R.string.EventTimeFold_Duration_Label) + eventDurationSeekBar.getProgress());
 	}
 	
 	private void disableSeekBar() {
@@ -302,7 +302,7 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 			case(ONE_TIME_LOCATION_ACTIVITY_ID):
 				if(resultCode == RESULT_OK) {
 					oneTimeLocation = (Location)data.getSerializableExtra(OneTimeLocalizationActivity.LOCATION_RESULT_KEY);
-					((ImageView)findViewById(R.id.AddNewConstantEventView_oneTimeLocaliationImage)).setImageResource(R.drawable.icon_accept);
+					((ImageView)findViewById(R.id.LocationChoiceFold_OneTimeLocation_ImageView_Id)).setImageResource(R.drawable.icon_accept);
 					break;
 				}
 			default: super.onActivityResult(requestCode, resultCode, data);		
@@ -310,7 +310,7 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	}
 	
 	private Location getLocationForEvent() {
-		if(!selectedLocalizationName.equals(getString(R.string.AddNewConstantEventView_noSelectionItem))) {
+		if(!selectedLocalizationName.equals(getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection))) {
 			return locationManagementService.getLocationByName(selectedLocalizationName);
 		} else {
 			locationManagementService.setValuesForNotDefaultLocation(oneTimeLocation);
