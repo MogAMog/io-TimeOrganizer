@@ -15,8 +15,8 @@ public class Event implements Serializable {
 	private Set<EventDate> eventDates = new HashSet<EventDate>();
 	private String title;
 	private String description;
-	private Boolean required;
-	private Boolean constant;
+	private boolean required;
+	private boolean constant;
 	
 	public Event() {
 		super();

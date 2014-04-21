@@ -11,6 +11,7 @@ import com.example.ioproject.R;
 
 import pl.edu.agh.domain.Event;
 import pl.edu.agh.domain.EventDate;
+import pl.edu.agh.domain.databasemanagement.DatabaseProperties;
 import pl.edu.agh.domain.databasemanagement.IDatabaseDmlProvider;
 import pl.edu.agh.domain.tables.EventDateTable;
 import pl.edu.agh.errors.FormValidationError;
@@ -69,7 +70,12 @@ public class EventDateManagementService implements IDatabaseDmlProvider<EventDat
 	public long insert(EventDate insertObject) {
 		ContentValues values = new ContentValues();
 		values.put(EventDateTable.COLUMN_NAME_EVENT_ID, insertObject.getEvent().getId());
-		values.put(EventDateTable.COLUMN_NAME_LOCATION_ID, insertObject.getLocation().getId());
+		if(insertObject.getLocation() != null) {
+			if(insertObject.getLocation().getId() == DatabaseProperties.UNSAVED_ENTITY_ID) {
+				locationManagementService.insert(insertObject.getLocation());
+			}
+			values.put(EventDateTable.COLUMN_NAME_LOCATION_ID, insertObject.getLocation().getId());
+		}
 		values.put(EventDateTable.COLUMN_NAME_DATE, DateTimeTools.convertDateToString(insertObject.getDate()));
 		values.put(EventDateTable.COLUMN_NAME_START_TIME, DateTimeTools.convertTimeToString(insertObject.getStartTime()));
 		values.put(EventDateTable.COLUMN_NAME_END_TIME, DateTimeTools.convertTimeToString(insertObject.getEndTime()));

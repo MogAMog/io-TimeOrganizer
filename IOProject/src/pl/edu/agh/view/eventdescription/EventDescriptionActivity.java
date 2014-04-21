@@ -1,8 +1,10 @@
 package pl.edu.agh.view.eventdescription;
 
 import pl.edu.agh.tools.DateTimeTools;
+import pl.edu.agh.tools.StringTools;
 import pl.edu.agh.view.eventlist.EventListAdapter;
 import pl.edu.agh.view.eventlist.EventListItem;
+import android.R.anim;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -38,9 +40,9 @@ public class EventDescriptionActivity extends Activity {
 		GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.EventDescription_map)).getMap();
 		map.setMyLocationEnabled(true);
 
-		LatLng sydney = new LatLng(eventListItem.getLocation().getLatitude(),
+		LatLng eventLocalization = new LatLng(eventListItem.getLocation().getLatitude(),
 				eventListItem.getLocation().getLongitude());
-		map.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney, 16));
+		map.moveCamera(CameraUpdateFactory.newLatLngZoom(eventLocalization, 16));
 		map.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
 		map.addMarker(new MarkerOptions()
 				.title(eventListItem.getLocation().getName())
@@ -48,7 +50,7 @@ public class EventDescriptionActivity extends Activity {
 						new StringBuilder(eventListItem.getLocation()
 								.getAddress()).append("\n")
 								.append(eventListItem.getLocation().getCity())
-								.toString()).position(sydney));
+								.toString()).position(eventLocalization));
 	}
 
 	private void setRequirementPicture(int imageViewResId, boolean isTrue) {
@@ -59,8 +61,12 @@ public class EventDescriptionActivity extends Activity {
 		}
 	}
 	
-	private void setTextViewText(int textViewId, String label, String value) { 
-		((TextView)findViewById(textViewId)).setText(new StringBuilder().append(label).append(": ").append(value).toString());
+	private void setTextViewText(int textViewId, String label, String value) {
+		if(!StringTools.isNotNullOrEmpty(value)) {
+			((TextView)findViewById(textViewId)).setText(new StringBuilder().append(label).append(": ").toString());
+		} else {
+			((TextView)findViewById(textViewId)).setText(new StringBuilder().append(label).append(": ").append(value).toString());
+		}
 	}
 
 	@Override

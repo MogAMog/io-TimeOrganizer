@@ -21,9 +21,9 @@ public class DateTimeTools {
 	public static Date convertStringToFullDate(String fullDate) {
 		String[] date = fullDate.split(" ")[0].split("\\" + DATE_SEPARATOR);
 		Calendar calendar = new GregorianCalendar();
-		calendar.set(Calendar.YEAR, Integer.valueOf(date[0]));
+		calendar.set(Calendar.DAY_OF_MONTH, Integer.valueOf(date[0]));
 		calendar.set(Calendar.MONTH, Integer.valueOf(date[1]) - 1);
-		calendar.set(Calendar.DAY_OF_MONTH, Integer.valueOf(date[2]));
+		calendar.set(Calendar.YEAR, Integer.valueOf(date[2]));
 		String[] time = fullDate.split(" ")[1].split(TIME_SEPARATOR);
 		calendar.set(Calendar.HOUR_OF_DAY, Integer.valueOf(time[0]));
 		calendar.set(Calendar.MINUTE, Integer.valueOf(time[1]));
@@ -38,9 +38,9 @@ public class DateTimeTools {
 	public static Date convertStringToDate(String dateString) {
 		String[] date = dateString.split("\\" + DATE_SEPARATOR);
 		Calendar calendar = new GregorianCalendar();
-		calendar.set(Calendar.YEAR, Integer.valueOf(date[0]));
+		calendar.set(Calendar.DAY_OF_MONTH, Integer.valueOf(date[0]));
 		calendar.set(Calendar.MONTH, Integer.valueOf(date[1]) - 1);
-		calendar.set(Calendar.DAY_OF_MONTH, Integer.valueOf(date[2]));
+		calendar.set(Calendar.YEAR, Integer.valueOf(date[2]));
 		calendar.set(Calendar.HOUR_OF_DAY, 0);
 		calendar.set(Calendar.MINUTE, 0);
 		calendar.set(Calendar.SECOND, 0);
@@ -101,6 +101,16 @@ public class DateTimeTools {
 		calendar.set(Calendar.HOUR_OF_DAY, hour);
 		calendar.set(Calendar.MINUTE, minute);
 		calendar.set(Calendar.SECOND, 0);
+		return calendar;
+	}
+	
+	public static int getMinuteDifferenceBetweenTwoDates(Date firstDate, Date secondDate) {
+		return Math.abs(getCalendarFromDate(firstDate).get(Calendar.MINUTE) - getCalendarFromDate(secondDate).get(Calendar.MINUTE));
+	}
+
+	public static Calendar getCalendarFromDate(Date date) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
 		return calendar;
 	}
 }

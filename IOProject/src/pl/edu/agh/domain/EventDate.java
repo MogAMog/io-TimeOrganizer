@@ -15,7 +15,7 @@ public class EventDate implements Serializable {
 	private Date startTime;
 	private Date endTime;
 	private Integer duration;
-	private Boolean finished;
+	private boolean finished;
 	
 	public EventDate() {
 		super();

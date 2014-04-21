@@ -1,5 +1,6 @@
 package pl.edu.agh.view.addevent;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -72,8 +73,6 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	private List<Location> defaultLocations;
 	private Location oneTimeLocation = new Location();
 	
-	boolean fixedTimeChosen = false;
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -131,8 +130,7 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 				} else {
 					disableStartEndTimeButtons();
 					enabledSeekBar();
-				}
-				event.setConstant(isChecked);				
+				}			
 			}
 		});
 		
@@ -281,8 +279,8 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		event.addEventDate(eventDate);
 		event.setAccount(AccountManagementService.DEFAULT_ACCOUNT);
 		event.setPredecessorEvent(null);
-		if(fixedTimeChosen) {
-			eventDate.setDuration(45);
+		if(((CheckBox) findViewById(R.id.EventRequirementFold_FixedTime_Id)).isChecked()) {
+			eventDate.setDuration(DateTimeTools.getMinuteDifferenceBetweenTwoDates(eventDate.getStartTime(), eventDate.getEndTime()));
 		} else {
 			eventDate.setStartTime(new GregorianCalendar().getTime());
 			eventDate.setEndTime(new GregorianCalendar().getTime());

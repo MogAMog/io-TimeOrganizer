@@ -19,7 +19,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class LocationManagementService implements IDatabaseDmlProvider<Location>, IEntityValidation<Location> {
 
-	private static final String NOT_DEFAULT_LOCALIZATION_COMMON_NAME = "DefaultName";
+	private static final String ONE_TIME_SPECIFIC_LOCALIZATION = "One Time Event Specific Localization\nAdrress and City not provided.";
 	
 	private SQLiteOpenHelper dbHelper;
 
@@ -122,7 +122,7 @@ public class LocationManagementService implements IDatabaseDmlProvider<Location>
 	}
 	
 	public void setValuesForNotDefaultLocation(Location location) {
-		location.setName(NOT_DEFAULT_LOCALIZATION_COMMON_NAME);
+		location.setName(ONE_TIME_SPECIFIC_LOCALIZATION);
 		location.setAddress("");
 		location.setCity("");
 		location.setDefaultLocation(false);
