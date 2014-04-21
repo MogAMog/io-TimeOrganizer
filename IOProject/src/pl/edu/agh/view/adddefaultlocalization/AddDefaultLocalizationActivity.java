@@ -17,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ioproject.R;
 import com.google.android.gms.maps.CameraUpdateFactory;

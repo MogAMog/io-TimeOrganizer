@@ -35,7 +35,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
                     android:ems="10"
-                    android:hint="@string/AddNewConstantEventView.event_title" >
+                    android:hint="@string/EventTitleAndDescriptionFold.AddEventTitle.Hint" >
                 </EditText>
 
                 <EditText
@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
                     android:ems="10"
-                    android:hint="@string/AddNewConstantEventView.event_description"
+                    android:hint="@string/EventTitleAndDescriptionFold.AddEventDescription.Hint"
                     android:minLines="4"
                     android:scrollHorizontally="true"
                     android:textAlignment="center" />
@@ -59,7 +59,7 @@
                 android:paddingLeft="@dimen/Shape.Frame.Title.PaddingLeftRight"
                 android:paddingRight="@dimen/Shape.Frame.Title.PaddingLeftRight"
                 android:paddingTop="@dimen/Shape.Frame.Title.PaddingTopDown"
-                android:text="@string/AddNewEventView.title_description_legend" />
+                android:text="@string/EventTitleAndDescriptionFold.Legend" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -89,16 +89,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/AddNewConstantEventView.spacingBetweenItems"
-                        android:text="@string/AddNewConstantEventView.defaultLocalizationSpinnerLabel" />
+                        android:text="@string/LocationChoiceFold.DefaultLocationList.Label" />
 
                     <Spinner
-                        android:id="@+id/ConstantEventAdd.defaultLocalizationSpinner"
+                        android:id="@+id/LocationChoiceFold.DefaultLocationList.Id"
                         android:layout_width="0dip"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/shape_frame_black"
-                        android:padding="5dp"
-                        android:prompt="@string/AddNewConstantEvent.spinner_prompt" />
+                        android:padding="5dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -112,22 +111,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/AddNewConstantEventView.spacingBetweenItems"
-                        android:text="@string/AddNewConstantEventView.oneTimeLocalizationLabel" />
+                        android:text="@string/LocationChoiceFold.OneTimeLocation.Label" />
 
                     <Button
-                        android:id="@+id/AddNewConstantEventView.oneTimeLocaliationButton"
+                        android:id="@+id/LocationChoiceFold.OneTimeLocation.Button.Id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:onClick="invokeOneTimeLocationActivityForResult"
-                        android:text="@string/AddNewConstantEventView.oneTimeLocalizationButtonLabel" />
+                        android:text="@string/LocationChoiceFold.OneTimeLocation.Button.Label" />
 
                     <ImageView
-                        android:id="@+id/AddNewConstantEventView.oneTimeLocaliationImage"
+                        android:id="@+id/LocationChoiceFold.OneTimeLocation.ImageView.Id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:contentDescription="@string/EventDescription.constant_image_description"
-                        android:src="@drawable/decline"
-                        android:padding="20dp" />
+                        android:contentDescription="@string/Image.Description"
+                        android:padding="20dp"
+                        android:src="@drawable/decline" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -140,7 +139,7 @@
                 android:paddingLeft="@dimen/Shape.Frame.Title.PaddingLeftRight"
                 android:paddingRight="@dimen/Shape.Frame.Title.PaddingLeftRight"
                 android:paddingTop="@dimen/Shape.Frame.Title.PaddingTopDown"
-                android:text="@string/AddNewEventView.localization_legend" />
+                android:text="@string/LocationChoiceFold.Legend" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -167,20 +166,21 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/Image.Description"
                         android:src="@drawable/calendar_icon" />
 
                     <TextView
                         android:id="@+id/ConstantEventAdd.textStartDate"
                         android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
                         android:layout_height="wrap_content"
-                        android:text="@string/AddNewConstantEventView.textStartDate" />
+                        android:text="@string/EventDateFold.StartDate.Label.NoSet" />
 
                     <Button
                         android:id="@+id/ConstantEventAdd.buttonStartDate"
                         android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
                         android:layout_height="wrap_content"
                         android:onClick="showStartDatePickerDialog"
-                        android:text="@string/AddNewConstantEventView.buttonStartDate" />
+                        android:text="@string/EventDateFold.StartDate.Button.Label" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -192,20 +192,21 @@
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/Image.Description"
                         android:src="@drawable/calendar_icon" />
 
                     <TextView
                         android:id="@+id/ConstantEventAdd.textEndDate"
                         android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
                         android:layout_height="wrap_content"
-                        android:text="@string/AddNewConstantEventView.textEndDate" />
+                        android:text="@string/EventDateFold.EndDate.Label.NoSet" />
 
                     <Button
                         android:id="@+id/ConstantEventAdd.buttonEndDate"
                         android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
                         android:layout_height="wrap_content"
                         android:onClick="showEndDatePickerDialog"
-                        android:text="@string/AddNewConstantEventView.buttonEndDate" />
+                        android:text="@string/EventDateFold.EndDate.Button.Label" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -218,7 +219,7 @@
                 android:paddingLeft="@dimen/Shape.Frame.Title.PaddingLeftRight"
                 android:paddingRight="@dimen/Shape.Frame.Title.PaddingLeftRight"
                 android:paddingTop="@dimen/Shape.Frame.Title.PaddingTopDown"
-                android:text="@string/AddNewConstantEventView.date_legend" />
+                android:text="@string/EventDateFold.Legend" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -247,7 +248,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/AddNewConstantEventView.spacingBetweenItems"
-                        android:text="@string/AddNewConstantEventView.spinnerLabel" />
+                        android:text="@string/EventFrequencyFold.List.Label" />
 
                     <Spinner
                         android:id="@+id/ConstantEventAdd.spinner"
@@ -255,8 +256,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/shape_frame_black"
-                        android:padding="5dp"
-                        android:prompt="@string/AddNewConstantEvent.spinner_prompt" />
+                        android:padding="5dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -269,25 +269,25 @@
                         android:id="@+id/checkBoxMONDAY"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/AddNewConstantEventView.checkBoxMonday" />
+                        android:text="@string/EventFrequencyFold.CheckBox.Monday" />
 
                     <CheckBox
                         android:id="@+id/checkBoxTUESDAY"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/AddNewConstantEventView.checkBoxTuesday" />
+                        android:text="@string/EventFrequencyFold.CheckBox.Tuesday" />
 
                     <CheckBox
                         android:id="@+id/checkBoxWEDNESDAY"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/AddNewConstantEventView.checkBoxWednesday" />
+                        android:text="@string/EventFrequencyFold.CheckBox.Wednesday" />
 
                     <CheckBox
                         android:id="@+id/checkBoxTHURSDAY"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/AddNewConstantEventView.checkBoxThursday" />
+                        android:text="@string/EventFrequencyFold.CheckBox.Thursday" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -300,19 +300,19 @@
                         android:id="@+id/checkBoxFRIDAY"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/AddNewConstantEventView.checkBoxFriday" />
+                        android:text="@string/EventFrequencyFold.CheckBox.Friday" />
 
                     <CheckBox
                         android:id="@+id/checkBoxSATURDAY"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/AddNewConstantEventView.checkBoxSaturday" />
+                        android:text="@string/EventFrequencyFold.CheckBox.Saturday" />
 
                     <CheckBox
                         android:id="@+id/checkBoxSUNDAY"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/AddNewConstantEventView.checkBoxSunday" />
+                        android:text="@string/EventFrequencyFold.CheckBox.Sunday" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -325,7 +325,7 @@
                 android:paddingLeft="@dimen/Shape.Frame.Title.PaddingLeftRight"
                 android:paddingRight="@dimen/Shape.Frame.Title.PaddingLeftRight"
                 android:paddingTop="@dimen/Shape.Frame.Title.PaddingTopDown"
-                android:text="@string/AddNewConstantEventView.frequency_legend" />
+                android:text="@string/EventFrequencyFold.Legend" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -349,23 +349,23 @@
                     android:gravity="center" >
 
                     <ImageView
-                        android:id="@+id/imageView1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/Image.Description"
                         android:src="@drawable/clock_blue" />
 
                     <TextView
                         android:id="@+id/ConstantEventAdd.textStartTime"
                         android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
                         android:layout_height="wrap_content"
-                        android:text="@string/AddNewEventView.text_view_start_time" />
+                        android:text="@string/EventTimeFold.StartTime.Label.NoSet" />
 
                     <Button
                         android:id="@+id/ConstantEventAdd.buttonStartTime"
                         android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
                         android:layout_height="wrap_content"
                         android:onClick="showStartTimePickerDialog"
-                        android:text="@string/start_time_event_add" />
+                        android:text="@string/EventTimeFold.StartTime.Button.Label" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -375,23 +375,23 @@
                     android:gravity="center" >
 
                     <ImageView
-                        android:id="@+id/imageView2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:contentDescription="@string/Image.Description"
                         android:src="@drawable/clock_blue" />
 
                     <TextView
                         android:id="@+id/ConstantEventAdd.textEndTime"
                         android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
                         android:layout_height="wrap_content"
-                        android:text="@string/AddNewEventView.text_view_end_time" />
+                        android:text="@string/EventTimeFold.EndTime.Label.NoSet" />
 
                     <Button
                         android:id="@+id/ConstantEventAdd.buttonEndTime"
                         android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
                         android:layout_height="wrap_content"
                         android:onClick="showEndTimePickerDialog"
-                        android:text="@string/end_time_event_add" />
+                        android:text="@string/EventTimeFold.EndTime.Button.Label" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -404,7 +404,7 @@
                 android:paddingLeft="@dimen/Shape.Frame.Title.PaddingLeftRight"
                 android:paddingRight="@dimen/Shape.Frame.Title.PaddingLeftRight"
                 android:paddingTop="@dimen/Shape.Frame.Title.PaddingTopDown"
-                android:text="@string/AddNewConstantEventView.time_legend" />
+                android:text="@string/EventTimeFold.Legend" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -427,7 +427,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
-                    android:text="@string/AddNewConstantEventView.required_checkbox_event_add" />
+                    android:text="@string/EventRequirementFold.Required" />
             </LinearLayout>
 
             <TextView
@@ -439,23 +439,15 @@
                 android:paddingLeft="@dimen/Shape.Frame.Title.PaddingLeftRight"
                 android:paddingRight="@dimen/Shape.Frame.Title.PaddingLeftRight"
                 android:paddingTop="@dimen/Shape.Frame.Title.PaddingTopDown"
-                android:text="@string/AddNewEventView.requirements_legend" />
+                android:text="@string/EventRequirementFold.Legend" />
         </RelativeLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <Button
+            android:id="@+id/ConstantEventAdd.buttonAddEvent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center" >
-
-            <Button
-                android:id="@+id/ConstantEventAdd.buttonAddEvent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/addevent_event_add"
-                android:onClick="addNewConstantEventAction" />
-
-        </LinearLayout>
-
+            android:onClick="addNewConstantEventAction"
+            android:text="@string/AddNewEventView.AddEvent.Button.Label" />
     </LinearLayout>
 
 </ScrollView>

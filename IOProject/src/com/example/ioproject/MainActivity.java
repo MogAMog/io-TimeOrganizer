@@ -1,8 +1,8 @@
 package com.example.ioproject;
 
 import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
-import pl.edu.agh.view.addconstantevent.ConstantEventAddActivity;
 import pl.edu.agh.view.adddefaultlocalization.AddDefaultLocalizationActivity;
+import pl.edu.agh.view.addevent.ConstantEventAddActivity;
 import pl.edu.agh.view.addevent.EventAddActivity;
 import android.app.Activity;
 import android.content.Intent;

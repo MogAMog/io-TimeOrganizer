@@ -12,7 +12,6 @@ public class Event implements Serializable {
 	private long id = DatabaseProperties.UNSAVED_ENTITY_ID;
 	private Account account;
 	private Event predecessorEvent;
-	private Location defaultLocation;
 	private Set<EventDate> eventDates = new HashSet<EventDate>();
 	private String title;
 	private String description;
@@ -23,10 +22,9 @@ public class Event implements Serializable {
 		super();
 	}
 
-	public Event(Account account, Event predecessorEvent, Location defaultLocation, String title, String description, boolean required, boolean constant) {
+	public Event(Account account, Event predecessorEvent, String title, String description, boolean required, boolean constant) {
 		this.account = account;
 		this.predecessorEvent = predecessorEvent;
-		this.defaultLocation = defaultLocation;
 		this.title = title;
 		this.description = description;
 		this.required = required;
@@ -55,14 +53,6 @@ public class Event implements Serializable {
 
 	public void setPredecessorEvent(Event predecessorEvent) {
 		this.predecessorEvent = predecessorEvent;
-	}
-
-	public Location getDefaultLocation() {
-		return defaultLocation;
-	}
-
-	public void setDefaultLocation(Location defaultLocation) {
-		this.defaultLocation = defaultLocation;
 	}
 
 	public String getTitle() {
@@ -114,8 +104,7 @@ public class Event implements Serializable {
 	public String toString() {
 		return "Event [id=" + id + ", account=" + account
 				+ ", predecessorEvent=" + predecessorEvent
-				+ ", defaultLocation=" + defaultLocation + ", eventDates="
-				+ eventDates + ", title=" + title + ", description="
+				+ ", eventDates=" + eventDates + ", title=" + title + ", description="
 				+ description + ", required=" + required + ", constant="
 				+ constant + "]";
 	}

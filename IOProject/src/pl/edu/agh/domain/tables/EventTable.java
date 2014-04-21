@@ -15,7 +15,6 @@ public class EventTable implements BaseColumns, IDatabaseTableSchema {
 	public static final String TABLE_NAME = "Event";
 	public static final String COLUMN_NAME_ACCOUNT_ID = "AccountID";
 	public static final String COLUMN_NAME_PREDECESSOR_EVENT_ID = "PredecessorEventID";
-	public static final String COLUMN_NAME_DEFAULT_LOCATION_ID = "DefaultLocationID";
 	public static final String COLUMN_NAME_TITLE = "Title";
 	public static final String COLUMN_NAME_DESCRIPTION = "Description";
 	public static final String COLUMN_NAME_IS_REQUIRED = "IsRequired";
@@ -41,7 +40,6 @@ public class EventTable implements BaseColumns, IDatabaseTableSchema {
 		columnsWithNames.put(EventTable._ID, SqliteDatatypesHelper.getSqliteDatabaseType(Long.class));
 		columnsWithNames.put(COLUMN_NAME_ACCOUNT_ID, SqliteDatatypesHelper.getSqliteDatabaseType(Long.class));
 		columnsWithNames.put(COLUMN_NAME_PREDECESSOR_EVENT_ID, SqliteDatatypesHelper.getSqliteDatabaseType(Long.class));
-		columnsWithNames.put(COLUMN_NAME_DEFAULT_LOCATION_ID, SqliteDatatypesHelper.getSqliteDatabaseType(Long.class));
 		columnsWithNames.put(COLUMN_NAME_TITLE, SqliteDatatypesHelper.getSqliteDatabaseType(String.class));
 		columnsWithNames.put(COLUMN_NAME_DESCRIPTION, SqliteDatatypesHelper.getSqliteDatabaseType(String.class));
 		columnsWithNames.put(COLUMN_NAME_IS_REQUIRED, SqliteDatatypesHelper.getSqliteDatabaseType(Boolean.class));
@@ -69,7 +67,6 @@ public class EventTable implements BaseColumns, IDatabaseTableSchema {
 		List<ForeignKeyMapping> fkMapping = new ArrayList<ForeignKeyMapping>();
 		fkMapping.add(new ForeignKeyMapping(COLUMN_NAME_ACCOUNT_ID, AccountTable.TABLE_NAME, AccountTable._ID));
 		fkMapping.add(new ForeignKeyMapping(COLUMN_NAME_PREDECESSOR_EVENT_ID, EventTable.TABLE_NAME, EventTable._ID));
-		fkMapping.add(new ForeignKeyMapping(COLUMN_NAME_DEFAULT_LOCATION_ID, LocationTable.TABLE_NAME, LocationTable._ID));
 		return fkMapping;
 	}
 	

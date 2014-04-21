@@ -50,7 +50,7 @@ public class EventListItem implements Serializable {
 	}
 	
 	public Location getLocation() {
-		return event.getDefaultLocation() != null ? event.getDefaultLocation() : eventDate.getLocation();
+		return eventDate.getLocation();
 	}
 	
 	public void setFinished(boolean isFinished) {

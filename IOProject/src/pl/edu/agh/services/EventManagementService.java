@@ -23,13 +23,11 @@ public class EventManagementService implements IDatabaseDmlProvider<Event>, IEnt
 	private SQLiteOpenHelper dbHelper;
 	private AccountManagementService accountManagementService;
 	private EventDateManagementService eventDateManagementService;
-	private LocationManagementService locationManagementService;
 	
 	public EventManagementService(SQLiteOpenHelper dbHelper) {
 		this.dbHelper = dbHelper;
 		this.accountManagementService = new AccountManagementService(dbHelper);
 		this.eventDateManagementService = new EventDateManagementService(dbHelper);
-		this.locationManagementService = new LocationManagementService(dbHelper);
 	}
 	
 	@Override
@@ -40,9 +38,6 @@ public class EventManagementService implements IDatabaseDmlProvider<Event>, IEnt
 		}
 		if(StringTools.isNullOrEmpty(entity.getTitle())) {
 			errors.add(new FormValidationError(R.string.Validation_Event_Title_NotNull));
-		}
-		if(entity.getDefaultLocation() != null) {
-			errors.addAll(locationManagementService.validate(entity.getDefaultLocation()));
 		}
 //		if(entity.isRequired() == null) {
 //			errors.addAll(new FormValidationError("R.string.Validation_Event_IsRequired_NotNull"));
@@ -77,18 +72,13 @@ public class EventManagementService implements IDatabaseDmlProvider<Event>, IEnt
 			}
 			values.put(EventTable.COLUMN_NAME_ACCOUNT_ID, insertObject.getAccount().getId());
 		}
-		if(insertObject.getDefaultLocation() != null) {
-			if(insertObject.getDefaultLocation().getId() == DatabaseProperties.UNSAVED_ENTITY_ID) {
-				locationManagementService.insert(insertObject.getDefaultLocation());
-			}
-			values.put(EventTable.COLUMN_NAME_DEFAULT_LOCATION_ID, insertObject.getDefaultLocation().getId());
-		}
 		long id = dbHelper.getWritableDatabase().insert(EventTable.TABLE_NAME, null, values);
 		insertObject.setId(id);
 		
 		if(insertObject.getEventDates() != null && !insertObject.getEventDates().isEmpty()) {
 			for(EventDate eventDate : insertObject.getEventDates()) {
-				eventDateManagementService.insert(eventDate, insertObject);
+				eventDate.setEvent(insertObject);
+				eventDateManagementService.insert(eventDate);
 			}
 		}
 		return id;

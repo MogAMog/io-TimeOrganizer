@@ -1,4 +1,4 @@
-package pl.edu.agh.view.addconstantevent;
+package pl.edu.agh.view.addevent;
 
 import java.util.ArrayList;
 
@@ -171,6 +171,7 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 	@Override
 	protected void onResume() {
 		super.onResume();
+		selectedLocalizationName = getString(R.string.AddNewConstantEventView_noSelectionItem);
 		defaultLocations = locationManagementService.getDefaultLocalizationsAllData();
 		List<String> defaultLocationsAdapterList = new ArrayList<String>();
 		defaultLocationsAdapterList.add(getString(R.string.AddNewConstantEventView_noSelectionItem));
@@ -345,7 +346,6 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		Account account = AccountManagementService.DEFAULT_ACCOUNT;
 		event.setAccount(account);
 		event.setPredecessorEvent(null);
-		event.setDefaultLocation(new Location("Basen", "D17 AGH", "Krakow", 50.068408, 19.901062, true));
 		eventManagementService.insert(event);
 		finish();
 	}

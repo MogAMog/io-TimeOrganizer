@@ -11,7 +11,7 @@ import com.example.ioproject.R;
 
 import pl.edu.agh.domain.Event;
 import pl.edu.agh.domain.EventDate;
-import pl.edu.agh.domain.Location;
+import pl.edu.agh.domain.databasemanagement.IDatabaseDmlProvider;
 import pl.edu.agh.domain.tables.EventDateTable;
 import pl.edu.agh.errors.FormValidationError;
 import pl.edu.agh.services.interfaces.IEntityValidation;
@@ -21,7 +21,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
 
-public class EventDateManagementService implements IEntityValidation<EventDate> {
+public class EventDateManagementService implements IDatabaseDmlProvider<EventDate>, IEntityValidation<EventDate> {
 
 	private SQLiteOpenHelper dbHelper;
 	private LocationManagementService locationManagementService;
@@ -66,43 +66,16 @@ public class EventDateManagementService implements IEntityValidation<EventDate> 
 		return errors;
 	}
 
-	public long insert(EventDate insertObject, Event event) {
+	public long insert(EventDate insertObject) {
 		ContentValues values = new ContentValues();
-		values.put(EventDateTable.COLUMN_NAME_EVENT_ID, event.getId());
-		values.put(EventDateTable.COLUMN_NAME_LOCATION_ID, event
-				.getDefaultLocation().getId());
-		values.put(EventDateTable.COLUMN_NAME_DATE,
-				DateTimeTools.convertDateToString(insertObject.getDate()));
-		values.put(EventDateTable.COLUMN_NAME_START_TIME,
-				DateTimeTools.convertTimeToString(insertObject.getStartTime()));
-		values.put(EventDateTable.COLUMN_NAME_END_TIME,
-				DateTimeTools.convertTimeToString(insertObject.getEndTime()));
-		values.put(EventDateTable.COLUMN_NAME_DURATION,
-				insertObject.getDuration());
-		values.put(EventDateTable.COLUMN_NAME_FINISHED,
-				BooleanTools.convertBooleanToInt(insertObject.isFinished()));
-		long id = dbHelper.getWritableDatabase().insert(
-				EventDateTable.TABLE_NAME, null, values);
-		insertObject.setId(id);
-		return id;
-	}
-
-	public long insert(EventDate insertObject, Event event, Location location) {
-		ContentValues values = new ContentValues();
-		values.put(EventDateTable.COLUMN_NAME_EVENT_ID, event.getId());
-		values.put(EventDateTable.COLUMN_NAME_LOCATION_ID, location.getId());
-		values.put(EventDateTable.COLUMN_NAME_DATE,
-				DateTimeTools.convertDateToString(insertObject.getDate()));
-		values.put(EventDateTable.COLUMN_NAME_START_TIME,
-				DateTimeTools.convertTimeToString(insertObject.getStartTime()));
-		values.put(EventDateTable.COLUMN_NAME_END_TIME,
-				DateTimeTools.convertTimeToString(insertObject.getEndTime()));
-		values.put(EventDateTable.COLUMN_NAME_DURATION,
-				insertObject.getDuration());
-		values.put(EventDateTable.COLUMN_NAME_FINISHED,
-				BooleanTools.convertBooleanToInt(insertObject.isFinished()));
-		long id = dbHelper.getWritableDatabase().insert(
-				EventDateTable.TABLE_NAME, null, values);
+		values.put(EventDateTable.COLUMN_NAME_EVENT_ID, insertObject.getEvent().getId());
+		values.put(EventDateTable.COLUMN_NAME_LOCATION_ID, insertObject.getLocation().getId());
+		values.put(EventDateTable.COLUMN_NAME_DATE, DateTimeTools.convertDateToString(insertObject.getDate()));
+		values.put(EventDateTable.COLUMN_NAME_START_TIME, DateTimeTools.convertTimeToString(insertObject.getStartTime()));
+		values.put(EventDateTable.COLUMN_NAME_END_TIME, DateTimeTools.convertTimeToString(insertObject.getEndTime()));
+		values.put(EventDateTable.COLUMN_NAME_DURATION, insertObject.getDuration());
+		values.put(EventDateTable.COLUMN_NAME_FINISHED, BooleanTools.convertBooleanToInt(insertObject.isFinished()));
+		long id = dbHelper.getWritableDatabase().insert(EventDateTable.TABLE_NAME, null, values);
 		insertObject.setId(id);
 		return id;
 	}
@@ -147,6 +120,16 @@ public class EventDateManagementService implements IEntityValidation<EventDate> 
 		} finally {
 			cursor.close();
 		}
+	}
+
+	@Override
+	public EventDate getByIdAllData(long id) {
+		return null;
+	}
+
+	@Override
+	public List<EventDate> getAll() {
+		return null;
 	}
 
 }
