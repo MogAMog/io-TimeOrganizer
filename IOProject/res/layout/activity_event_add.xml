@@ -31,7 +31,7 @@
                 android:padding="5dp" >
 
                 <EditText
-                    android:id="@+id/ConstantEventAdd_eventTitle"
+                    android:id="@+id/EventTitleAndDescriptionFold.AddEventTitle.Id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
@@ -40,7 +40,7 @@
                 </EditText>
 
                 <EditText
-                    android:id="@+id/ConstantEventAdd_eventDescription"
+                    android:id="@+id/EventTitleAndDescriptionFold.AddEventDescription.Id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
@@ -159,13 +159,13 @@
                 android:padding="@dimen/Shape.Frame.MainFrame.Padding" >
 
                 <CheckBox
-                    android:id="@+id/checkBoxFixedTime"
+                    android:id="@+id/EventRequirementFold.FixedTime.Id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/EventRequirementFold.FixedTime" />
 
                 <CheckBox
-                    android:id="@+id/checkBoxRequired"
+                    android:id="@+id/EventRequirementFold.Required.Id"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/EventRequirementFold.Required" />
@@ -212,13 +212,13 @@
                         android:contentDescription="@string/Image.Description" />
 
                     <TextView
-                        android:id="@+id/textViewCurrentDate"
+                        android:id="@+id/EventDateFold.Date.TextView.Id"
                         android:layout_width="@dimen/AddNewEventView.timeAndDateInformationText"
                         android:layout_height="wrap_content"
                         android:text="@string/EventDateFold.Date.Label.NoSet" />
 
                     <Button
-                        android:id="@+id/buttonPickDate"
+                        android:id="@+id/EventDateFold.Date.Button.Id"
                         android:layout_width="@dimen/AddNewEventView.timeAndDateButtonWidth"
                         android:layout_height="wrap_content"
                         android:onClick="showDatePickerDialog"
@@ -238,13 +238,13 @@
                         android:contentDescription="@string/Image.Description" />
 
                     <TextView
-                        android:id="@+id/textViewStartTime"
+                        android:id="@+id/EventTimeFold.StartTime.TextView.Id"
                         android:layout_width="@dimen/AddNewEventView.timeAndDateInformationText"
                         android:layout_height="wrap_content"
                         android:text="@string/EventTimeFold.StartTime.Label.NoSet" />
 
                     <Button
-                        android:id="@+id/buttonStartTime"
+                        android:id="@+id/EventTimeFold.StartTime.Button.Id"
                         android:layout_width="@dimen/AddNewEventView.timeAndDateButtonWidth"
                         android:layout_height="wrap_content"
                         android:enabled="false"
@@ -265,13 +265,13 @@
                         android:contentDescription="@string/Image.Description" />
 
                     <TextView
-                        android:id="@+id/textViewEndTime"
+                        android:id="@+id/EventTimeFold.EndTime.TextView.Id"
                         android:layout_width="@dimen/AddNewEventView.timeAndDateInformationText"
                         android:layout_height="wrap_content"
                         android:text="@string/EventTimeFold.EndTime.Label.NoSet" />
 
                     <Button
-                        android:id="@+id/buttonEndTime"
+                        android:id="@+id/EventTimeFold.EndTime.Button.Id"
                         android:layout_width="@dimen/AddNewEventView.timeAndDateButtonWidth"
                         android:layout_height="wrap_content"
                         android:enabled="false"
@@ -289,14 +289,14 @@
                     android:orientation="vertical" >
 
                     <TextView
-                        android:id="@+id/textSeekBarProgress"
+                        android:id="@+id/EventTimeFold.Duration.TextView.Id"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
-                        android:text="@string/event_duration_event_add" />
+                        android:text="@string/EventTimeFold.Duration.Label" />
 
                     <SeekBar
-                        android:id="@+id/seekBarEventDuration"
+                        android:id="@+id/EventTimeFold.Duration.SeekBar.Id"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:max="180" />
@@ -316,7 +316,7 @@
         </RelativeLayout>
 
         <Button
-            android:id="@+id/buttonAddEvent"
+            android:id="@+id/AddNewEventView.AddEvent.Button.Id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="addNewEventAction"

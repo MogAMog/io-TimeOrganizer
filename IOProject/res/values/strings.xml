@@ -24,15 +24,12 @@
     <!-- ************************************** Add New Event View *************************************** -->
     <!-- ************************************************************************************************* -->
     <string name="AddNewEventView.AddEvent.Button.Label">Add event</string>
-    <string name="AddNewEventView.duration_event_add">Duration</string>
-    <string name="AddNewEventView.SeekBar.TextView.Minutes">How many minutes long: </string>
-    <string name="AddNewEventView.NotConstantMode.Disabled">Not required in this mode</string>
+    <string name="AddNewEventView.NotFixedMode.Disabled">Not required in this mode</string>
 
     <!-- ************************************************************************************************* -->
     <!-- ************************************** Add New Constant Event View *************************************** -->
     <!-- ************************************************************************************************* -->
     <string name="AddNewConstantEvent.spinner_prompt">Choose the interspace</string>
-    <string name="AddNewConstantEventView.seekBarLabel">How many minutes long:</string>
 
     <!-- ************************************************************************************************* -->
     <!-- ************************************** Main Activity View *************************************** -->
@@ -190,5 +187,6 @@
     <string name="EventDateFold.Date.Label"></string>
     <string name="EventDateFold.Date.Label.NoSet">Date not set</string>
     <string name="EventDateFold.Date.Button.Label">Pick Date</string>
+    <string name="EventTimeFold.Duration.Label">How many minutes long: </string>
 
 </resources>
