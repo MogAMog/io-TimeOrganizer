@@ -27,9 +27,13 @@ public class DefaultLocalizationListActivity extends ListActivity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		reloadLocationsList();
+	}
+
+	public void reloadLocationsList() {
 		List<Location> defaultLocations = locationManagementService.getDefaultLocalizationsAllData();
 		localizationListAdapter = new DefaultLocalizationListAdapter(this, R.layout.default_localization_list_item, defaultLocations);
 		setListAdapter(localizationListAdapter);
 	}
-
+	
 }

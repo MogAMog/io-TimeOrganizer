@@ -128,6 +128,20 @@ public class LocationManagementService implements IDatabaseDmlProvider<Location>
 		location.setDefaultLocation(false);
 	}
 	
+	public void delete(long id) {
+		String selection = LocationTable._ID + " = ?";
+		String [] selectionArguments = new String[] { Long.toString(id) };
+		dbHelper.getWritableDatabase().delete(LocationTable.TABLE_NAME, selection, selectionArguments);
+	}
+	
+	public void setLocationNotDefault(long id) {
+		String selection = LocationTable._ID + " = ?";
+		String[] selectionArguments = new String[] { Long.toString(id) };
+		ContentValues values = new ContentValues();
+		values.put(LocationTable.COLUMN_NAME_DEFAULT, BooleanTools.convertBooleanToInt(false));
+		dbHelper.getReadableDatabase().update(LocationTable.TABLE_NAME, values, selection, selectionArguments);
+	}
+	
 	private Location getLocationFromCursor(Cursor cursor) {
 		Location location = new Location();
 		location.setId(cursor.getLong(cursor.getColumnIndex(LocationTable._ID)));

@@ -199,5 +199,8 @@
     <string name="DefaultLocalizationList.Item.Location.Address.NoSet">No Address</string>
     <string name="DefaultLocalizationList.Item.Location.City.NoSet">No City</string>
     <string name="DefaultLocalizationList.Empty">No default localizations</string>
+    <string name="DefaultLocalizationList.DeleteLocalization.AlertDialog.Title">Delete Location</string>
+    <string name="DefaultLocalizationList.DeleteLocalization.AlertDialog.Message">Do you want to delete</string>
+    
 
 </resources>

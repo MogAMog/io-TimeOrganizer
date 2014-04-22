@@ -5,8 +5,13 @@ import java.util.List;
 import com.example.ioproject.R;
 
 import pl.edu.agh.domain.Location;
+import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
+import pl.edu.agh.services.LocationManagementService;
 import pl.edu.agh.tools.StringTools;
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,10 +53,14 @@ public class DefaultLocalizationListAdapter extends ArrayAdapter<Location> {
 	
 	public static final String CURRENT_LOCATION_KEY = "CurrentLocationSelectedKey";
 	private List<Location> items;
+	private LocationManagementService locationManagementService;
+	private DefaultLocalizationListActivity activity;
 	
 	public DefaultLocalizationListAdapter(Context context, int resource, List<Location> items) {
 		super(context, resource);
 		this.items = items;
+		this.activity = (DefaultLocalizationListActivity)context;
+		this.locationManagementService = new LocationManagementService(new MainDatabaseHelper(context));
 	}
 
 	@Override
@@ -70,7 +79,23 @@ public class DefaultLocalizationListAdapter extends ArrayAdapter<Location> {
 		viewHolder.deleteLocationImageButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getContext(), "Delete Location " + items.get(position).getName(), Toast.LENGTH_LONG).show();
+				AlertDialog.Builder alertDialog = new AlertDialog.Builder(getContext());
+				alertDialog.setTitle(getContext().getString(R.string.DefaultLocalizationList_DeleteLocalization_AlertDialog_Title));
+				alertDialog.setMessage(getContext().getString(R.string.DefaultLocalizationList_DeleteLocalization_AlertDialog_Message) + " " + items.get(position).getName());
+				alertDialog.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						locationManagementService.setLocationNotDefault(items.get(position).getId());
+						activity.reloadLocationsList();
+					}
+				});
+				alertDialog.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+				alertDialog.show();
 			}
 		});
 		

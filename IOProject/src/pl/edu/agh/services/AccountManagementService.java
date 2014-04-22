@@ -38,8 +38,6 @@ public class AccountManagementService implements IDatabaseDmlProvider<Account>, 
 		return errors;
 	}
 
-
-
 	@Override
 	public long insert(Account insertObject) {
 		ContentValues values = new ContentValues();
