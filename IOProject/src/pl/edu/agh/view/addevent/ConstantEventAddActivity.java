@@ -2,10 +2,8 @@ package pl.edu.agh.view.addevent;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import pl.edu.agh.domain.Account;
 import pl.edu.agh.domain.Event;
 import pl.edu.agh.domain.EventDate;
 import pl.edu.agh.domain.Location;

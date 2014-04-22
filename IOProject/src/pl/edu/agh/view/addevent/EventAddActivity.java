@@ -1,7 +1,5 @@
 package pl.edu.agh.view.addevent;
 
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -13,7 +11,6 @@ import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
 import pl.edu.agh.errors.FormValidationError;
 import pl.edu.agh.services.AccountManagementService;
 import pl.edu.agh.services.EventManagementService;
-import pl.edu.agh.services.LocationManagementService;
 import pl.edu.agh.tools.DateTimeTools;
 import pl.edu.agh.view.fragments.dialogs.ErrorDialog;
 import pl.edu.agh.view.fragments.pickers.DatePickerFragment;
@@ -27,21 +24,13 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -50,13 +39,15 @@ import com.example.ioproject.R;
 
 
 public class EventAddActivity extends Activity implements SetDateInterface, SetTimePeriodInterface {
-
-	private static final int ONE_TIME_LOCATION_ACTIVITY_ID = 1;
 	
 	private EventDate eventDate;
 	private Event event;
+	
 	private EventManagementService eventManagementService;
-	private LocationManagementService locationManagementService;
+	
+	private EventTimeAndDescriptionFold eventTimeAndDescriptionFold;
+	private EventLocalizationFold eventLocalizationFold;
+	
 	private DialogFragment startTimePickerFragment;
 	private DialogFragment endTimePickerFragment;
 	private DialogFragment datePickerFragment;
@@ -67,12 +58,6 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	private TextView startTimeTextView;
 	private TextView endTimeTextView;
 	
-	private Spinner defaultLocalizationSpinner;
-	private String selectedLocalizationName;
-	
-	private List<Location> defaultLocations;
-	private Location oneTimeLocation = new Location();
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -82,7 +67,8 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		eventDate = new EventDate();
 		event = new Event();
 		eventManagementService = new EventManagementService(new MainDatabaseHelper(this));
-		locationManagementService = new LocationManagementService(new MainDatabaseHelper(this));
+		eventTimeAndDescriptionFold = new EventTimeAndDescriptionFold(this, event, R.id.EventTitleAndDescriptionFold_AddEventTitle_Id, R.id.EventTitleAndDescriptionFold_AddEventDescription_Id);
+		eventLocalizationFold = new EventLocalizationFold(this, R.id.LocationChoiceFold_DefaultLocationList_Id, R.id.LocationChoiceFold_OneTimeLocation_Button_Id, R.id.LocationChoiceFold_OneTimeLocation_ImageView_Id);
 		startTimePickerFragment = new StartTimePickerFragment();
 		endTimePickerFragment = new EndTimePickerFragment();
 		datePickerFragment = new DatePickerFragment();
@@ -92,34 +78,8 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		endTimeTextView = ((TextView) findViewById(R.id.EventTimeFold_EndTime_TextView_Id));
 		eventDurationSeekBar = (SeekBar) findViewById(R.id.EventTimeFold_Duration_SeekBar_Id);
 		textSeekBarProgress = (TextView) findViewById(R.id.EventTimeFold_Duration_TextView_Id);
-		defaultLocalizationSpinner = (Spinner)findViewById(R.id.LocationChoiceFold_DefaultLocationList_Id);
 		
-		((EditText)findViewById(R.id.EventTitleAndDescriptionFold_AddEventTitle_Id)).addTextChangedListener(new TextWatcher() {
-			
-			@Override
-			public void afterTextChanged(Editable s) {
-				event.setTitle(((EditText)findViewById(R.id.EventTitleAndDescriptionFold_AddEventTitle_Id)).getText().toString());	
-			}
-			
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {}
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-		});
-		
-
-		((EditText)findViewById(R.id.EventTitleAndDescriptionFold_AddEventDescription_Id)).addTextChangedListener(new TextWatcher() {
-			
-			@Override
-			public void afterTextChanged(Editable s) {
-				event.setDescription(((EditText)findViewById(R.id.EventTitleAndDescriptionFold_AddEventDescription_Id)).getText().toString());
-			}
-			
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {}
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-		});
+		eventTimeAndDescriptionFold.initializeListeners();
 		
 		((CheckBox) findViewById(R.id.EventRequirementFold_FixedTime_Id)).setOnCheckedChangeListener( new OnCheckedChangeListener() {
 			@Override
@@ -163,30 +123,7 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	@Override
 	protected void onResume() {
 		super.onResume();
-		selectedLocalizationName = getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection);
-		defaultLocations = locationManagementService.getDefaultLocalizationsAllData();
-		List<String> defaultLocationsAdapterList = new ArrayList<String>();
-		defaultLocationsAdapterList.add(getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection));
-		for(Location location : defaultLocations) {
-			defaultLocationsAdapterList.add(location.getName());
-		}
-		defaultLocalizationSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, defaultLocationsAdapterList));
-		defaultLocalizationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				defaultLocalizationSpinner.setSelection(position);
-				selectedLocalizationName = (String) defaultLocalizationSpinner.getSelectedItem();
-				if(selectedLocalizationName.equals(getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection))) {
-					((TextView)findViewById(R.id.LocationChoiceFold_OneTimeLocation_Button_Id)).setEnabled(true);
-				} else {
-					((TextView)findViewById(R.id.LocationChoiceFold_OneTimeLocation_Button_Id)).setEnabled(false);
-				}
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-			}
-		});
+		eventLocalizationFold.reinitializeSpinnerList(R.id.LocationChoiceFold_DefaultLocationList_Id);
 	}
 	
 	/**
@@ -275,7 +212,7 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	
 	public void addNewEventAction(View view) {
 		eventDate.setFinished(false);
-		eventDate.setLocation(getLocationForEvent());
+		eventDate.setLocation(eventLocalizationFold.getLocationForEvent());
 		event.addEventDate(eventDate);
 		event.setAccount(AccountManagementService.DEFAULT_ACCOUNT);
 		event.setPredecessorEvent(null);
@@ -297,28 +234,14 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch(requestCode) {
-			case(ONE_TIME_LOCATION_ACTIVITY_ID):
+			case(EventLocalizationFold.ONE_TIME_LOCATION_ACTIVITY_ID):
 				if(resultCode == RESULT_OK) {
-					oneTimeLocation = (Location)data.getSerializableExtra(OneTimeLocalizationActivity.LOCATION_RESULT_KEY);
-					((ImageView)findViewById(R.id.LocationChoiceFold_OneTimeLocation_ImageView_Id)).setImageResource(R.drawable.icon_accept);
+					eventLocalizationFold.setOneTimeLocation((Location)data.getSerializableExtra(OneTimeLocalizationActivity.LOCATION_RESULT_KEY));
+					eventLocalizationFold.setLocalizationSelectionWasMade();
 					break;
 				}
 			default: super.onActivityResult(requestCode, resultCode, data);		
 		}
-	}
-	
-	private Location getLocationForEvent() {
-		if(!selectedLocalizationName.equals(getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection))) {
-			return locationManagementService.getLocationByName(selectedLocalizationName);
-		} else {
-			locationManagementService.setValuesForNotDefaultLocation(oneTimeLocation);
-			return oneTimeLocation;
-		}
-	}
-	
-	public void invokeOneTimeLocationActivityForResult(View view) {
-		Intent oneTimeLocationIntent = new Intent(this, OneTimeLocalizationActivity.class);
-		startActivityForResult(oneTimeLocationIntent, ONE_TIME_LOCATION_ACTIVITY_ID);
 	}
 
 	
