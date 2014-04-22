@@ -117,7 +117,7 @@
     <string name="Validation.Location.Name.NotNull">Name must be provided.</string>
     <string name="Validation.Location.Coordinates.NotNull">Coordinates has not been chosen, choose place on the map.</string>
     <string name="Validation.Location.IsDefault.NotNull"></string>
-  	<string name="Validation.StartDate.NotNull">Start Date must be chosen</string>
+    <string name="Validation.StartDate.NotNull">Start Date must be chosen</string>
     <string name="Validation.EndDate.NotNull">End Date must be chosen</string>
     <string name="Validation.EndDateBeforeStartDate">Chosen End Date is before Start Date</string>
     <string name="ErrorDialog.ImageDescription">Error Icon</string>
@@ -201,6 +201,7 @@
     <string name="DefaultLocalizationList.Empty">No default localizations</string>
     <string name="DefaultLocalizationList.DeleteLocalization.AlertDialog.Title">Delete Location</string>
     <string name="DefaultLocalizationList.DeleteLocalization.AlertDialog.Message">Do you want to delete</string>
-    
+    <string name="DefaultLocalizationList.DeleteLocalization.Toast.Text">successfully deleted.</string>
+    <string name="title_activity_show_locations_on_map">ShowLocationsOnMapActivity</string>
 
 </resources>

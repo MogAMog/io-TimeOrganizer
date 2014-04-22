@@ -85,6 +85,10 @@
             android:name="pl.edu.agh.view.defaultlocalizationlist.DefaultLocalizationListActivity"
             android:label="@string/title_activity_default_localization_list" >
         </activity>
+        <activity
+            android:name="pl.edu.agh.view.showlocationsonmap.ShowLocationsOnMapActivity"
+            android:label="@string/title_activity_show_locations_on_map" >
+        </activity>
     </application>
 
 </manifest>

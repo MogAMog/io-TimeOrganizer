@@ -1,5 +1,6 @@
 package pl.edu.agh.view.defaultlocalizationlist;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.example.ioproject.R;
@@ -8,10 +9,11 @@ import pl.edu.agh.domain.Location;
 import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
 import pl.edu.agh.services.LocationManagementService;
 import pl.edu.agh.tools.StringTools;
-import android.app.Activity;
+import pl.edu.agh.view.showlocationsonmap.ShowLocationsOnMapActivity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -87,6 +89,7 @@ public class DefaultLocalizationListAdapter extends ArrayAdapter<Location> {
 					public void onClick(DialogInterface dialog, int which) {
 						locationManagementService.setLocationNotDefault(items.get(position).getId());
 						activity.reloadLocationsList();
+						Toast.makeText(activity, items.get(position).getName() + " " + getContext().getString(R.string.DefaultLocalizationList_DeleteLocalization_Toast_Text), Toast.LENGTH_SHORT).show();
 					}
 				});
 				alertDialog.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
@@ -102,7 +105,10 @@ public class DefaultLocalizationListAdapter extends ArrayAdapter<Location> {
 		viewHolder.showOnMapLocationImageButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getContext(), "Show On Map " + items.get(position).getName(), Toast.LENGTH_LONG).show();
+				Intent showOnLocationMapIntent = new Intent(getContext(), ShowLocationsOnMapActivity.class);
+				showOnLocationMapIntent.putExtra(ShowLocationsOnMapActivity.LOCATIONS_TO_SHOW_KEY, (Serializable)items);
+				showOnLocationMapIntent.putExtra(ShowLocationsOnMapActivity.MAIN_LOCATION_TO_SHOW_KEY, items.get(position));
+				getContext().startActivity(showOnLocationMapIntent);
 			}
 		});
 		
