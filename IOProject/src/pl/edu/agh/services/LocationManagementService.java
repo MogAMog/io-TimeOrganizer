@@ -136,7 +136,7 @@ public class LocationManagementService implements IDatabaseDmlProvider<Location>
 		location.setCity(cursor.getString(cursor.getColumnIndex(LocationTable.COLUMN_NAME_CITY)));
 		location.setLongitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.COLUMN_NAME_LONGITUDE)));
 		location.setLatitude(cursor.getDouble(cursor.getColumnIndex(LocationTable.COLUMN_NAME_LATITUDE)));
-		location.setDefaultLocation(cursor.getInt(cursor.getColumnIndex(LocationTable.COLUMN_NAME_DEFAULT)) == 1 ? true : false);
+		location.setDefaultLocation(BooleanTools.convertIntToBoolean(cursor.getInt(cursor.getColumnIndex(LocationTable.COLUMN_NAME_DEFAULT))));
 		return location;
 	}
 	

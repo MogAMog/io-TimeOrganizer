@@ -75,7 +75,7 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 	private String selectedLocalizationName;
 	
 	private List<Location> defaultLocations;
-	private Location oneTimeLocation;
+	private Location oneTimeLocation = new Location();
 		
 
 	@Override
@@ -169,8 +169,6 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 
 	}
 	
-	
-	
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -200,7 +198,9 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		});
 	}
 
-
+	private boolean isWeekdayChecked(int weekday) {
+		return weekdayCheckboxes[weekday - 1].isChecked();
+	}
 
 	private void setDayCheckboxProperties(int id, final int dayOfWeek) {
 		weekdayCheckboxes[dayOfWeek - 1] = ((CheckBox) findViewById(id));
@@ -308,26 +308,22 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		}
 	}
 	
-	public void calculateEventDates(Location location, Calendar edate, Date startTime, Date endTime, boolean isFinished) {
+	public void calculateEventDates() {
+		Location location = getLocationForEvent();
 		Calendar currentDay = startDate;
 		int duration = 0;
 		
 		if (!selectedItem.equals(getString(R.string.EventFrequencyFold_List_NoSelection))) {
-			while(!currentDay.getTime().after(edate.getTime())) {
+			while(!currentDay.getTime().after(endDate.getTime())) {
 				int dayNumber = currentDay.get(Calendar.DAY_OF_WEEK);
 		
 				if(areDaysOfWeekSelected[dayNumber - 1] == true) {
-					event.addEventDate(new EventDate(location, currentDay.getTime(),
-							startTime, endTime, duration, isFinished));
+					event.addEventDate(new EventDate(location, currentDay.getTime(), startTime.getTime(), endTime.getTime(), duration, false));
 				}
-				
-				
-				if(selectedItem.equals(getString(R.string.EventFrequencyFold_List_Item_EveryTwoWeeksItem)) && 
-						currentDay.get(Calendar.DAY_OF_WEEK) == 1) {
+				if(selectedItem.equals(getString(R.string.EventFrequencyFold_List_Item_EveryTwoWeeksItem)) &&  currentDay.get(Calendar.DAY_OF_WEEK) == 1) {
 					currentDay.add(Calendar.DATE, 8);
 				}
-				else if(selectedItem.equals(getString(R.string.EventFrequencyFold_List_Item_EveryFourWeeksItem)) && 
-						currentDay.get(Calendar.DAY_OF_WEEK) == 1) {
+				else if(selectedItem.equals(getString(R.string.EventFrequencyFold_List_Item_EveryFourWeeksItem)) && currentDay.get(Calendar.DAY_OF_WEEK) == 1) {
 					currentDay.add(Calendar.DATE, 22);
 				}
 				else {
@@ -339,25 +335,22 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 
 	}
 	
+	public boolean validateIfAtLeastOneWeekDayIsSelected() {
+		return isWeekdayChecked(Calendar.SUNDAY) || isWeekdayChecked(Calendar.MONDAY) || isWeekdayChecked(Calendar.TUESDAY) || isWeekdayChecked(Calendar.WEDNESDAY) ||
+			   isWeekdayChecked(Calendar.THURSDAY) || isWeekdayChecked(Calendar.FRIDAY) || isWeekdayChecked(Calendar.SATURDAY);
+	}
 	
 	public void addNewConstantEventAction(View view) {
-
-		Location location = getLocationForEvent();
-		
-		//Account account = new Account("Janek", "Kowalski", "Zdzisia");
-		Account account = AccountManagementService.DEFAULT_ACCOUNT;
-		
-		
-		event.setAccount(account);
+		event.setAccount(AccountManagementService.DEFAULT_ACCOUNT);
 		event.setPredecessorEvent(null);
-		//event.setDefaultLocation(new Location("Basen", "D17 AGH", "Krakow", 50.068408, 19.901062, true));
+		
 		List<FormValidationError> errors = new ArrayList<FormValidationError>();
-		
-		if(spinner.getSelectedItem().equals(getString(R.string.EventFrequencyFold_List_NoSelection)))
+		if(spinner.getSelectedItem().equals(getString(R.string.EventFrequencyFold_List_NoSelection))) {
 			errors.add(new FormValidationError(R.string.Validation_Event_FrequencyNotChosen));
-		
-		if(eventManagementService.validateCheckBoxes(weekdayCheckboxes) == false)
-			errors.add(new FormValidationError(R.string.Validation_Event_OneDayMustBeChosen));
+		}
+		if(!validateIfAtLeastOneWeekDayIsSelected()) {
+			errors.add(new FormValidationError(R.string.Validation_Event_OneDayMustBeChosen));	
+		}
 		
 		if(startDate == null)
 			errors.add(new FormValidationError(R.string.Validation_StartDate_NotNull));
@@ -373,21 +366,16 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		if(startTime != null && endTime != null && startTime.compareTo(endTime) > 0)
 			errors.add(new FormValidationError(R.string.Validation_EventDate_EndTimeBeforeStartTime));
 		
+		//calculateEventDates();
+		errors.addAll(eventManagementService.validate(event));
 		
 		if(!errors.isEmpty()) {
-			errors.addAll(eventManagementService.validate(event));
 			ErrorDialog.createDialog(this, errors).show();
 		}
 		else {
-			calculateEventDates(location, endDate, startTime.getTime(), endTime.getTime(), false);
-			errors.addAll(eventManagementService.validate(event));
-			
-			if(!errors.isEmpty()) 
-				ErrorDialog.createDialog(this, errors).show();
-			else {
-				eventManagementService.insert(event);
-				finish();
-			}
+			calculateEventDates();
+			eventManagementService.insert(event);
+			finish();
 		}
 	}
 	
@@ -417,7 +405,7 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 	}
 	
 	private Location getLocationForEvent() {
-		if(selectedLocalizationName.equals(getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection))) {
+		if(!selectedLocalizationName.equals(getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection))) {
 			return locationManagementService.getLocationByName(selectedLocalizationName);
 		} else {
 			locationManagementService.setValuesForNotDefaultLocation(oneTimeLocation);

@@ -51,22 +51,6 @@ public class EventManagementService implements IDatabaseDmlProvider<Event>, IEnt
 		}
 		return errors;
 	}
-	
-	public boolean validateCheckBoxes(CheckBox[] weekdayCheckBoxes) {
-		boolean isAtLeastOneChecked = false;
-		int index = 0;
-	
-		while(isAtLeastOneChecked == false) {
-			if(weekdayCheckBoxes[index].isChecked()) {
-				isAtLeastOneChecked = true;
-				break;
-			}
-			index++;
-		}
-		return isAtLeastOneChecked;
-	}
-
-
 
 	@Override
 	public long insert(Event insertObject) {
