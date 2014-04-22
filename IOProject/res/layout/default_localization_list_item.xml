@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_frame_orange"
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
+
+    <LinearLayout
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/DefaultLocalizationList.Item.Location.Name.TextView.Id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textStyle="bold|italic" />
+
+        <TextView
+            android:id="@+id/DefaultLocalizationList.Item.Location.Address.TextView.Id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/DefaultLocalizationList.Item.Location.Address.NoSet" />
+
+        <TextView
+            android:id="@+id/DefaultLocalizationList.Item.Location.City.TextView.Id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/DefaultLocalizationList.Item.Location.City.NoSet" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_margin="5dp"
+        android:gravity="right|bottom"
+        android:padding="10dp" >
+
+        <ImageButton
+            android:id="@+id/DefaultLocalizationList.DeleteLocation.ImageButton.TextView.Id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@null"
+            android:contentDescription="@string/Image.Description"
+            android:src="@drawable/delete_event" />
+
+        <ImageButton
+            android:id="@+id/DefaultLocalizationList.ShowOnMap.ImageButton.TextView.Id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@null"
+            android:contentDescription="@string/Image.Description"
+            android:src="@drawable/globe" />
+    </LinearLayout>
+
+</LinearLayout>

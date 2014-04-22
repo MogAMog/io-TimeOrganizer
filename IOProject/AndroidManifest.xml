@@ -81,6 +81,10 @@
             android:name="pl.edu.agh.view.onetimelocalization.OneTimeLocalizationActivity"
             android:label="@string/title_activity_one_time_localization" >
         </activity>
+        <activity
+            android:name="pl.edu.agh.view.defaultlocalizationlist.DefaultLocalizationListActivity"
+            android:label="@string/title_activity_default_localization_list" >
+        </activity>
     </application>
 
 </manifest>

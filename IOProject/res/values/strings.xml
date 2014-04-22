@@ -30,6 +30,7 @@
     <!-- ************************************** Add New Constant Event View *************************************** -->
     <!-- ************************************************************************************************* -->
 
+
     <!-- ************************************************************************************************* -->
     <!-- ************************************** Main Activity View *************************************** -->
     <!-- ************************************************************************************************* -->
@@ -187,5 +188,13 @@
     <string name="EventDateFold.Date.Label.NoSet">Date not set</string>
     <string name="EventDateFold.Date.Button.Label">Pick Date</string>
     <string name="EventTimeFold.Duration.Label">How many minutes long: </string>
+    <string name="title_activity_default_localization_list">DefaultLocalizationListActivity</string>
+
+    <!-- ************************************************************************************************* -->
+    <!-- *********************************** Event Requirements Fold ************************************* -->
+    <!-- ************************************************************************************************* -->
+    <string name="DefaultLocalizationList.Item.Location.Address.NoSet">No Address</string>
+    <string name="DefaultLocalizationList.Item.Location.City.NoSet">No City</string>
+    <string name="DefaultLocalizationList.Empty">No default localizations</string>
 
 </resources>
