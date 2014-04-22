@@ -1,19 +1,21 @@
 package pl.edu.agh.view.addevent;
 
 import java.util.ArrayList;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
 import pl.edu.agh.domain.Account;
 import pl.edu.agh.domain.Event;
+import pl.edu.agh.domain.EventDate;
 import pl.edu.agh.domain.Location;
 import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
+import pl.edu.agh.errors.FormValidationError;
 import pl.edu.agh.services.AccountManagementService;
 import pl.edu.agh.services.EventManagementService;
 import pl.edu.agh.services.LocationManagementService;
 import pl.edu.agh.tools.DateTimeTools;
+import pl.edu.agh.view.fragments.dialogs.ErrorDialog;
 import pl.edu.agh.view.fragments.pickers.EndDatePickerFragment;
 import pl.edu.agh.view.fragments.pickers.EndTimePickerFragment;
 import pl.edu.agh.view.fragments.pickers.SetDatePeriodInterface;
@@ -41,6 +43,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+
 import com.example.ioproject.R;
 
 
@@ -92,7 +95,8 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		
 		weekdayCheckboxes = new CheckBox[7];
 		areDaysOfWeekSelected = new boolean[7];
-		selectedItem = getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection);
+		//selectedItem = getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection);
+		selectedItem = getString(R.string.EventFrequencyFold_List_NoSelection);
 		//defaultLocations = locationManagementService.getDefaultLocalizationsAllData();
 		
 		((EditText) findViewById(R.id.ConstantEventAdd_eventTitle)).addTextChangedListener(new TextWatcher() {
@@ -305,10 +309,10 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 	}
 	
 	public void calculateEventDates(Location location, Calendar edate, Date startTime, Date endTime, boolean isFinished) {
-/*		Calendar currentDay = startDate;
+		Calendar currentDay = startDate;
 		int duration = 0;
 		
-		if (!selectedItem.equals(getString(R.string.Fre))) {
+		if (!selectedItem.equals(getString(R.string.EventFrequencyFold_List_NoSelection))) {
 			while(!currentDay.getTime().after(edate.getTime())) {
 				int dayNumber = currentDay.get(Calendar.DAY_OF_WEEK);
 		
@@ -317,14 +321,12 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 							startTime, endTime, duration, isFinished));
 				}
 				
-				String what = getString(R.string.AddNewConstantEventView_EveryTwoWeeksItem);
-				String sel = selectedItem;
 				
-				if(selectedItem.equals(getString(R.string.AddNewConstantEventView_EveryTwoWeeksItem)) && 
+				if(selectedItem.equals(getString(R.string.EventFrequencyFold_List_Item_EveryTwoWeeksItem)) && 
 						currentDay.get(Calendar.DAY_OF_WEEK) == 1) {
 					currentDay.add(Calendar.DATE, 8);
 				}
-				else if(selectedItem.equals(getString(R.string.AddNewConstantEventView_EveryFourWeeksItem)) && 
+				else if(selectedItem.equals(getString(R.string.EventFrequencyFold_List_Item_EveryFourWeeksItem)) && 
 						currentDay.get(Calendar.DAY_OF_WEEK) == 1) {
 					currentDay.add(Calendar.DATE, 22);
 				}
@@ -332,12 +334,64 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 					currentDay.add(Calendar.DATE, 1);
 				}
 			}
-		}*/
+		}
 		
 
 	}
 	
+	
 	public void addNewConstantEventAction(View view) {
+
+		Location location = getLocationForEvent();
+		
+		//Account account = new Account("Janek", "Kowalski", "Zdzisia");
+		Account account = AccountManagementService.DEFAULT_ACCOUNT;
+		
+		
+		event.setAccount(account);
+		event.setPredecessorEvent(null);
+		//event.setDefaultLocation(new Location("Basen", "D17 AGH", "Krakow", 50.068408, 19.901062, true));
+		List<FormValidationError> errors = new ArrayList<FormValidationError>();
+		
+		if(spinner.getSelectedItem().equals(getString(R.string.EventFrequencyFold_List_NoSelection)))
+			errors.add(new FormValidationError(R.string.Validation_Event_FrequencyNotChosen));
+		
+		if(eventManagementService.validateCheckBoxes(weekdayCheckboxes) == false)
+			errors.add(new FormValidationError(R.string.Validation_Event_OneDayMustBeChosen));
+		
+		if(startDate == null)
+			errors.add(new FormValidationError(R.string.Validation_StartDate_NotNull));
+		if(endDate == null)
+			errors.add(new FormValidationError(R.string.Validation_EndDate_NotNull));
+		if(startDate != null && endDate != null && startDate.compareTo(endDate) > 0) 
+			errors.add(new FormValidationError(R.string.Validation_EndDateBeforeStartDate));
+		
+		if(startTime == null)
+			errors.add(new FormValidationError(R.string.Validation_EventDate_StartTime_NotNull));
+		if(endTime == null)
+			errors.add(new FormValidationError(R.string.Validation_EventDate_EndTime_NotNull));
+		if(startTime != null && endTime != null && startTime.compareTo(endTime) > 0)
+			errors.add(new FormValidationError(R.string.Validation_EventDate_EndTimeBeforeStartTime));
+		
+		
+		if(!errors.isEmpty()) {
+			errors.addAll(eventManagementService.validate(event));
+			ErrorDialog.createDialog(this, errors).show();
+		}
+		else {
+			calculateEventDates(location, endDate, startTime.getTime(), endTime.getTime(), false);
+			errors.addAll(eventManagementService.validate(event));
+			
+			if(!errors.isEmpty()) 
+				ErrorDialog.createDialog(this, errors).show();
+			else {
+				eventManagementService.insert(event);
+				finish();
+			}
+		}
+	}
+	
+	/*public void addNewConstantEventAction(View view) {
 		Location location = getLocationForEvent();
 		
 		calculateEventDates(location, endDate, startTime.getTime(), endTime.getTime(), false);
@@ -347,7 +401,7 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		event.setPredecessorEvent(null);
 		eventManagementService.insert(event);
 		finish();
-	}
+	}*/
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {

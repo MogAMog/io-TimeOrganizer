@@ -117,6 +117,9 @@
     <string name="Validation.Location.Name.NotNull">Name must be provided.</string>
     <string name="Validation.Location.Coordinates.NotNull">Coordinates has not been chosen, choose place on the map.</string>
     <string name="Validation.Location.IsDefault.NotNull"></string>
+  	<string name="Validation.StartDate.NotNull">Start Date must be chosen</string>
+    <string name="Validation.EndDate.NotNull">End Date must be chosen</string>
+    <string name="Validation.EndDateBeforeStartDate">Chosen End Date is before Start Date</string>
     <string name="ErrorDialog.ImageDescription">Error Icon</string>
     <string name="ErrorDialog.Title">ERRORS FOUND!</string>
 

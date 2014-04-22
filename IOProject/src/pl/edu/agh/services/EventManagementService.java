@@ -3,8 +3,6 @@ package pl.edu.agh.services;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.ioproject.R;
-
 import pl.edu.agh.domain.Event;
 import pl.edu.agh.domain.EventDate;
 import pl.edu.agh.domain.databasemanagement.DatabaseProperties;
@@ -17,6 +15,9 @@ import pl.edu.agh.tools.StringTools;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.CheckBox;
+
+import com.example.ioproject.R;
 
 public class EventManagementService implements IDatabaseDmlProvider<Event>, IEntityValidation<Event> {
 
@@ -49,6 +50,20 @@ public class EventManagementService implements IDatabaseDmlProvider<Event>, IEnt
 			errors.addAll(eventDateManagementService.validate(eventDate));
 		}
 		return errors;
+	}
+	
+	public boolean validateCheckBoxes(CheckBox[] weekdayCheckBoxes) {
+		boolean isAtLeastOneChecked = false;
+		int index = 0;
+	
+		while(isAtLeastOneChecked == false) {
+			if(weekdayCheckBoxes[index].isChecked()) {
+				isAtLeastOneChecked = true;
+				break;
+			}
+			index++;
+		}
+		return isAtLeastOneChecked;
 	}
 
 
