@@ -181,7 +181,6 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		eventDate.setEndTime(calendar.getTime());	
 		endTimeTextView.setText(getTimeDescription(getString(R.string.EventTimeFold_EndTime_Label), calendar));
 	}
-
 	private String getTimeDescription(String label, Calendar calendar) {
 		return new StringBuilder().append(label).append(": ").append(DateTimeTools.convertTimeToString(calendar)).toString();
 	}

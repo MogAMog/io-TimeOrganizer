@@ -11,8 +11,8 @@ import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
 import pl.edu.agh.errors.FormValidationError;
 import pl.edu.agh.services.AccountManagementService;
 import pl.edu.agh.services.EventManagementService;
-import pl.edu.agh.services.LocationManagementService;
 import pl.edu.agh.tools.DateTimeTools;
+import pl.edu.agh.view.addevent.EventFrequencyFold.Frequency;
 import pl.edu.agh.view.fragments.dialogs.ErrorDialog;
 import pl.edu.agh.view.fragments.pickers.EndDatePickerFragment;
 import pl.edu.agh.view.fragments.pickers.EndTimePickerFragment;
@@ -26,20 +26,12 @@ import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.example.ioproject.R;
@@ -51,7 +43,10 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 	
 	private Event event;
 	private EventManagementService eventManagementService;
-	private LocationManagementService locationManagementService;
+	
+	private EventTimeAndDescriptionFold eventTimeAndDescriptionFold;
+	private EventLocalizationFold eventLocalizationFold;
+	private EventFrequencyFold eventFrequencyFold;
 	
 	private DialogFragment startTimePickerFragment;
 	private DialogFragment endTimePickerFragment;
@@ -62,18 +57,6 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 	private Calendar endDate;
 	private Calendar startTime;
 	private Calendar endTime;
-	
-	private CheckBox[] weekdayCheckboxes;
-	private boolean[] areDaysOfWeekSelected;
-	
-	private Spinner spinner;
-	private String selectedItem;
-	
-	private Spinner defaultLocalizationSpinner;
-	private String selectedLocalizationName;
-	
-	private List<Location> defaultLocations;
-	private Location oneTimeLocation = new Location();
 		
 
 	@Override
@@ -84,43 +67,18 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		
 		event = new Event();
 		eventManagementService = new EventManagementService(new MainDatabaseHelper(this));
-		locationManagementService = new LocationManagementService(new MainDatabaseHelper(this));
+		
+		eventTimeAndDescriptionFold = new EventTimeAndDescriptionFold(this, event, R.id.ConstantEventAdd_eventTitle, R.id.ConstantEventAdd_eventDescription);
+		eventLocalizationFold = new EventLocalizationFold(this, R.id.LocationChoiceFold_DefaultLocationList_Id, R.id.LocationChoiceFold_OneTimeLocation_Button_Id, R.id.LocationChoiceFold_OneTimeLocation_ImageView_Id);
+		eventFrequencyFold = new EventFrequencyFold(this, R.id.ConstantEventAdd_spinner, new int[] {R.id.checkBoxSUNDAY, R.id.checkBoxMONDAY, 
+				R.id.checkBoxTUESDAY, R.id.checkBoxWEDNESDAY, R.id.checkBoxTHURSDAY, R.id.checkBoxFRIDAY, R.id.checkBoxSATURDAY});
+		
+		eventTimeAndDescriptionFold.initializeListeners();
 		
 		startTimePickerFragment = new StartTimePickerFragment();
 		endTimePickerFragment = new EndTimePickerFragment();
 		startDatePickerFragment = new StartDatePickerFragment();
 		endDatePickerFragment = new EndDatePickerFragment();
-		
-		weekdayCheckboxes = new CheckBox[7];
-		areDaysOfWeekSelected = new boolean[7];
-		//selectedItem = getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection);
-		selectedItem = getString(R.string.EventFrequencyFold_List_NoSelection);
-		//defaultLocations = locationManagementService.getDefaultLocalizationsAllData();
-		
-		((EditText) findViewById(R.id.ConstantEventAdd_eventTitle)).addTextChangedListener(new TextWatcher() {
-			@Override
-			public void afterTextChanged(Editable s) {
-				event.setTitle(((EditText) findViewById(R.id.ConstantEventAdd_eventTitle)).getText().toString());
-			}
-			
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) { }
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-			
-		});
-		
-		((EditText) findViewById(R.id.ConstantEventAdd_eventDescription)).addTextChangedListener(new TextWatcher() {	
-			@Override
-			public void afterTextChanged(Editable s) {
-				event.setDescription(((EditText) findViewById(R.id.ConstantEventAdd_eventDescription)).getText().toString());			
-			}
-			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) { }
-			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-			
-		});
 		
 		((CheckBox) findViewById(R.id.ConstantEventAdd_checkBoxRequired)).setOnCheckedChangeListener( new OnCheckedChangeListener() {
 			@Override
@@ -128,86 +86,12 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 				event.setRequired(isChecked);				
 			}
 		});
-		
-		spinner = (Spinner) findViewById(R.id.ConstantEventAdd_spinner);
-		List<String> list = new ArrayList<String>();
-		list.add(getString(R.string.EventFrequencyFold_List_NoSelection));
-		list.add(getString(R.string.EventFrequencyFold_List_Item_Everyday));
-		list.add(getString(R.string.EventFrequencyFold_List_Item_EveryWeekItem));
-		list.add(getString(R.string.EventFrequencyFold_List_Item_EveryTwoWeeksItem));
-		list.add(getString(R.string.EventFrequencyFold_List_Item_EveryFourWeeksItem));
-		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
-		spinner.setAdapter(dataAdapter);
-		spinner.setOnItemSelectedListener( new OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				spinner.setSelection(position);
-				selectedItem = (String) spinner.getSelectedItem();
-				if(selectedItem.equals(getString(R.string.EventFrequencyFold_List_Item_Everyday))) {
-					markAllDayCheckBoxesTrue();
-				} else {
-					enableAllCheckBoxes();
-				}
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) { 
-			}
-		});
-		
-		defaultLocalizationSpinner = (Spinner)findViewById(R.id.LocationChoiceFold_DefaultLocationList_Id);
-		
-		setDayCheckboxProperties(R.id.checkBoxSUNDAY, Calendar.SUNDAY);
-		setDayCheckboxProperties(R.id.checkBoxMONDAY, Calendar.MONDAY);
-		setDayCheckboxProperties(R.id.checkBoxTUESDAY, Calendar.TUESDAY);
-		setDayCheckboxProperties(R.id.checkBoxWEDNESDAY, Calendar.WEDNESDAY);
-		setDayCheckboxProperties(R.id.checkBoxTHURSDAY, Calendar.THURSDAY);
-		setDayCheckboxProperties(R.id.checkBoxFRIDAY, Calendar.FRIDAY);
-		setDayCheckboxProperties(R.id.checkBoxSATURDAY, Calendar.SATURDAY);
-
 	}
 	
 	@Override
 	protected void onResume() {
 		super.onResume();
-		selectedLocalizationName = getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection);
-		defaultLocations = locationManagementService.getDefaultLocalizationsAllData();
-		List<String> defaultLocationsAdapterList = new ArrayList<String>();
-		defaultLocationsAdapterList.add(getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection));
-		for(Location location : defaultLocations) {
-			defaultLocationsAdapterList.add(location.getName());
-		}
-		defaultLocalizationSpinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, defaultLocationsAdapterList));
-		defaultLocalizationSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				defaultLocalizationSpinner.setSelection(position);
-				selectedLocalizationName = (String) defaultLocalizationSpinner.getSelectedItem();
-				if(selectedLocalizationName.equals(getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection))) {
-					((TextView)findViewById(R.id.LocationChoiceFold_OneTimeLocation_Button_Id)).setEnabled(true);
-				} else {
-					((TextView)findViewById(R.id.LocationChoiceFold_OneTimeLocation_Button_Id)).setEnabled(false);
-				}
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> arg0) {
-			}
-		});
-	}
-
-	private boolean isWeekdayChecked(int weekday) {
-		return weekdayCheckboxes[weekday - 1].isChecked();
-	}
-
-	private void setDayCheckboxProperties(int id, final int dayOfWeek) {
-		weekdayCheckboxes[dayOfWeek - 1] = ((CheckBox) findViewById(id));
-		weekdayCheckboxes[dayOfWeek - 1].setOnCheckedChangeListener( new OnCheckedChangeListener() {
-			@Override
-			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-				areDaysOfWeekSelected[dayOfWeek - 1] = isChecked;
-			}
-		});
+		eventLocalizationFold.reinitializeSpinnerList(R.id.LocationChoiceFold_DefaultLocationList_Id);
 	}
 
 	/**
@@ -258,22 +142,12 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 	}
 
 	private String getDateDescription(String label, Calendar calendar) {
-		StringBuilder dateToWrite = new StringBuilder();
-		dateToWrite.append(label)
-				.append(": ")
-				.append(DateTimeTools.convertDateToString(calendar));
-		return dateToWrite.toString(); 
+		return new StringBuilder().append(label).append(": ").append(DateTimeTools.convertDateToString(calendar)).toString();
 	}
 	
 	
 	private String getTimeDescription(String label, Calendar calendar) {
-		StringBuilder startTimeToWrite = new StringBuilder();
-		startTimeToWrite.append(label)
-				.append(": ")
-				.append((calendar.get(Calendar.HOUR_OF_DAY) < 10 ? "0" : "") + calendar.get(Calendar.HOUR_OF_DAY))
-				.append(":")
-				.append((calendar.get(Calendar.MINUTE) < 10 ? "0" : "") + calendar.get(Calendar.MINUTE));
-		return startTimeToWrite.toString();
+		return new StringBuilder().append(label).append(": ").append(DateTimeTools.convertTimeToString(calendar)).toString();
 	}
 	
 	public void showStartDatePickerDialog(View v) {
@@ -292,50 +166,20 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		endTimePickerFragment.show(getFragmentManager(), "endTimePicker");
 	}
 	
-	private void markAllDayCheckBoxesTrue() {
-		for(int i = 0; i < 7; i++) {
-			weekdayCheckboxes[i].setChecked(true);
-			weekdayCheckboxes[i].setEnabled(false);
-			areDaysOfWeekSelected[i] = true;
-		}
-	}
-	
-	private void enableAllCheckBoxes() {
-		for(CheckBox checkBox : weekdayCheckboxes) {
-			checkBox.setEnabled(true);
-		}
-	}
-	
 	public void calculateEventDates() {
-		Location location = getLocationForEvent();
+		Location location = eventLocalizationFold.getLocationForEvent();
 		Calendar currentDay = startDate;
-		int duration = 0;
-		
-		if (!selectedItem.equals(getString(R.string.EventFrequencyFold_List_NoSelection))) {
-			while(!currentDay.getTime().after(endDate.getTime())) {
-				int dayNumber = currentDay.get(Calendar.DAY_OF_WEEK);
-		
-				if(areDaysOfWeekSelected[dayNumber - 1] == true) {
-					event.addEventDate(new EventDate(location, currentDay.getTime(), startTime.getTime(), endTime.getTime(), duration, false));
-				}
-				if(selectedItem.equals(getString(R.string.EventFrequencyFold_List_Item_EveryTwoWeeksItem)) &&  currentDay.get(Calendar.DAY_OF_WEEK) == 1) {
-					currentDay.add(Calendar.DATE, 8);
-				}
-				else if(selectedItem.equals(getString(R.string.EventFrequencyFold_List_Item_EveryFourWeeksItem)) && currentDay.get(Calendar.DAY_OF_WEEK) == 1) {
-					currentDay.add(Calendar.DATE, 22);
-				}
-				else {
-					currentDay.add(Calendar.DATE, 1);
-				}
+		Frequency frequency = eventFrequencyFold.getChosenFrequency();
+		while(!currentDay.getTime().after(endDate.getTime())) {
+			if(eventFrequencyFold.isWeekdayChecked(currentDay.get(Calendar.DAY_OF_WEEK))) {
+				event.addEventDate(new EventDate(location, currentDay.getTime(), startTime.getTime(), endTime.getTime(), DateTimeTools.getMinuteDifferenceBetweenTwoDates(startTime.getTime(), endTime.getTime()), false));
+			}
+			if(currentDay.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+				currentDay.add(Calendar.DATE, frequency.getDaysToAdd());
+			} else {
+				currentDay.add(Calendar.DATE, 1);
 			}
 		}
-		
-
-	}
-	
-	public boolean validateIfAtLeastOneWeekDayIsSelected() {
-		return isWeekdayChecked(Calendar.SUNDAY) || isWeekdayChecked(Calendar.MONDAY) || isWeekdayChecked(Calendar.TUESDAY) || isWeekdayChecked(Calendar.WEDNESDAY) ||
-			   isWeekdayChecked(Calendar.THURSDAY) || isWeekdayChecked(Calendar.FRIDAY) || isWeekdayChecked(Calendar.SATURDAY);
 	}
 	
 	public void addNewConstantEventAction(View view) {
@@ -343,11 +187,14 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		event.setPredecessorEvent(null);
 		
 		List<FormValidationError> errors = new ArrayList<FormValidationError>();
-		if(spinner.getSelectedItem().equals(getString(R.string.EventFrequencyFold_List_NoSelection))) {
+		if(!eventFrequencyFold.isFrequencyChosen()) {
 			errors.add(new FormValidationError(R.string.Validation_Event_FrequencyNotChosen));
 		}
-		if(!validateIfAtLeastOneWeekDayIsSelected()) {
+		if(!eventFrequencyFold.isAtLeastOneWeekDayIsSelected()) {
 			errors.add(new FormValidationError(R.string.Validation_Event_OneDayMustBeChosen));	
+		}
+		if(!eventLocalizationFold.isLocationChosen()) {
+			errors.add(new FormValidationError(R.string.Validation_EventDate_Location_NotNull));
 		}
 		
 		if(startDate == null)
@@ -364,55 +211,27 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		if(startTime != null && endTime != null && startTime.compareTo(endTime) > 0)
 			errors.add(new FormValidationError(R.string.Validation_EventDate_EndTimeBeforeStartTime));
 		
-		//calculateEventDates();
 		errors.addAll(eventManagementService.validate(event));
 		
 		if(!errors.isEmpty()) {
 			ErrorDialog.createDialog(this, errors).show();
-		}
-		else {
+		} else {
 			calculateEventDates();
 			eventManagementService.insert(event);
 			finish();
 		}
 	}
-	
-	/*public void addNewConstantEventAction(View view) {
-		Location location = getLocationForEvent();
-		
-		calculateEventDates(location, endDate, startTime.getTime(), endTime.getTime(), false);
-		
-		Account account = AccountManagementService.DEFAULT_ACCOUNT;
-		event.setAccount(account);
-		event.setPredecessorEvent(null);
-		eventManagementService.insert(event);
-		finish();
-	}*/
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch(requestCode) {
 			case(ONE_TIME_LOCATION_ACTIVITY_ID):
 				if(resultCode == RESULT_OK) {
-					oneTimeLocation = (Location)data.getSerializableExtra(OneTimeLocalizationActivity.LOCATION_RESULT_KEY);
-					((ImageView)findViewById(R.id.LocationChoiceFold_OneTimeLocation_ImageView_Id)).setImageResource(R.drawable.icon_accept);
+					eventLocalizationFold.setOneTimeLocation((Location)data.getSerializableExtra(OneTimeLocalizationActivity.LOCATION_RESULT_KEY));
+					eventLocalizationFold.setLocalizationSelectionWasMade();
 					break;
 				}
 			default: super.onActivityResult(requestCode, resultCode, data);		
 		}
-	}
-	
-	private Location getLocationForEvent() {
-		if(!selectedLocalizationName.equals(getString(R.string.LocationChoiceFold_DefaultLocationList_NoSelection))) {
-			return locationManagementService.getLocationByName(selectedLocalizationName);
-		} else {
-			locationManagementService.setValuesForNotDefaultLocation(oneTimeLocation);
-			return oneTimeLocation;
-		}
-	}
-	
-	public void invokeOneTimeLocationActivityForResult(View view) {
-		Intent oneTimeLocationIntent = new Intent(this, OneTimeLocalizationActivity.class);
-		startActivityForResult(oneTimeLocationIntent, ONE_TIME_LOCATION_ACTIVITY_ID);
 	}
 }

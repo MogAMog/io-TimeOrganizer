@@ -101,4 +101,8 @@ public class EventLocalizationFold {
 	public void setLocalizationSelectionWasMade() {
 		oneTimeLocationImageView.setImageResource(R.drawable.icon_accept);
 	}
+	
+	public boolean isLocationChosen() {
+		return locationManagementService.validate(getLocationForEvent()).isEmpty();
+	}
 }
