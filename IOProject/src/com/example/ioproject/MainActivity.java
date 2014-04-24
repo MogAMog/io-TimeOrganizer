@@ -5,6 +5,7 @@ import pl.edu.agh.view.adddefaultlocalization.AddDefaultLocalizationActivity;
 import pl.edu.agh.view.addevent.ConstantEventAddActivity;
 import pl.edu.agh.view.addevent.EventAddActivity;
 import pl.edu.agh.view.defaultlocalizationlist.DefaultLocalizationListActivity;
+import pl.edu.agh.view.help.HelpActivity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,6 +43,9 @@ public class MainActivity extends Activity {
     			return true;
     		case R.id.MainActivity_ActionBar_Localiation_ShowDefaultLocalizationList:
     			startActivity(new Intent(this, DefaultLocalizationListActivity.class));
+    			return true;
+    		case R.id.MainActivity_ActionBar_Help:
+    			startActivity(new Intent(this, HelpActivity.class));
     			return true;
     	}
     	return super.onOptionsItemSelected(item);

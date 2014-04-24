@@ -203,5 +203,6 @@
     <string name="DefaultLocalizationList.DeleteLocalization.AlertDialog.Message">Do you want to delete</string>
     <string name="DefaultLocalizationList.DeleteLocalization.Toast.Text">successfully deleted.</string>
     <string name="title_activity_show_locations_on_map">ShowLocationsOnMapActivity</string>
+    <string name="title_activity_help">HelpActivity</string>
 
 </resources>

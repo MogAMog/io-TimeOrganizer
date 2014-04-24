@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="11"
+        android:minSdkVersion="14"
         android:targetSdkVersion="19" />
 
     <permission
@@ -84,6 +84,14 @@
         <activity
             android:name="pl.edu.agh.view.defaultlocalizationlist.DefaultLocalizationListActivity"
             android:label="@string/title_activity_default_localization_list" >
+        </activity>
+        <activity
+            android:name="pl.edu.agh.view.showlocationsonmap.ShowLocationsOnMapActivity"
+            android:label="@string/title_activity_show_locations_on_map" >
+        </activity>
+        <activity
+            android:name="pl.edu.agh.view.help.HelpActivity"
+            android:label="@string/title_activity_help" >
         </activity>
     </application>
 
