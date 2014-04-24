@@ -30,7 +30,7 @@ public class HelpActivity extends Activity implements HelpListFragment.OnHelpIte
 	@Override
 	public void onHelpItemSelected() {
 		FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-		fragmentTransaction.add(R.id.HelpView_Content, new HelpContentFragment());
+			fragmentTransaction.add(R.id.HelpView_Content, new HelpContentFragment());
 		fragmentTransaction.commit();
 	}
 }

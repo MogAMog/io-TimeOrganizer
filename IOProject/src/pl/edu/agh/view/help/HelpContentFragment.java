@@ -16,8 +16,10 @@ public class HelpContentFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		currentPosition = ((HelpListFragment)getActivity().getFragmentManager().findFragmentById(R.id.HelpView_List)).getCurrentlySelectedId();
-		HelpItem item = HelpItem.getHelpItemById(currentPosition);
-		return inflater.inflate(item.getLayoutId(), container, false);
+		if(container != null) {
+			container.removeAllViews();
+		}
+		return inflater.inflate(HelpItem.getHelpItemById(currentPosition).getLayoutId(), container, false);
 	}
 	
 	
