@@ -204,5 +204,27 @@
     <string name="DefaultLocalizationList.DeleteLocalization.Toast.Text">successfully deleted.</string>
     <string name="title_activity_show_locations_on_map">ShowLocationsOnMapActivity</string>
     <string name="title_activity_help">HelpActivity</string>
-
+    
+    
+     <!-- ************************************************************************************************* -->
+    <!-- *********************************** Help Activity ************************************* -->
+    <!-- ************************************************************************************************* -->
+    
+    <string name="HelpView.HelpItemTitle.DeleteEvent">Delete event</string>
+    <string name="HelpView.HelpItemTitle.ShowLocation">Show event location</string>
+    <string name="HelpView.HelpItemTitle.AddEvent">Add event</string>
+    <string name="HelpView.HelpItemTitle.DefaultLocations">Default location options</string>
+    <string name="HelpView.HelpItemTitle.ShowEventInfo">Event info</string>
+    <string name="HelpView.HelpItemTitle.GoBack">Back</string>
+    
+    <string name="HelpView.HelpItemContent.ShowLocation">Show location of chosen event from the list</string>
+	<string name="HelpView.HelpItemContent.DeleteEvent">Delete normal or constant event. You can choose 
+	    type of event from the list which will pop after pushing this button</string>
+	<string name="HelpView.HelptItemContent.AddEvent">Add normal or constant event. 
+	    You can choose type of event from the list which will pop after pushing this button</string>
+	<string name="HelpView.HelpItemContent.DefaultLocations">Add new deafult location or 
+	    show a list of default locations. You can choose option from the list which will pop after pushing this button</string>
+    <string name="HelpView.HelpItemContent.ShowEventInfo">Show information about event</string>
+    <string name="HelpView.HelpItemContent.GoBack">Just go back, its really easy, man!</string>
+        
 </resources>
