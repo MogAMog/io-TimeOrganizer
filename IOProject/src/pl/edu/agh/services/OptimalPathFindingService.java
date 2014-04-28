@@ -13,41 +13,6 @@ import pl.edu.agh.exceptions.OptimalPathFindingException;
 import pl.edu.agh.tools.DateTimeTools;
 
 public class OptimalPathFindingService {
-	private class Position {
-
-		public void generateEventList(List<EventDate> tempEventList2,
-				EventDate[] placedEventArray, EventDate[] requiredEventArray) {
-			// TODO Auto-generated method stub
-			
-		}
-
-	}
-
-	private class PositionGenerator implements Iterator<Position> {
-
-		public PositionGenerator(int size, int length) {
-			// TODO Auto-generated constructor stub
-		}
-
-		@Override
-		public boolean hasNext() {
-			// TODO Auto-generated method stub
-			return false;
-		}
-
-		@Override
-		public Position next() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-
-		@Override
-		public void remove() {
-			// TODO Auto-generated method stub
-			
-		}
-
-	}
 
 	private Set<EventDate> constantRequiredEventSet;
 	private Set<EventDate> notConstantRequiredEventSet;
@@ -79,6 +44,7 @@ public class OptimalPathFindingService {
 		}
 	}
 	public void inputEventDate(EventDate eventDate, Date startDate, Date endDate) throws Exception{
+		// poprawiæ tak aby dobrze wstawia³o daty
 		if(eventDate.getDuration() > DateTimeTools.getMinuteDifferenceBetweenTwoDates(startDate, endDate)){
 			throw new Exception("Event lasts too long for this gap.");
 		}
@@ -90,12 +56,13 @@ public class OptimalPathFindingService {
 			tempEventList.add(tempEventDate);
 			prevEventDate = tempEventDate;
 		}
-//		if(!canEventFitBetween(,,,)){
-//			throw new OptimalPathFindingException("Event lasts too long for this gap.");
-//		}
-//		eventDate.setStartTime(new Date(Math.max(prevEventDate.getEndTime().getTime(),startDate.getTime())));
-//		eventDate.setEndTime(new Date(Math.max(prevEventDate.getEndTime().getTime(),startDate.getTime())+eventDate.getDuration().getTime()));
-//		tempEventList.add(eventDate);
+		if(!canEventFitBetween(eventDate,prevEventDate,tempEventDate)){
+			throw new OptimalPathFindingException("Event lasts too long for this gap.");
+		}
+		//TODO
+		eventDate.setStartTime(new Date(Math.max(prevEventDate.getEndTime().getTime(),startDate.getTime())));
+		eventDate.setEndTime(new Date(Math.max(prevEventDate.getEndTime().getTime(),startDate.getTime())+eventDate.getDuration()));
+		tempEventList.add(eventDate);
 		if(tempEventDate != null){
 			tempEventList.add(tempEventDate);
 		}
@@ -124,11 +91,14 @@ public class OptimalPathFindingService {
 		
 	}
 	
-//	private boolean canEventFitBetween(EventDate event, EventDate beforeEvent, EventDate afterEvent){
-//		return beforeEvent.getEndTime().getTime() + getTimeDistance(beforeEvent,event) + event.getDuration().getTime() + getTimeDistance(event,afterEvent) < afterEvent.getStartTime().getTime();
-//		
-//	}
-//	
+	private boolean canEventFitBetween(EventDate event, EventDate beforeEvent, EventDate afterEvent){
+		return getTimeDistance(beforeEvent,event) + event.getDuration() + getTimeDistance(event,afterEvent) < DateTimeTools.getMinuteDifferenceBetweenTwoDates(beforeEvent.getEndTime(), afterEvent.getStartTime());
+	}
+	
+	private long getTimeOccupiedByEvent(EventDate event, EventDate beforeEvent, EventDate afterEvent){
+		return getTimeDistance(beforeEvent,event) + event.getDuration() + getTimeDistance(event,afterEvent);
+	}
+	
 	private boolean areOverlaping(EventDate event1, EventDate event2){
 		return DateTimeTools.getMinuteDifferenceBetweenTwoDates(event1.getEndTime(), event2.getStartTime()) > getTimeDistance(event1,event2);
 	}
@@ -170,7 +140,30 @@ public class OptimalPathFindingService {
 		
 	}
 	private void placeNonConstantEvents(List<EventDate> tempEventList) {
-		//TODO
+		Set<EventDate> tempNotConstantEventSet = new HashSet<EventDate>(notConstantNotRequiredEventSet);
+		while(!tempNotConstantEventSet.isEmpty()){
+			EventDate bestBeforeEvent = null;
+			EventDate bestEvent = null;
+			long bestTime = Long.MAX_VALUE;
+			for(EventDate beforeEvent: tempEventList.subList(0, tempEventList.size()-1)){
+				for(EventDate event: tempNotConstantEventSet){
+					EventDate afterEvent = tempEventList.get(tempEventList.indexOf(beforeEvent)+1);
+					if(canEventFitBetween(event, beforeEvent, afterEvent)){
+						long currTime = getTimeOccupiedByEvent(event, beforeEvent, afterEvent);
+						if(currTime<bestTime){
+							bestTime = currTime;
+							bestEvent = event;
+							bestBeforeEvent = beforeEvent;
+						}
+					}
+				}
+			}
+			if(bestEvent == null){
+				break;
+			}
+			fitEventAfter(bestEvent, bestBeforeEvent, tempEventList);
+			tempNotConstantEventSet.remove(bestEvent);
+		}
 		
 	}
 	private void placeConstantEvents(List<EventDate> tempEventList) {
@@ -184,31 +177,33 @@ public class OptimalPathFindingService {
 				tempEventList.remove(event);
 			}
 		}
-		//TODO
 	}
 	private void placeRequiredEvents(List<EventDate> tempEventList) throws OptimalPathFindingException {
-		EventDate[] placedEventArray = (EventDate[]) tempEventList.toArray();
-		EventDate[] requiredEventArray = (EventDate[]) notConstantRequiredEventSet.toArray();
-		Iterator<Position> positions = new PositionGenerator(tempEventList.size(), requiredEventArray.length);
-		List<EventDate> bestEventList = null;
-		long bestTime = -1;
-		while(positions.hasNext()){
-			Position position = positions.next();
-			List<EventDate> tempEventList2 = new ArrayList<EventDate>(tempEventList);
-			position.generateEventList(tempEventList2,placedEventArray,requiredEventArray);
-			if(isPlanSuitable(tempEventList2)){
-				long currTime = getPlanCost(tempEventList2);
-				if(currTime < bestTime || bestTime == -1){
-					bestTime = currTime;
-					bestEventList = tempEventList2;
+		Set<EventDate> tempNotConstantEventSet = new HashSet<EventDate>(notConstantRequiredEventSet);
+		while(!tempNotConstantEventSet.isEmpty()){
+			EventDate bestBeforeEvent = null;
+			EventDate bestEvent = null;
+			long bestTime = Long.MAX_VALUE;
+			for(EventDate beforeEvent: tempEventList.subList(0, tempEventList.size()-1)){
+				for(EventDate event: tempNotConstantEventSet){
+					EventDate afterEvent = tempEventList.get(tempEventList.indexOf(beforeEvent)+1);
+					if(canEventFitBetween(event, beforeEvent, afterEvent)){
+						long currTime = getTimeOccupiedByEvent(event, beforeEvent, afterEvent);
+						if(currTime<bestTime){
+							bestTime = currTime;
+							bestEvent = event;
+							bestBeforeEvent = beforeEvent;
+						}
+					}
 				}
 			}
+			if(bestEvent == null){
+				throw new OptimalPathFindingException("Unable to find optimal schedule.");
+			}
+			fitEventAfter(bestEvent, bestBeforeEvent, tempEventList);
+			tempNotConstantEventSet.remove(bestEvent);
 		}
-		if(bestTime == -1){
-			throw new OptimalPathFindingException("Unable to find optimal schedule.");
-		}
-		tempEventList.clear();
-		tempEventList.addAll(bestEventList);
+		
 	}
 	private void placeConstantRequiredEvents(List<EventDate> tempEventList) throws OptimalPathFindingException {
 		for(EventDate event : constantRequiredEventSet){
@@ -226,14 +221,5 @@ public class OptimalPathFindingService {
 			if(areOverlaping(tempEventList.get(eventIterator-1), tempEventList.get(eventIterator)))return false;
 		}
 		return true;
-	}
-	
-	private long getPlanCost(List<EventDate> tempEventList){
-		long cost = 0;
-		int eventIterator;
-		for(eventIterator = 1; eventIterator < tempEventList.size(); eventIterator++){
-			cost += this.getTimeDistance(tempEventList.get(eventIterator-1), tempEventList.get(eventIterator));
-		}
-		return cost;
 	}
 }
