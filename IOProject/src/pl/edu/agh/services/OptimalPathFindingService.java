@@ -43,47 +43,81 @@ public class OptimalPathFindingService {
 			}
 		}
 	}
-	public void inputEventDate(EventDate eventDate, Date startDate, Date endDate) throws Exception{
-		// poprawiæ tak aby dobrze wstawia³o daty
-		if(eventDate.getDuration() > DateTimeTools.getMinuteDifferenceBetweenTwoDates(startDate, endDate)){
-			throw new Exception("Event lasts too long for this gap.");
-		}
+	public void setEventDates(Set<EventDate> eventDateSet){
+		clear();
+		addEventDates(eventDateSet);
+	}
+	public void clear(){
+		constantRequiredEventSet = new HashSet<EventDate>();
+		notConstantRequiredEventSet = new HashSet<EventDate>();
+		constantNotRequiredEventSet = new HashSet<EventDate>();
+		notConstantNotRequiredEventSet = new HashSet<EventDate>();
+		eventList = new ArrayList<EventDate>();
+	}
+	public void inputEventDate(EventDate eventDate, Date startDate) throws OptimalPathFindingException {
 		List<EventDate> tempEventList = new ArrayList<EventDate>();
 		EventDate tempEventDate = null;
-		EventDate prevEventDate = null;
+		EventDate prevEventDate = new EventDate(null, null, null, startDate, 0, false);
+		boolean fit = false;
 		Iterator<EventDate> eventListIterator = eventList.iterator();
-		while(eventListIterator.hasNext() && (tempEventDate = (EventDate) eventListIterator.next()).getEndTime().before(startDate)){
+		while(eventListIterator.hasNext() && (tempEventDate = (EventDate) eventListIterator.next()).getStartTime().before(startDate)){
 			tempEventList.add(tempEventDate);
 			prevEventDate = tempEventDate;
 		}
-		if(!canEventFitBetween(eventDate,prevEventDate,tempEventDate)){
-			throw new OptimalPathFindingException("Event lasts too long for this gap.");
-		}
-		//TODO
-		eventDate.setStartTime(new Date(Math.max(prevEventDate.getEndTime().getTime(),startDate.getTime())));
-		eventDate.setEndTime(new Date(Math.max(prevEventDate.getEndTime().getTime(),startDate.getTime())+eventDate.getDuration()));
-		tempEventList.add(eventDate);
-		if(tempEventDate != null){
+		if(tempEventDate!=null){
 			tempEventList.add(tempEventDate);
 		}
-		while(eventListIterator.hasNext()){
-			tempEventList.add(eventListIterator.next());
+		if(prevEventDate.getEndTime().before(startDate)){
+			if(canEventFitBetween(eventDate, new EventDate(prevEventDate.getLocation(), prevEventDate.getDate(), startDate, startDate, 0, false), tempEventDate)){
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(startDate);
+				calendar.add(Calendar.MINUTE, getTimeDistance(prevEventDate, eventDate));
+				eventDate.setStartTime(calendar.getTime());
+				calendar.add(Calendar.MINUTE, eventDate.getDuration());
+				eventDate.setEndTime(calendar.getTime());
+				tempEventList.add(eventDate);
+				fit = true;
+			}
+		}else{
+			if(canEventFitBetween(eventDate, prevEventDate, tempEventDate)){
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(startDate);
+				calendar.add(Calendar.MINUTE, getTimeDistance(prevEventDate, eventDate));
+				eventDate.setStartTime(calendar.getTime());
+				calendar.add(Calendar.MINUTE, eventDate.getDuration());
+				eventDate.setEndTime(calendar.getTime());
+				tempEventList.add(eventDate);
+				fit = true;
+			}
 		}
-		eventList = tempEventList;
+		while(eventListIterator.hasNext() && !fit){
+			prevEventDate = tempEventDate;
+			tempEventDate = eventListIterator.next();
+			tempEventList.add(tempEventDate);
+			if(canEventFitBetween(eventDate, prevEventDate, tempEventDate)){
+				Calendar calendar = Calendar.getInstance();
+				calendar.setTime(startDate);
+				calendar.add(Calendar.MINUTE, getTimeDistance(prevEventDate, eventDate));
+				eventDate.setStartTime(calendar.getTime());
+				calendar.add(Calendar.MINUTE, eventDate.getDuration());
+				eventDate.setEndTime(calendar.getTime());
+				tempEventList.add(eventDate);
+				fit = true;
+			}
+		}
+		while(eventListIterator.hasNext()){
+			tempEventDate = eventListIterator.next();
+			tempEventList.add(tempEventDate);
+		}
+		if(fit){
+			eventList = tempEventList;
+			Set<EventDate> eventSet = new HashSet<EventDate>();
+			eventSet.add(eventDate);
+			addEventDates(eventSet);
+		}else{
+			throw new OptimalPathFindingException("Unable to find place for the event");
+		}
 	}
-	
-//	private boolean canEventFitBetween(){
-//		if(prevEventDate != null && tempEventDate != null && (Math.max(prevEventDate.getEndTime().getTime(),startDate.getTime()) + eventDate.getDuration() > Math.min(DateTimeTools.getCalendarFromDate(tempEventDate.getStartTime()),DateTimeTools.getCalendarFromDate(endDate)))){
-//			throw new OptimalPathFindingException("Event lasts too long for this gap.");
-//		}
-//		if(prevEventDate != null && (Math.max(prevEventDate.getEndTime().getTime(),startDate.getTime()) + eventDate.getDuration().getTime() > endDate.getTime())){
-//			throw new Exception("Event lasts too long for this gap.");
-//		}
-//		if(tempEventDate != null && (startDate.getTime() + eventDate.getDuration().getTime() > Math.min(tempEventDate.getStartTime().getTime(),endDate.getTime()))){
-//			throw new Exception("Event lasts too long for this gap.");
-//		}
-//		return false;
-//	}
 	
 	public List<EventDate> getEventDateOrder(){
 		calculateOptimalEventOrder();
@@ -103,7 +137,7 @@ public class OptimalPathFindingService {
 		return DateTimeTools.getMinuteDifferenceBetweenTwoDates(event1.getEndTime(), event2.getStartTime()) > getTimeDistance(event1,event2);
 	}
 	
-	private long getTimeDistance(EventDate event1, EventDate event2) {
+	private int getTimeDistance(EventDate event1, EventDate event2) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
