@@ -113,4 +113,14 @@ public class DateTimeTools {
 		calendar.setTime(date);
 		return calendar;
 	}
+	
+	public static boolean happenedBefore(Date firstDate, Date secondDate){
+		return getCalendarFromDate(firstDate).before(secondDate);
+	}
+	
+	public static Date addMinutesToDate(Date date, int amount){
+		Calendar calendar = getCalendarFromDate(date);
+		calendar.add(Calendar.MINUTE,amount);
+		return calendar.getTime();
+	}
 }
