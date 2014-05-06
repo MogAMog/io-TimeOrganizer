@@ -10,6 +10,7 @@ import java.util.Set;
 
 import pl.edu.agh.domain.EventDate;
 import pl.edu.agh.exceptions.OptimalPathFindingException;
+import pl.edu.agh.services.interfaces.IDistanceStrategy;
 import pl.edu.agh.tools.DateTimeTools;
 
 public class OptimalPathFindingService {
@@ -19,6 +20,7 @@ public class OptimalPathFindingService {
 	private Set<EventDate> constantNotRequiredEventSet;
 	private Set<EventDate> notConstantNotRequiredEventSet;
 	private List<EventDate> eventList;
+	private IDistanceStrategy distanceStrategy;
 	public OptimalPathFindingService() {
 		constantRequiredEventSet = new HashSet<EventDate>();
 		notConstantRequiredEventSet = new HashSet<EventDate>();
@@ -58,7 +60,7 @@ public class OptimalPathFindingService {
 		List<EventDate> tempEventList = new ArrayList<EventDate>();
 		EventDate tempEventDate = null;
 		EventDate prevEventDate = new EventDate(null, null, null, startDate, 0, false);
-		boolean fit = false;
+		boolean placeForEventFound = false;
 		Iterator<EventDate> eventListIterator = eventList.iterator();
 		while(eventListIterator.hasNext() && (tempEventDate = (EventDate) eventListIterator.next()).getStartTime().before(startDate)){
 			tempEventList.add(tempEventDate);
@@ -69,7 +71,7 @@ public class OptimalPathFindingService {
 		}
 		EventDate mockEventDate;
 		if(DateTimeTools.happenedBefore(prevEventDate.getEndTime(), startDate)){
-			mockEventDate = new EventDate(prevEventDate.getLocation(), prevEventDate.getDate(), startDate, startDate, 0, false)
+			mockEventDate = new EventDate(prevEventDate.getLocation(), prevEventDate.getDate(), startDate, startDate, 0, false);
 			
 		}else{
 			mockEventDate = prevEventDate;
@@ -77,23 +79,23 @@ public class OptimalPathFindingService {
 		if(canEventFitBetween(eventDate, mockEventDate, tempEventDate)){
 			placeEventAfter(mockEventDate, eventDate);
 			tempEventList.add(eventDate);
-			fit = true;
+			placeForEventFound = true;
 		}
-		while(eventListIterator.hasNext() && !fit){
+		while(eventListIterator.hasNext() && !placeForEventFound){
 			prevEventDate = tempEventDate;
 			tempEventDate = eventListIterator.next();
 			tempEventList.add(tempEventDate);
 			if(canEventFitBetween(eventDate, prevEventDate, tempEventDate)){
 				placeEventAfter(prevEventDate, eventDate);
 				tempEventList.add(eventDate);
-				fit = true;
+				placeForEventFound = true;
 			}
 		}
 		while(eventListIterator.hasNext()){
 			tempEventDate = eventListIterator.next();
 			tempEventList.add(tempEventDate);
 		}
-		if(fit){
+		if(placeForEventFound){
 			eventList = tempEventList;
 			Set<EventDate> eventSet = new HashSet<EventDate>();
 			eventSet.add(eventDate);
@@ -122,8 +124,7 @@ public class OptimalPathFindingService {
 	}
 	
 	private int getTimeDistance(EventDate event1, EventDate event2) {
-		// TODO Auto-generated method stub
-		return 0;
+		return distanceStrategy.getTimeDistanceBetween(event1.getLocation(),event2.getLocation());
 	}
 	private void fitEventAfter(EventDate event, EventDate beforeEvent, List<EventDate> tempEventList){
 		int eventIterator = 0;
@@ -159,10 +160,10 @@ public class OptimalPathFindingService {
 	}
 	
 	private void placeEventAfter(EventDate beforeEvent, EventDate event){
-		Date startTime = DateTimeTools.addMinutesToDate(beforeEvent.getEndTime(), getTimeDistance(prevEventDate, eventDate));
-		eventDate.setStartTime(startTime);
+		Date startTime = DateTimeTools.addMinutesToDate(beforeEvent.getEndTime(), getTimeDistance(beforeEvent, event));
+		event.setStartTime(startTime);
 		Date endTime = DateTimeTools.addMinutesToDate(startTime, event.getDuration());
-		eventDate.setEndTime(endTime);
+		event.setEndTime(endTime);
 	}
 	
 	private void placeNonConstantEvents(List<EventDate> tempEventList) {
