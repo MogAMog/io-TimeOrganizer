@@ -1,6 +1,12 @@
 package com.example.ioproject;
 
+import java.util.Calendar;
+import java.util.Date;
+
+import pl.edu.agh.domain.EventDate;
+import pl.edu.agh.domain.Location;
 import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
+import pl.edu.agh.services.ConnectionsFinderService;
 import pl.edu.agh.view.adddefaultlocalization.AddDefaultLocalizationActivity;
 import pl.edu.agh.view.addevent.ConstantEventAddActivity;
 import pl.edu.agh.view.addevent.EventAddActivity;
@@ -53,6 +59,14 @@ public class MainActivity extends Activity {
 
 	public void addNewEventAction(View view) {
 		startActivity(new Intent(this, EventAddActivity.class));
+//		ConnectionsFinderService cfs = new ConnectionsFinderService();
+//		Location l1 = new Location("basen", "ujazdowska 22", "krakow", 50.05434, 19.93931, false);
+//		Location l2 = new Location("dworzec", "pawia 1", "krakow", 50.06265, 19.94259, false);
+//		EventDate firstEvent = new EventDate(l1, null, null, null, 0, false);
+//		Calendar cal = Calendar.getInstance();
+//		cal.set(2014, 04, 14);
+//		EventDate secondEvent = new EventDate(l2, cal.getTime(), new Date(2014, 05, 14, 12, 03, 00), null, 0, false);
+//		startActivity(cfs.createIntent(firstEvent, secondEvent));
 	}
 
 	public void addNewConstantEventAction(View view) {
