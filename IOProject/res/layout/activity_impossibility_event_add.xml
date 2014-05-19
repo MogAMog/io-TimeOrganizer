@@ -1,0 +1,375 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".ImpossibilityEventAddActivity" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="@dimen/Shape.Frame.MainFrame.Padding"
+        android:gravity="center" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/Shape.Frame.MarginTopDown"
+            android:layout_marginTop="@dimen/Shape.Frame.MarginTopDown"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/Shape.Frame.MainFrame.Margin"
+                android:background="@drawable/shape_frame_black"
+                android:orientation="vertical"
+                android:padding="@dimen/Shape.Frame.MainFrame.Padding" >
+
+                <RadioButton
+                    android:id="@+id/ImpossibilityEventTypeFold.Constant.Id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ImpossibilityEventTypeFold.RadioButton.Constant" />
+
+                <RadioButton
+                    android:id="@+id/ImpossibilityEventTypeFold.OneTime.Id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="@string/ImpossibilityEventTypeFold.RadioButton.OneTime" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/Shape.Frame.Title.MarginLeft"
+                android:background="@drawable/shape_frame_black"
+                android:paddingBottom="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:paddingLeft="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingRight="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingTop="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:text="@string/ImpossibilityEventTypeFold.Legend"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/Shape.Frame.MarginTopDown"
+            android:layout_marginTop="@dimen/Shape.Frame.MarginTopDown"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/Shape.Frame.MainFrame.Margin"
+                android:background="@drawable/shape_frame_red"
+                android:orientation="vertical"
+                android:padding="@dimen/Shape.Frame.MainFrame.Padding" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/Image.Description"
+                        android:src="@drawable/calendar_icon" />
+
+                    <TextView
+                        android:id="@+id/ImpossibilityEventAdd.textStartDate"
+                        android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
+                        android:layout_height="wrap_content"
+                        android:text="@string/EventDateFold.StartDate.Label.NoSet" />
+
+                    <Button
+                        android:id="@+id/ImpossibilityEventAdd.buttonStartDate"
+                        android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:onClick="showStartDatePickerDialog"
+                        android:text="@string/EventDateFold.StartDate.Button.Label" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/Image.Description"
+                        android:src="@drawable/calendar_icon" />
+
+                    <TextView
+                        android:id="@+id/ImpossibilityEventAdd.textEndDate"
+                        android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
+                        android:layout_height="wrap_content"
+                        android:text="@string/EventDateFold.EndDate.Label.NoSet" />
+
+                    <Button
+                        android:id="@+id/ImpossibilityEventAdd.buttonEndDate"
+                        android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:onClick="showEndDatePickerDialog"
+                        android:text="@string/EventDateFold.EndDate.Button.Label" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/Image.Description"
+                        android:src="@drawable/calendar_icon" />
+
+                    <TextView
+                        android:id="@+id/ImpossibilityEventAdd.textDate"
+                        android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
+                        android:layout_height="wrap_content"
+                        android:text="@string/EventDateFold.Date.Label.NoSet" />
+
+                    <Button
+                        android:id="@+id/ImpossibilityEventAdd.buttonDate"
+                        android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
+                        android:layout_height="wrap_content"
+                        android:text="@string/EventDateFold.Date.Button.Label" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/Shape.Frame.Title.MarginLeft"
+                android:background="@drawable/shape_frame_red"
+                android:paddingBottom="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:paddingLeft="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingRight="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingTop="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:text="@string/EventDateFold.Legend" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/Shape.Frame.MarginTopDown"
+            android:layout_marginTop="@dimen/Shape.Frame.MarginTopDown"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/Shape.Frame.MainFrame.Margin"
+                android:background="@drawable/shape_frame_orange"
+                android:orientation="vertical"
+                android:padding="@dimen/Shape.Frame.MainFrame.Padding" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"  >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="@dimen/AddNewConstantEventView.spacingBetweenItems"
+                        android:text="@string/EventFrequencyFold.List.Label"/>
+
+                    <Spinner
+                        android:id="@+id/ImpossibilityEventAdd.spinner"
+                        android:layout_width="0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:background="@drawable/shape_frame_black"
+                        android:padding="5dp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
+                    android:gravity="center" >
+
+                    <CheckBox
+                        android:id="@+id/ImpossibilityEvent.checkBoxMONDAY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/EventFrequencyFold.CheckBox.Monday" />
+
+                    <CheckBox
+                        android:id="@+id/ImpossibilityEvent.checkBoxTUESDAY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/EventFrequencyFold.CheckBox.Tuesday" />
+
+                    <CheckBox
+                        android:id="@+id/ImpossibilityEvent.checkBoxWENDESDAY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/EventFrequencyFold.CheckBox.Wednesday" />
+
+                    <CheckBox
+                        android:id="@+id/ImpossibilityEvent.checkBoxTHURSDAY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/EventFrequencyFold.CheckBox.Thursday" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
+                    android:gravity="center" >
+
+                    <CheckBox
+                        android:id="@+id/ImpossibilityEvent.checkBoxFRIDAY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/EventFrequencyFold.CheckBox.Friday" />
+
+                    <CheckBox
+                        android:id="@+id/ImpossibilityEvent.checkBoxSATURDAY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/EventFrequencyFold.CheckBox.Saturday" />
+
+                    <CheckBox
+                        android:id="@+id/ImpossibilityEvent.checkBoxSUNDAY"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/EventFrequencyFold.CheckBox.Sunday" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/Shape.Frame.Title.MarginLeft"
+                android:background="@drawable/shape_frame_orange"
+                android:paddingBottom="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:paddingLeft="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingRight="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingTop="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:text="@string/EventFrequencyFold.Legend"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/Shape.Frame.MarginTopDown"
+            android:layout_marginTop="@dimen/Shape.Frame.MarginTopDown"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="@dimen/Shape.Frame.MainFrame.Margin"
+                android:background="@drawable/shape_frame_violet"
+                android:padding="@dimen/Shape.Frame.MainFrame.Padding" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/Image.Description"
+                        android:src="@drawable/clock_blue" />
+
+                    <TextView
+                        android:id="@+id/ImpossibilityEventAdd.textStartTime"
+                        android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
+                        android:layout_height="wrap_content"
+                        android:text="@string/EventTimeFold.StartTime.Label.NoSet" />
+
+                    <Button
+                        android:id="@+id/ImpossibilityEventAdd.buttonStartTime"
+                        android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
+                        android:layout_height="wrap_content"
+                        android:onClick="showStartTimePickerDialog"
+                        android:text="@string/EventTimeFold.StartTime.Button.Label" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/AddNewConstantEventView.spacingBetweenItems"
+                    android:gravity="center" >
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="@string/Image.Description"
+                        android:src="@drawable/clock_blue" />
+
+                    <TextView
+                        android:id="@+id/ImpossibilityEventAdd.textEndTime"
+                        android:layout_width="@dimen/AddNewConstantEventView.timeAndDateInformationText"
+                        android:layout_height="wrap_content"
+                        android:text="@string/EventTimeFold.EndTime.Label.NoSet"  />
+
+                    <Button
+                        android:id="@+id/ImpossibilityEventAdd.buttonEndTime"
+                        android:layout_width="@dimen/AddNewConstantEventViewtimeAndDateButtonWidth"
+                        android:layout_height="wrap_content"
+                        android:onClick="showEndTimePickerDialog"
+                        android:text="@string/EventTimeFold.EndTime.Button.Label" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/Shape.Frame.Title.MarginLeft"
+                android:background="@drawable/shape_frame_violet"
+                android:paddingBottom="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:paddingLeft="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingRight="@dimen/Shape.Frame.Title.PaddingLeftRight"
+                android:paddingTop="@dimen/Shape.Frame.Title.PaddingTopDown"
+                android:text="@string/EventTimeFold.Legend" />
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/ImpossibilityEventAdd.buttonAddEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="addNewImpossibilityEventAction"
+            android:text="@string/AddNewEventView.AddEvent.Button.Label" />
+
+    </LinearLayout>
+
+</ScrollView>
