@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
+import pl.edu.agh.services.EventDateManagementService;
 import pl.edu.agh.view.eventdescription.EventDescriptionActivity;
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -17,7 +19,6 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.ioproject.R;
 
@@ -27,11 +28,13 @@ public class EventListAdapter extends ArrayAdapter<EventListItem> {
 	
 	private ArrayList<EventListItem> items;
 	private LayoutInflater layoutInflater;
-
+	private EventDateManagementService eventDateManagementService;
+	
 	public EventListAdapter(Context context, int resource, ArrayList<EventListItem> items) {
 		super(context, resource);
 		layoutInflater = LayoutInflater.from(context);
 		this.items = items;
+		this.eventDateManagementService = new EventDateManagementService(new MainDatabaseHelper(context));
 	}
 
 	@Override
@@ -64,12 +67,10 @@ public class EventListAdapter extends ArrayAdapter<EventListItem> {
 		fillRow(holder, position);
 		
 		holder.isFinished.setOnClickListener(new OnClickListener() {
-			
 			@Override
 			public void onClick(View v) {
 				boolean isChecked = ((CheckBox)v).isChecked();
-				Toast.makeText(getContext(), "Finished: " + isChecked, Toast.LENGTH_LONG).show();
-				getItem(position).setFinished(isChecked);
+				eventDateManagementService.changeFinishedEventDateState(getItem(position).getEventDate(), isChecked);
 			}
 		});
 		
@@ -82,26 +83,13 @@ public class EventListAdapter extends ArrayAdapter<EventListItem> {
 			}
 		});
 		
-		holder.editEventButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(getContext(), "Show event For: " + getItem(position).getTitle(), Toast.LENGTH_LONG).show();
-			}
-		});
-		
-		holder.showEventLocationButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(getContext(), "Show Location For: " + getItem(position).getTitle(), Toast.LENGTH_LONG).show();
-			}
-		});
 		return convertView;
 	}
 
 	private void fillRow(ViewHolder holder, int position) {
 		EventListItem item = items.get(position);
 		holder.isFinished.setChecked(item.isFinished());
-		holder.title.setText(item.getTitle());
+		holder.title.setText(item.getEvent().isDraft() ? "[" + getContext().getString(R.string.Event_Draft) + "] " +  item.getTitle() : item.getTitle());
 		holder.timeFrom.setText(getReadableTime(item.getStartTime()));
 		holder.timeTo.setText(getReadableTime(item.getEndTime()));
 	}
@@ -112,8 +100,6 @@ public class EventListAdapter extends ArrayAdapter<EventListItem> {
 		holder.timeFrom = (TextView) convertView.findViewById(R.id.EventListItem_event_start_time);
 		holder.timeTo = (TextView) convertView.findViewById(R.id.EventListItem_event_end_time);
 		holder.descriptionEventButton = (ImageButton) convertView.findViewById(R.id.EventListItem_event_description_button);
-		holder.editEventButton = (ImageButton) convertView.findViewById(R.id.EventListItem_event_edit_button);
-		holder.showEventLocationButton = (ImageButton) convertView.findViewById(R.id.EventListItem_event_localization);
 	}
 
 	@SuppressLint("SimpleDateFormat") 

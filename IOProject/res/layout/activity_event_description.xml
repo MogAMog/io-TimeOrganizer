@@ -195,6 +195,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/EventDescription.tiles_margin"
                 android:background="@drawable/additional_information_rectangle_shape"
                 android:gravity="center"
                 android:orientation="horizontal" >
@@ -214,14 +215,37 @@
                     android:contentDescription="@string/Image.Description"
                     android:src="@drawable/decline" />
             </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/additional_information_rectangle_shape"
+                android:gravity="center"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Event.Draft"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="@android:color/white" />
+
+                <ImageView
+                    android:id="@+id/EventDescription.Draft.ImageView.Id"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/Image.Description"
+                    android:src="@drawable/decline" />
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
     <fragment
         android:id="@+id/EventDescription.map"
-        class="com.google.android.gms.maps.MapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="20dp" />
+        android:layout_margin="20dp"
+        class="com.google.android.gms.maps.MapFragment" />
 
 </LinearLayout>

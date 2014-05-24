@@ -15,7 +15,6 @@ import pl.edu.agh.tools.StringTools;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.widget.CheckBox;
 
 import com.example.ioproject.R;
 
@@ -25,10 +24,13 @@ public class EventManagementService implements IDatabaseDmlProvider<Event>, IEnt
 	private AccountManagementService accountManagementService;
 	private EventDateManagementService eventDateManagementService;
 	
+	private List<Event> eventsCache = null;
+	
 	public EventManagementService(SQLiteOpenHelper dbHelper) {
 		this.dbHelper = dbHelper;
 		this.accountManagementService = new AccountManagementService(dbHelper);
 		this.eventDateManagementService = new EventDateManagementService(dbHelper);
+		this.eventsCache = getAll();
 	}
 	
 	@Override
@@ -40,12 +42,6 @@ public class EventManagementService implements IDatabaseDmlProvider<Event>, IEnt
 		if(StringTools.isNullOrEmpty(entity.getTitle())) {
 			errors.add(new FormValidationError(R.string.Validation_Event_Title_NotNull));
 		}
-//		if(entity.isRequired() == null) {
-//			errors.addAll(new FormValidationError("R.string.Validation_Event_IsRequired_NotNull"));
-//		}
-//		if(entity.isConstant() == null) {
-//			errors.addAll(new FormValidationError("R.string.Validation_Event_IsConstant_NotNull"));
-//		}
 		for(EventDate eventDate : entity.getEventDates()) {
 			errors.addAll(eventDateManagementService.validate(eventDate));
 		}
@@ -59,6 +55,7 @@ public class EventManagementService implements IDatabaseDmlProvider<Event>, IEnt
 		values.put(EventTable.COLUMN_NAME_DESCRIPTION, insertObject.getDescription());
 		values.put(EventTable.COLUMN_NAME_IS_CONSTANT, BooleanTools.convertBooleanToInt(insertObject.isConstant()));
 		values.put(EventTable.COLUMN_NAME_IS_REQUIRED, BooleanTools.convertBooleanToInt(insertObject.isRequired()));
+		values.put(EventTable.COLUMN_NAME_IS_DRAFT, BooleanTools.convertBooleanToInt(insertObject.isDraft()));
 		if(insertObject.getPredecessorEvent() != null) {
 			if(insertObject.getPredecessorEvent().getId() == DatabaseProperties.UNSAVED_ENTITY_ID) {
 				insert(insertObject.getPredecessorEvent());
@@ -80,24 +77,30 @@ public class EventManagementService implements IDatabaseDmlProvider<Event>, IEnt
 				eventDateManagementService.insert(eventDate);
 			}
 		}
+		
+		eventsCache = null;
+		
 		return id;
 	}
 
 	@Override
 	public List<Event> getAll() {
-		Cursor cursor = null;
-		try {
-			cursor = dbHelper.getReadableDatabase().rawQuery("SELECT * FROM " + EventTable.TABLE_NAME, null);
-			cursor.moveToFirst();
-			List<Event> events = new ArrayList<Event>();
-			while(!cursor.isAfterLast()) {
-				events.add(getEventFromCursor(cursor));
-				cursor.moveToNext();
+		if(eventsCache == null) {
+			Cursor cursor = null;
+			try {
+				cursor = dbHelper.getReadableDatabase().rawQuery("SELECT * FROM " + EventTable.TABLE_NAME, null);
+				cursor.moveToFirst();
+				List<Event> events = new ArrayList<Event>();
+				while(!cursor.isAfterLast()) {
+					events.add(getEventFromCursor(cursor));
+					cursor.moveToNext();
+				}
+				eventsCache = events;
+			} finally {
+				cursor.close();
 			}
-			return events;
-		} finally {
-			cursor.close();
 		}
+		return eventsCache;
 	}
 
 	@Override
@@ -122,6 +125,7 @@ public class EventManagementService implements IDatabaseDmlProvider<Event>, IEnt
 		event.setDescription(cursor.getString(cursor.getColumnIndex(EventTable.COLUMN_NAME_DESCRIPTION)));
 		event.setConstant(BooleanTools.convertIntToBoolean(cursor.getInt(cursor.getColumnIndex(EventTable.COLUMN_NAME_IS_CONSTANT))));
 		event.setRequired(BooleanTools.convertIntToBoolean(cursor.getInt(cursor.getColumnIndex(EventTable.COLUMN_NAME_IS_REQUIRED))));
+		event.setDraft(BooleanTools.convertIntToBoolean(cursor.getInt(cursor.getColumnIndex(EventTable.COLUMN_NAME_IS_DRAFT))));
 		event.setAccount(accountManagementService.getByIdAllData(cursor.getLong(cursor.getColumnIndex(EventTable.COLUMN_NAME_ACCOUNT_ID))));
 		event.setEventDates(eventDateManagementService.getAllEventDatesForEventId(event));
 		event.setPredecessorEvent(null);

@@ -4,11 +4,9 @@ import pl.edu.agh.tools.DateTimeTools;
 import pl.edu.agh.tools.StringTools;
 import pl.edu.agh.view.eventlist.EventListAdapter;
 import pl.edu.agh.view.eventlist.EventListItem;
-import android.R.anim;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,6 +34,7 @@ public class EventDescriptionActivity extends Activity {
 		setRequirementPicture(R.id.EventDescription_Required_ImageView_Id, eventListItem.isRequired());
 		setRequirementPicture(R.id.EventDescription_Constant_ImageView_Id, eventListItem.isConstant());
 		setRequirementPicture(R.id.EventDescription_Finished_ImageView_Id, eventListItem.isFinished());
+		setRequirementPicture(R.id.EventDescription_Draft_ImageView_Id, eventListItem.getEvent().isDraft());
 
 		GoogleMap map = ((MapFragment) getFragmentManager().findFragmentById(R.id.EventDescription_map)).getMap();
 		map.setMyLocationEnabled(true);

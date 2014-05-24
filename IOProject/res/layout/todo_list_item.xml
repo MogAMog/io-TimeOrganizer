@@ -55,24 +55,6 @@
             android:contentDescription="@string/EventListItem.event_description"
             android:src="@drawable/calendar_info"
             android:onClick="showSomeActoin" />
-
-        <ImageButton
-            android:id="@+id/EventListItem.event_edit_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-                        android:layout_margin="5dp"
-            android:background="@null"
-            android:contentDescription="@string/EventListItem.event_edit"
-            android:src="@drawable/edit_event" />
-
-        <ImageButton
-            android:id="@+id/EventListItem.event_localization"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-			android:layout_margin="5dp"
-            android:background="@null"
-            android:contentDescription="@string/EventListItem.event_localization"
-            android:src="@drawable/globe" />
     </LinearLayout>
 
 </LinearLayout>

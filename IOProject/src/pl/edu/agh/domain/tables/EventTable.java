@@ -19,6 +19,7 @@ public class EventTable implements BaseColumns, IDatabaseTableSchema {
 	public static final String COLUMN_NAME_DESCRIPTION = "Description";
 	public static final String COLUMN_NAME_IS_REQUIRED = "IsRequired";
 	public static final String COLUMN_NAME_IS_CONSTANT = "IsConstant";
+	public static final String COLUMN_NAME_IS_DRAFT = "IsDraft";
 	
 	public static final EventTable INSTANCE = new EventTable();
 	
@@ -44,6 +45,7 @@ public class EventTable implements BaseColumns, IDatabaseTableSchema {
 		columnsWithNames.put(COLUMN_NAME_DESCRIPTION, SqliteDatatypesHelper.getSqliteDatabaseType(String.class));
 		columnsWithNames.put(COLUMN_NAME_IS_REQUIRED, SqliteDatatypesHelper.getSqliteDatabaseType(Boolean.class));
 		columnsWithNames.put(COLUMN_NAME_IS_CONSTANT, SqliteDatatypesHelper.getSqliteDatabaseType(Boolean.class));
+		columnsWithNames.put(COLUMN_NAME_IS_DRAFT, SqliteDatatypesHelper.getSqliteDatabaseType(Boolean.class));
 		return columnsWithNames;
 	}
 	
@@ -54,7 +56,7 @@ public class EventTable implements BaseColumns, IDatabaseTableSchema {
 	
 	@Override
 	public List<String> getNotNullColumns() {
-		return new ArrayList<String>(Arrays.asList(COLUMN_NAME_ACCOUNT_ID, COLUMN_NAME_TITLE, COLUMN_NAME_IS_CONSTANT, COLUMN_NAME_IS_REQUIRED));
+		return new ArrayList<String>(Arrays.asList(COLUMN_NAME_ACCOUNT_ID, COLUMN_NAME_TITLE, COLUMN_NAME_IS_CONSTANT, COLUMN_NAME_IS_REQUIRED, COLUMN_NAME_IS_DRAFT));
 	}
 	
 	@Override

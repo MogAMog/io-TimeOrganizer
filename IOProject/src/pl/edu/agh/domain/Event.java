@@ -17,18 +17,20 @@ public class Event implements Serializable {
 	private String description;
 	private boolean required;
 	private boolean constant;
+	private boolean draft;
 	
 	public Event() {
 		super();
 	}
 
-	public Event(Account account, Event predecessorEvent, String title, String description, boolean required, boolean constant) {
+	public Event(Account account, Event predecessorEvent, String title, String description, boolean required, boolean constant, boolean draft) {
 		this.account = account;
 		this.predecessorEvent = predecessorEvent;
 		this.title = title;
 		this.description = description;
 		this.required = required;
 		this.constant = constant;
+		this.draft = draft;
 	}
 
 	public long getId() {
@@ -100,6 +102,14 @@ public class Event implements Serializable {
 		eventDate.setEvent(this);
 	}
 	
+	public boolean isDraft() {
+		return draft;
+	}
+
+	public void setDraft(boolean draft) {
+		this.draft = draft;
+	}
+
 	@Override
 	public String toString() {
 		return "Event [id=" + id + ", account=" + account

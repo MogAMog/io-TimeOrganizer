@@ -56,6 +56,7 @@
     <string name="Event.Description">Description</string>
     <string name="Event.Constant">Constant</string>
     <string name="Event.Required">Required</string>
+    <string name="Event.Draft">Draft</string>
 
     <!-- ************************************************************************************************* -->
     <!-- *************************************** Event Properties **************************************** -->
@@ -168,6 +169,7 @@
     <string name="EventRequirementFold.Legend">Requirements</string>
     <string name="EventRequirementFold.FixedTime">Fixed Time</string>
     <string name="EventRequirementFold.Required">Required</string>
+    <string name="EventRequirementFold.Draft">Draft</string>
     
         <!-- ************************************************************************************************* -->
     <!-- *********************************** Impossibility Event Fold ************************************* -->

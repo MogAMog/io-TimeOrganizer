@@ -56,6 +56,21 @@ public class EventListItem implements Serializable {
 	public void setFinished(boolean isFinished) {
 		eventDate.setFinished(isFinished);
 	}
-	
+
+	public Event getEvent() {
+		return event;
+	}
+
+	public void setEvent(Event event) {
+		this.event = event;
+	}
+
+	public EventDate getEventDate() {
+		return eventDate;
+	}
+
+	public void setEventDate(EventDate eventDate) {
+		this.eventDate = eventDate;
+	}
 	
 }

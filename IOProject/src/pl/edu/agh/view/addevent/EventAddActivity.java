@@ -101,6 +101,13 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 			}
 		});
 		
+		((CheckBox)findViewById(R.id.EventRequirementFold_IsDraft_Id)).setOnCheckedChangeListener(new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView,	boolean isChecked) {
+				event.setDraft(isChecked);
+			}
+		});
+		
 		textSeekBarProgress.setText(getString(R.string.EventTimeFold_Duration_Label) + eventDurationSeekBar.getProgress());
 		eventDurationSeekBar.setOnSeekBarChangeListener( new OnSeekBarChangeListener() {
 			

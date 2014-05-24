@@ -132,6 +132,18 @@ public class EventDateManagementService implements IDatabaseDmlProvider<EventDat
 	public EventDate getByIdAllData(long id) {
 		return null;
 	}
+	
+	public void changeFinishedEventDateState(EventDate eventDate, boolean isFinished) {
+		ContentValues updatedValues = new ContentValues();
+		updatedValues.put(EventDateTable.COLUMN_NAME_FINISHED, isFinished);
+		
+		String selection = EventDateTable._ID + " = ? ";
+		String[] selectionArgs = { Long.toString(eventDate.getId()) };
+		
+		dbHelper.getWritableDatabase().update(EventDateTable.TABLE_NAME, updatedValues, selection, selectionArgs);
+		
+		eventDate.setFinished(isFinished);
+	}
 
 	@Override
 	public List<EventDate> getAll() {
