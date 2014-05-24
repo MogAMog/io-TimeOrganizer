@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -6,17 +6,43 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
     tools:context=".MainActivity" >
 
-    <fragment
-        android:id="@+id/fragment1"
-        android:name="pl.edu.agh.view.eventlist.EventListFragment"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/shape_frame_black"
+        android:padding="5dp"
+        android:orientation="horizontal" >
+
+        <CheckBox
+            android:id="@+id/MainActivity.ConstantCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Event.Constant" />
+
+        <CheckBox
+            android:id="@+id/MainActivity.RequiredCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Event.Required" />
+
+        <CheckBox
+            android:id="@+id/MainActivity.DraftCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Event.Draft" />
+        
+    </LinearLayout>
+    
+    <fragment
+        android:id="@+id/MainActivity.EventListFragment"
+        android:name="pl.edu.agh.view.eventlist.EventListFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         tools:layout="@layout/todo_list_item" />
 
-</RelativeLayout>
+</LinearLayout>

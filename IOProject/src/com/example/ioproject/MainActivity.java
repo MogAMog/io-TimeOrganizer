@@ -1,14 +1,10 @@
 package com.example.ioproject;
 
-import java.util.Calendar;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import pl.edu.agh.domain.Event;
-import pl.edu.agh.domain.EventDate;
-import pl.edu.agh.domain.Location;
 import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
-import pl.edu.agh.services.ConnectionsFinderService;
 import pl.edu.agh.services.EventManagementService;
 import pl.edu.agh.view.adddefaultlocalization.AddDefaultLocalizationActivity;
 import pl.edu.agh.view.addevent.ConstantEventAddActivity;
@@ -23,10 +19,16 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class MainActivity extends Activity implements EventListFragment.ProvideEventList {
 
 	private EventManagementService eventManagementService;
+	private CheckBox constantCheckBox;
+	private CheckBox requiredCheckBox;
+	private CheckBox draftCheckBox;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,23 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 		
 		this.deleteDatabase(MainDatabaseHelper.DATABASE_NAME);
 		this.eventManagementService = new EventManagementService(new MainDatabaseHelper(this));
+
+		OnCheckedChangeListener listener = new OnCheckedChangeListener() {
+			@Override
+			public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+				reloadCurrentFragmentList();
+			}
+		};
+		
+		constantCheckBox = ((CheckBox)findViewById(R.id.MainActivity_ConstantCheckBox));
+		constantCheckBox.setOnCheckedChangeListener(listener);
+		
+		requiredCheckBox = ((CheckBox)findViewById(R.id.MainActivity_RequiredCheckBox));
+		requiredCheckBox.setOnCheckedChangeListener(listener);
+		
+		draftCheckBox = ((CheckBox)findViewById(R.id.MainActivity_DraftCheckBox));
+		draftCheckBox.setOnCheckedChangeListener(listener);
+		
 	}
 
 	@Override
@@ -91,12 +110,28 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 	@Override
 	public List<Event> getEventList() {
 		eventManagementService.clearCache();
-		return eventManagementService.getAll();
+		List<Event> events = eventManagementService.getAll();
+		List<Event> deleteList = new ArrayList<Event>();
+		
+		for(Event event : events) {
+			if(!checkIfFulfilsFilterRequirements(event)) {
+				deleteList.add(event);
+			}
+		}
+		
+		events.removeAll(deleteList);
+		return events;
+	}
+	
+	private boolean checkIfFulfilsFilterRequirements(Event event) {
+		return (!constantCheckBox.isChecked() || event.isConstant() == true) &&
+			   (!draftCheckBox.isChecked() || event.isDraft() == true) &&
+			   (!requiredCheckBox.isChecked() || event.isRequired() == true);
 	}
 	
 	@Override
 	public void reloadCurrentFragmentList() {
-		((EventListFragment)getFragmentManager().findFragmentById(R.id.fragment1)).reloadEventList();
+		((EventListFragment)getFragmentManager().findFragmentById(R.id.MainActivity_EventListFragment)).reloadEventList();
 	}
 	
 }
