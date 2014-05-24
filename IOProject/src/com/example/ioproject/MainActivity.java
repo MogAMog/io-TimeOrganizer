@@ -2,15 +2,19 @@ package com.example.ioproject;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
+import pl.edu.agh.domain.Event;
 import pl.edu.agh.domain.EventDate;
 import pl.edu.agh.domain.Location;
 import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
 import pl.edu.agh.services.ConnectionsFinderService;
+import pl.edu.agh.services.EventManagementService;
 import pl.edu.agh.view.adddefaultlocalization.AddDefaultLocalizationActivity;
 import pl.edu.agh.view.addevent.ConstantEventAddActivity;
 import pl.edu.agh.view.addevent.EventAddActivity;
 import pl.edu.agh.view.defaultlocalizationlist.DefaultLocalizationListActivity;
+import pl.edu.agh.view.eventlist.*;
 import pl.edu.agh.view.help.HelpActivity;
 import android.app.Activity;
 import android.content.Intent;
@@ -19,14 +23,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements EventListFragment.ProvideEventList {
 
+	private EventManagementService eventManagementService;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
 		this.deleteDatabase(MainDatabaseHelper.DATABASE_NAME);
+		this.eventManagementService = new EventManagementService(new MainDatabaseHelper(this));
 	}
 
 	@Override
@@ -72,4 +79,16 @@ public class MainActivity extends Activity {
 	public void addNewConstantEventAction(View view) {
 		startActivity(new Intent(this, ConstantEventAddActivity.class));
 	}
+
+	@Override
+	public List<Event> getEventList() {
+		eventManagementService.clearCache();
+		return eventManagementService.getAll();
+	}
+	
+	@Override
+	public void reloadCurrentFragmentList() {
+		((EventListFragment)getFragmentManager().findFragmentById(R.id.fragment1)).reloadEventList();
+	}
+	
 }

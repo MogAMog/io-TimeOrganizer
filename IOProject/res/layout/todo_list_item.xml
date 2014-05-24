@@ -23,7 +23,7 @@
             android:id="@+id/EventListItem.event_start_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp" />
 
         <TextView
             android:id="@+id/EventListItem.event_end_time"
@@ -50,11 +50,21 @@
             android:id="@+id/EventListItem.event_description_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-			android:layout_margin="5dp"
+            android:layout_margin="5dp"
             android:background="@null"
             android:contentDescription="@string/EventListItem.event_description"
-            android:src="@drawable/calendar_info"
-            android:onClick="showSomeActoin" />
+            android:onClick="showSomeActoin"
+            android:src="@drawable/calendar_info" />
+
+        <ImageButton
+            android:id="@+id/EventListItem.delete_event_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@null"
+            android:contentDescription="@string/Image.Description"
+            android:onClick="showSomeActoin"
+            android:src="@drawable/delete_event" />
     </LinearLayout>
 
 </LinearLayout>

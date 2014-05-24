@@ -5,8 +5,7 @@ import java.util.List;
 
 import pl.edu.agh.domain.Event;
 import pl.edu.agh.domain.EventDate;
-import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
-import pl.edu.agh.services.EventManagementService;
+import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,7 +16,13 @@ import com.example.ioproject.R;
 
 public class EventListFragment extends ListFragment {
 
+	public interface ProvideEventList {
+		public List<Event> getEventList();
+		public void reloadCurrentFragmentList();
+	}
+	
 	private EventListAdapter todoListAdapter;
+	private ProvideEventList mainActivity;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -35,14 +40,21 @@ public class EventListFragment extends ListFragment {
 	}
 	
 	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		this.mainActivity = (ProvideEventList)activity;
+	}
+
+	@Override
 	public void onResume() {
 		super.onResume();
+		reloadEventList();
+	}
+	
+	public void reloadEventList() {
 		ArrayList<EventListItem> todoItems = new ArrayList<EventListItem>();
 
-		EventManagementService ems = new EventManagementService(new MainDatabaseHelper(getActivity()));
-
-		List<Event> events = ems.getAll();
-		for (Event event : events) {
+		for (Event event : mainActivity.getEventList()) {
 			for (EventDate eventDate : event.getEventDates()) {
 				todoItems.add(new EventListItem(event, eventDate));
 			}

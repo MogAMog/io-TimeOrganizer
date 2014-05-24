@@ -1,7 +1,6 @@
 package pl.edu.agh.services;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import pl.edu.agh.domain.Event;
@@ -129,7 +128,16 @@ public class EventManagementService implements IDatabaseDmlProvider<Event>, IEnt
 		return constantEvents;
 	}
 	
-	public void deleteEventById(Event event) {
+	public void deleteParticularEventDateForEvent(Event event, long eventDateId) {
+		if(event.getEventDates().size() == 1) {
+			deleteEvent(event);
+		} else {
+			eventDateManagementService.deleteEventDateById(eventDateId);
+		}
+		eventsCache = null;
+	}
+	
+	public void deleteEvent(Event event) {
 		String selection = EventTable._ID + " = ?";
 		String[] selectionArgument = new String[] { String.valueOf(event.getId()) };
 		eventDateManagementService.deleteAllEventDatesForEvent(event);
@@ -149,6 +157,10 @@ public class EventManagementService implements IDatabaseDmlProvider<Event>, IEnt
 		event.setEventDates(eventDateManagementService.getAllEventDatesForEventId(event));
 		event.setPredecessorEvent(null);
 		return event;
+	}
+	
+	public void clearCache() {
+		eventsCache = null;
 	}
 
 }

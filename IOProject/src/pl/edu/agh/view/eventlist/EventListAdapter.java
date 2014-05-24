@@ -7,7 +7,9 @@ import java.util.Date;
 
 import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
 import pl.edu.agh.services.EventDateManagementService;
+import pl.edu.agh.services.EventManagementService;
 import pl.edu.agh.view.eventdescription.EventDescriptionActivity;
+import pl.edu.agh.view.eventlist.EventListFragment.ProvideEventList;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +21,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.ioproject.R;
 
@@ -29,12 +32,16 @@ public class EventListAdapter extends ArrayAdapter<EventListItem> {
 	private ArrayList<EventListItem> items;
 	private LayoutInflater layoutInflater;
 	private EventDateManagementService eventDateManagementService;
+	private EventManagementService eventManagementService;
+	private EventListFragment.ProvideEventList mainActivity;
 	
 	public EventListAdapter(Context context, int resource, ArrayList<EventListItem> items) {
 		super(context, resource);
 		layoutInflater = LayoutInflater.from(context);
 		this.items = items;
 		this.eventDateManagementService = new EventDateManagementService(new MainDatabaseHelper(context));
+		this.eventManagementService = new EventManagementService(new MainDatabaseHelper(context));
+		this.mainActivity = (ProvideEventList)context;
 	}
 
 	@Override
@@ -83,6 +90,16 @@ public class EventListAdapter extends ArrayAdapter<EventListItem> {
 			}
 		});
 		
+		holder.deleteEventButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				eventManagementService.deleteParticularEventDateForEvent(items.get(position).getEvent(), items.get(position).getEventDate().getId());
+				mainActivity.reloadCurrentFragmentList();
+				Toast.makeText(getContext(), "Delete Event", Toast.LENGTH_LONG).show();	
+			}
+			
+		});
+		
 		return convertView;
 	}
 
@@ -100,6 +117,7 @@ public class EventListAdapter extends ArrayAdapter<EventListItem> {
 		holder.timeFrom = (TextView) convertView.findViewById(R.id.EventListItem_event_start_time);
 		holder.timeTo = (TextView) convertView.findViewById(R.id.EventListItem_event_end_time);
 		holder.descriptionEventButton = (ImageButton) convertView.findViewById(R.id.EventListItem_event_description_button);
+		holder.deleteEventButton = (ImageButton) convertView.findViewById(R.id.EventListItem_delete_event_button);
 	}
 
 	@SuppressLint("SimpleDateFormat") 
@@ -114,8 +132,7 @@ public class EventListAdapter extends ArrayAdapter<EventListItem> {
 		TextView timeFrom;
 		TextView timeTo;
 		ImageButton descriptionEventButton;
-		ImageButton editEventButton;
-		ImageButton showEventLocationButton;
+		ImageButton deleteEventButton;
 	}
 	
 	public void showSomeActoin(View view) {
