@@ -93,6 +93,10 @@
             android:name="pl.edu.agh.view.help.HelpActivity"
             android:label="@string/title_activity_help" >
         </activity>
+        <activity
+            android:name="pl.edu.agh.view.deleteconstantevents.DeleteConstantEventActivity"
+            android:label="@string/title_activity_delete_constant_event" >
+        </activity>
     </application>
 
 </manifest>

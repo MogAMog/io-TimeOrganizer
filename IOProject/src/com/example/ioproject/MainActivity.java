@@ -14,6 +14,7 @@ import pl.edu.agh.view.adddefaultlocalization.AddDefaultLocalizationActivity;
 import pl.edu.agh.view.addevent.ConstantEventAddActivity;
 import pl.edu.agh.view.addevent.EventAddActivity;
 import pl.edu.agh.view.defaultlocalizationlist.DefaultLocalizationListActivity;
+import pl.edu.agh.view.deleteconstantevents.DeleteConstantEventActivity;
 import pl.edu.agh.view.eventlist.*;
 import pl.edu.agh.view.help.HelpActivity;
 import android.app.Activity;
@@ -51,6 +52,9 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
     		case R.id.MainActivity_ActionBar_AddNewConstantEvent:
     			addNewConstantEventAction(item.getActionView());
     			return true;
+    		case R.id.MainActivity_ActionBar_DeleteConstantEvent:
+    			deleteConstantEvent(item.getActionView());
+    			return true;
     		case R.id.MainActivity_ActionBar_Localization_AddDefaultLocalization:
     			startActivity(new Intent(this, AddDefaultLocalizationActivity.class));
     			return true;
@@ -80,6 +84,10 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 		startActivity(new Intent(this, ConstantEventAddActivity.class));
 	}
 
+	public void deleteConstantEvent(View view) {
+		startActivity(new Intent(this, DeleteConstantEventActivity.class));
+	}
+	
 	@Override
 	public List<Event> getEventList() {
 		eventManagementService.clearCache();

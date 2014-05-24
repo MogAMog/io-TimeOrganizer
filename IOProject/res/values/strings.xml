@@ -170,8 +170,8 @@
     <string name="EventRequirementFold.FixedTime">Fixed Time</string>
     <string name="EventRequirementFold.Required">Required</string>
     <string name="EventRequirementFold.Draft">Draft</string>
-    
-        <!-- ************************************************************************************************* -->
+
+    <!-- ************************************************************************************************* -->
     <!-- *********************************** Impossibility Event Fold ************************************* -->
     <!-- ************************************************************************************************* -->
     <string name="ImpossibilityEventTypeFold.RadioButton.Constant">Constant</string>
@@ -234,5 +234,13 @@
     <string name="HelpView.HelpItemContent.ShowEventInfo">Show information about event</string>
     <string name="HelpView.HelpItemContent.GoBack">Just go back, its really easy, man!</string>
     <string name="title_activity_impossibility_event_add">ImpossibilityEventAddActivity</string>
+    <string name="title_activity_delete_constant_event">DeleteConstantEventActivity</string>
+    
+    <!-- ************************************************************************************************* -->
+    <!-- *********************************** Delete Event Activity ************************************* -->
+    <!-- ************************************************************************************************* -->
+    <string name="DeleteConstantEvent.Dialog.Title">Delete Event</string>
+    <string name="DeleteConstantEvent.Dialog.Message">Do you want to delete</string>
+    <string name="DeleteConstantEvent.Empty">There are no constant events in the system.</string>
 
 </resources>

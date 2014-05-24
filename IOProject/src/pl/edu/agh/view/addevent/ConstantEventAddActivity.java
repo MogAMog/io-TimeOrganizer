@@ -185,6 +185,7 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 	public void addNewConstantEventAction(View view) {
 		event.setAccount(AccountManagementService.DEFAULT_ACCOUNT);
 		event.setPredecessorEvent(null);
+		event.setConstant(true);
 		
 		List<FormValidationError> errors = new ArrayList<FormValidationError>();
 		if(!eventFrequencyFold.isFrequencyChosen()) {
