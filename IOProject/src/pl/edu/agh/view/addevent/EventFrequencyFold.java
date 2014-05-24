@@ -78,7 +78,7 @@ public class EventFrequencyFold {
 				spinnerList.setSelectedPosition(position);
 				if(spinnerList.getSelectedItem().equals(activity.getString(Frequency.EVERYDAY.getListItemId()))) {
 					markAllCheckBoxedTrue();
-					disableAllChecBoxes();
+					disableAllCheckBoxes();
 				} else {
 					enableAllCheckBoxes();
 				}
@@ -107,7 +107,7 @@ public class EventFrequencyFold {
 		}
 	}
 	
-	public void disableAllChecBoxes() {
+	public void disableAllCheckBoxes() {
 		for(CheckBox checkBox : weekdayCheckboxes) {
 			checkBox.setEnabled(false);
 		}

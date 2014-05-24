@@ -13,6 +13,7 @@ import pl.edu.agh.tools.DateTimeTools;
 import pl.edu.agh.view.adddefaultlocalization.AddDefaultLocalizationActivity;
 import pl.edu.agh.view.addevent.ConstantEventAddActivity;
 import pl.edu.agh.view.addevent.EventAddActivity;
+import pl.edu.agh.view.addevent.ImpossibilityEventAddActivity;
 import pl.edu.agh.view.defaultlocalizationlist.DefaultLocalizationListActivity;
 import pl.edu.agh.view.deleteconstantevents.DeleteConstantEventActivity;
 import pl.edu.agh.view.eventlist.*;
@@ -87,6 +88,9 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
     		case R.id.MainActivity_ActionBar_DeleteConstantEvent:
     			deleteConstantEvent(item.getActionView());
     			return true;
+    		case R.id.MainActivity_ActionBar_AddNewImpossibilityEvent:
+        		startActivity(new Intent(this, ImpossibilityEventAddActivity.class));
+        		return true;
     		case R.id.MainActivity_ActionBar_Localization_AddDefaultLocalization:
     			startActivity(new Intent(this, AddDefaultLocalizationActivity.class));
     			return true;

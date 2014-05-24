@@ -36,6 +36,7 @@
     <!-- ************************************************************************************************* -->
     <string name="MainActivityView.ActionBar.add_new_event">Add Event</string>
     <string name="MainActivityView.ActionBar.add_new_constant_event">Add Constant Event</string>
+    <string name="MainActivityView.ActionBar.add_new_impossibility_event">Add Impossibility</string>
     <string name="MainActivityView.ActionBar.delete_event">Delete Constant Event</string>
     <string name="MainActivityView.ActionBar.add_default_location">Add Default Location</string>
     <string name="MainActivityView.ActionBar.help">Help</string>

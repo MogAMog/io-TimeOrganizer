@@ -97,6 +97,14 @@
             android:name="pl.edu.agh.view.deleteconstantevents.DeleteConstantEventActivity"
             android:label="@string/title_activity_delete_constant_event" >
         </activity>
+        <activity
+            android:name="pl.edu.agh.view.addevent.ImpossibilityEventAddActivity"
+            android:label="@string/title_activity_impossibility_event_add"
+            android:parentActivityName="com.example.ioproject.MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.ioproject.MainActivity" />
+        </activity>
     </application>
 
 </manifest>

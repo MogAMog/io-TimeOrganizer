@@ -20,6 +20,10 @@
                 android:id="@+id/MainActivity.ActionBar.AddNewConstantEvent"
                 android:showAsAction="always"
                 android:title="@string/MainActivityView.ActionBar.add_new_constant_event"/>
+            <item 
+                android:id="@+id/MainActivity.ActionBar.AddNewImpossibilityEvent"
+                android:showAsAction="always"
+                android:title="@string/MainActivityView.ActionBar.add_new_impossibility_event" />
         </menu>
     </item>
     <item
