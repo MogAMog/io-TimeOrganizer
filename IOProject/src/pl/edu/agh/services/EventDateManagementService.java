@@ -149,5 +149,17 @@ public class EventDateManagementService implements IDatabaseDmlProvider<EventDat
 	public List<EventDate> getAll() {
 		return null;
 	}
+	
+	public void deleteEventDateById(long id) {
+		String selection = EventDateTable._ID + " = ?";
+		String[] selectionArgs = { Long.toString(id) };
+		dbHelper.getWritableDatabase().delete(EventDateTable.TABLE_NAME, selection, selectionArgs);
+	}
+	
+	public void deleteAllEventDatesForEvent(Event event) {
+		String selection = EventDateTable.COLUMN_NAME_EVENT_ID + " = ?";
+		String[] selectionArgs = { Long.toString(event.getId()) };
+		dbHelper.getWritableDatabase().delete(EventDateTable.TABLE_NAME, selection, selectionArgs);
+	}
 
 }

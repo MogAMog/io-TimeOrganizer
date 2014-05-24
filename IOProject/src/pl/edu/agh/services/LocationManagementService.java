@@ -19,10 +19,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class LocationManagementService implements IDatabaseDmlProvider<Location>, IEntityValidation<Location> {
 
+	public static final Location DEAFULT_LOCATION = new Location("Default Location Name", "-", "-", 0.0, 0.0, false);
 	private static final String ONE_TIME_SPECIFIC_LOCALIZATION = "One Time Event Specific Localization\nAdrress and City not provided.";
 	
 	private SQLiteOpenHelper dbHelper;
-
+	private List<Location> locationCache = null;
+	
 	public LocationManagementService(SQLiteOpenHelper dbHelper) {
 		this.dbHelper = dbHelper;
 	}
@@ -53,24 +55,30 @@ public class LocationManagementService implements IDatabaseDmlProvider<Location>
 		values.put(LocationTable.COLUMN_NAME_DEFAULT, insertObject.isDefaultLocation());
 		long id = dbHelper.getWritableDatabase().insert(LocationTable.TABLE_NAME, null, values);
 		insertObject.setId(id);
+		
+		locationCache = null;
+		
 		return id;
 	}
 
 	@Override
 	public List<Location> getAll() {
-		Cursor cursor = null;
-		try {
-			cursor = dbHelper.getReadableDatabase().rawQuery("SELECT * FROM " + LocationTable.TABLE_NAME, null);
-			cursor.moveToFirst();
-			List<Location> locations = new ArrayList<Location>();
-			while(!cursor.isAfterLast()) {
-				locations.add(getLocationFromCursor(cursor));
-				cursor.moveToNext();
+		if(locationCache == null) {
+			Cursor cursor = null;
+			try {
+				cursor = dbHelper.getReadableDatabase().rawQuery("SELECT * FROM " + LocationTable.TABLE_NAME, null);
+				cursor.moveToFirst();
+				List<Location> locations = new ArrayList<Location>();
+				while(!cursor.isAfterLast()) {
+					locations.add(getLocationFromCursor(cursor));
+					cursor.moveToNext();
+				}
+				return locations;
+			} finally {
+				cursor.close();
 			}
-			return locations;
-		} finally {
-			cursor.close();
 		}
+		return locationCache;
 	}
 
 	@Override
@@ -132,6 +140,7 @@ public class LocationManagementService implements IDatabaseDmlProvider<Location>
 		String selection = LocationTable._ID + " = ?";
 		String [] selectionArguments = new String[] { Long.toString(id) };
 		dbHelper.getWritableDatabase().delete(LocationTable.TABLE_NAME, selection, selectionArguments);
+		locationCache = null;
 	}
 	
 	public void setLocationNotDefault(long id) {
@@ -140,6 +149,7 @@ public class LocationManagementService implements IDatabaseDmlProvider<Location>
 		ContentValues values = new ContentValues();
 		values.put(LocationTable.COLUMN_NAME_DEFAULT, BooleanTools.convertBooleanToInt(false));
 		dbHelper.getReadableDatabase().update(LocationTable.TABLE_NAME, values, selection, selectionArguments);
+		locationCache = null;
 	}
 	
 	private Location getLocationFromCursor(Cursor cursor) {
