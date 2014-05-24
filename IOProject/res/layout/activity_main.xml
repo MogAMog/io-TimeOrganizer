@@ -2,41 +2,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
     tools:context=".MainActivity" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
         android:background="@drawable/shape_frame_black"
-        android:padding="5dp"
-        android:orientation="horizontal" >
+        android:orientation="vertical" >
 
-        <CheckBox
-            android:id="@+id/MainActivity.ConstantCheckBox"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/Event.Constant" />
+            android:layout_margin="5dp"
+            android:gravity="center" >
 
-        <CheckBox
-            android:id="@+id/MainActivity.RequiredCheckBox"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Event.Required" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/Image.Description"
+                android:src="@drawable/calendar_icon" />
 
-        <CheckBox
-            android:id="@+id/MainActivity.DraftCheckBox"
-            android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/MainActivity.Date.TextView"
+                android:layout_width="@dimen/AddNewEventView.timeAndDateInformationText"
+                android:layout_height="wrap_content"
+                android:text="@string/EventDateFold.Date.Label.NoSet" />
+
+            <Button
+                android:id="@+id/MainActivity.Date.Button"
+                android:layout_width="@dimen/AddNewEventView.timeAndDateButtonWidth"
+                android:layout_height="wrap_content"
+                android:onClick="showDatePickerDialog"
+                android:text="@string/EventDateFold.Date.Button.Label" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/Event.Draft" />
-        
+            android:layout_margin="5dp"
+            android:orientation="horizontal"
+            android:padding="5dp"
+            android:gravity="center" >
+
+            <CheckBox
+                android:id="@+id/MainActivity.ConstantCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Event.Constant" />
+
+            <CheckBox
+                android:id="@+id/MainActivity.RequiredCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Event.Required" />
+
+            <CheckBox
+                android:id="@+id/MainActivity.DraftCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/Event.Draft" />
+        </LinearLayout>
     </LinearLayout>
-    
+
     <fragment
         android:id="@+id/MainActivity.EventListFragment"
         android:name="pl.edu.agh.view.eventlist.EventListFragment"

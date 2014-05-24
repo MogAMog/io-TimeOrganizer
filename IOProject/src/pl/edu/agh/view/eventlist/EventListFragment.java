@@ -1,6 +1,8 @@
 package pl.edu.agh.view.eventlist;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import pl.edu.agh.domain.Event;
@@ -59,6 +61,17 @@ public class EventListFragment extends ListFragment {
 				todoItems.add(new EventListItem(event, eventDate));
 			}
 		}
+		
+		Collections.sort(todoItems, new Comparator<EventListItem>() {
+			@SuppressWarnings("deprecation")
+			@Override
+			public int compare(EventListItem lhs, EventListItem rhs) {
+				if(lhs.getEventDate().getStartTime().getHours() != rhs.getEventDate().getStartTime().getHours()) {
+					return lhs.getEventDate().getStartTime().getHours() > rhs.getEventDate().getStartTime().getHours() ? 1 : -1;
+				}
+				return lhs.getEventDate().getStartTime().getMinutes() >= rhs.getEventDate().getStartTime().getMinutes() ? 1 : -1;
+			}
+		});
 
 		todoListAdapter = new EventListAdapter(getActivity(), R.layout.todo_list_item, todoItems);
 		setListAdapter(todoListAdapter);

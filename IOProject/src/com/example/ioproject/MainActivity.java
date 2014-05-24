@@ -1,19 +1,26 @@
 package com.example.ioproject;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import pl.edu.agh.domain.Event;
+import pl.edu.agh.domain.EventDate;
 import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
 import pl.edu.agh.services.EventManagementService;
+import pl.edu.agh.tools.DateTimeTools;
 import pl.edu.agh.view.adddefaultlocalization.AddDefaultLocalizationActivity;
 import pl.edu.agh.view.addevent.ConstantEventAddActivity;
 import pl.edu.agh.view.addevent.EventAddActivity;
 import pl.edu.agh.view.defaultlocalizationlist.DefaultLocalizationListActivity;
 import pl.edu.agh.view.deleteconstantevents.DeleteConstantEventActivity;
 import pl.edu.agh.view.eventlist.*;
+import pl.edu.agh.view.fragments.pickers.DatePickerFragment;
+import pl.edu.agh.view.fragments.pickers.DatePickerFragment.SetDateInterface;
 import pl.edu.agh.view.help.HelpActivity;
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -21,14 +28,17 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-public class MainActivity extends Activity implements EventListFragment.ProvideEventList {
+public class MainActivity extends Activity implements EventListFragment.ProvideEventList, SetDateInterface{
 
 	private EventManagementService eventManagementService;
 	private CheckBox constantCheckBox;
 	private CheckBox requiredCheckBox;
 	private CheckBox draftCheckBox;
+	private DialogFragment datePickerFragment;
+	private Date chosenDate;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +47,9 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 		
 		this.deleteDatabase(MainDatabaseHelper.DATABASE_NAME);
 		this.eventManagementService = new EventManagementService(new MainDatabaseHelper(this));
+		datePickerFragment = new DatePickerFragment();
+		chosenDate = Calendar.getInstance().getTime();
+		((TextView) findViewById(R.id.MainActivity_Date_TextView)).setText(new StringBuilder().append(getString(R.string.EventDate_Date)).append(": ").append(DateTimeTools.convertDateToString(Calendar.getInstance())));
 
 		OnCheckedChangeListener listener = new OnCheckedChangeListener() {
 			@Override
@@ -114,24 +127,53 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 		List<Event> deleteList = new ArrayList<Event>();
 		
 		for(Event event : events) {
-			if(!checkIfFulfilsFilterRequirements(event)) {
+			if(!checkIfEventFulfilsFilterRequirements(event)) {
 				deleteList.add(event);
 			}
 		}
-		
 		events.removeAll(deleteList);
+		
+		List<EventDate> deleteEventDates = new ArrayList<EventDate>();
+		for(Event event : events) {
+			for(EventDate eventDate : event.getEventDates()) {
+				if(!checkIfEventDateFulfilsFilterRequirements(eventDate)) {
+					deleteEventDates.add(eventDate);
+				}
+			}
+			event.getEventDates().removeAll(deleteEventDates);
+		}
 		return events;
 	}
 	
-	private boolean checkIfFulfilsFilterRequirements(Event event) {
+	private boolean checkIfEventFulfilsFilterRequirements(Event event) {
 		return (!constantCheckBox.isChecked() || event.isConstant() == true) &&
 			   (!draftCheckBox.isChecked() || event.isDraft() == true) &&
 			   (!requiredCheckBox.isChecked() || event.isRequired() == true);
+	}
+	
+	@SuppressWarnings("deprecation")
+	private boolean checkIfEventDateFulfilsFilterRequirements(EventDate eventDate) {
+		return (eventDate.getDate().getDay() == chosenDate.getDay()) &&
+			   (eventDate.getDate().getMonth() == chosenDate.getMonth()) &&
+			   (eventDate.getDate().getYear() == chosenDate.getYear());
 	}
 	
 	@Override
 	public void reloadCurrentFragmentList() {
 		((EventListFragment)getFragmentManager().findFragmentById(R.id.MainActivity_EventListFragment)).reloadEventList();
 	}
+	
+	public void showDatePickerDialog(View v) {
+		datePickerFragment.show(getFragmentManager(), "datePicker");
+	}
+
+	@Override
+	public void setDate(int year, int month, int day) {
+		Calendar calendar = DateTimeTools.getCalendarInstanceWithDate(year, month, day);
+		chosenDate = calendar.getTime();
+		reloadCurrentFragmentList();
+		((TextView) findViewById(R.id.MainActivity_Date_TextView)).setText(new StringBuilder().append(getString(R.string.EventDate_Date)).append(": ").append(DateTimeTools.convertDateToString(calendar)));
+	}
+	
 	
 }
