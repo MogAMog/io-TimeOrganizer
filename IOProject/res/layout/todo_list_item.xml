@@ -65,6 +65,17 @@
             android:contentDescription="@string/Image.Description"
             android:onClick="showSomeActoin"
             android:src="@drawable/delete_event" />
+
+        <ImageButton
+            android:id="@+id/EventListItem.show_road_from_previous_event_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@null"
+            android:contentDescription="@string/EventListItem.road_from_previous_event"
+            android:onClick="showSomeActoin"
+            android:src="@drawable/car_icon" />
+
     </LinearLayout>
 
 </LinearLayout>

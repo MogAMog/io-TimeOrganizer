@@ -49,6 +49,7 @@
     <string name="EventListItem.event_description">Event Description</string>
     <string name="EventListItem.event_edit">Edit Event</string>
     <string name="EventListItem.event_localization">Event Localization</string>
+    <string name="EventListItem.road_from_previous_event">Event Road From Previous Event</string>
 
     <!-- ************************************************************************************************* -->
     <!-- *************************************** Event Properties **************************************** -->

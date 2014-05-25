@@ -5,7 +5,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+import pl.edu.agh.domain.Location;
 import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
+import pl.edu.agh.services.ConnectionsFinderService;
 import pl.edu.agh.services.EventDateManagementService;
 import pl.edu.agh.services.EventManagementService;
 import pl.edu.agh.view.eventdescription.EventDescriptionActivity;
@@ -100,6 +102,23 @@ public class EventListAdapter extends ArrayAdapter<EventListItem> {
 			
 		});
 		
+		holder.showRoadFromPreviousEvent.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				ConnectionsFinderService cfs = new ConnectionsFinderService();
+				//Intent intent;
+				if (position > 0) {
+					getContext().startActivity(cfs.createIntent(items.get(position - 1).getEventDate(),
+							items.get(position).getEventDate()));
+				}
+				else {
+					getContext().startActivity(cfs.createIntent(items.get(position).getEventDate(),
+							items.get(position).getEventDate()));
+
+				}
+			}
+		});
+		
 		return convertView;
 	}
 
@@ -118,6 +137,7 @@ public class EventListAdapter extends ArrayAdapter<EventListItem> {
 		holder.timeTo = (TextView) convertView.findViewById(R.id.EventListItem_event_end_time);
 		holder.descriptionEventButton = (ImageButton) convertView.findViewById(R.id.EventListItem_event_description_button);
 		holder.deleteEventButton = (ImageButton) convertView.findViewById(R.id.EventListItem_delete_event_button);
+		holder.showRoadFromPreviousEvent = (ImageButton) convertView.findViewById(R.id.EventListItem_show_road_from_previous_event_button);
 	}
 
 	@SuppressLint("SimpleDateFormat") 
@@ -133,6 +153,7 @@ public class EventListAdapter extends ArrayAdapter<EventListItem> {
 		TextView timeTo;
 		ImageButton descriptionEventButton;
 		ImageButton deleteEventButton;
+		ImageButton showRoadFromPreviousEvent;
 	}
 	
 	public void showSomeActoin(View view) {
