@@ -68,17 +68,18 @@ public class AccountManagementService implements IDatabaseDmlProvider<Account>, 
 
 	@Override
 	public Account getByIdAllData(long id) {
-		Cursor cursor = null;
-		try {
-			String selection = AccountTable._ID + " = ?";
-			String[] selectionArgument = new String[] { String.valueOf(id) };
-			cursor = dbHelper.getReadableDatabase().query(AccountTable.TABLE_NAME, null, selection, selectionArgument, null, null, null);
-			cursor.moveToFirst();
-			Account account = getAccountFromCursor(cursor);
-			return account;
-		} finally {
-			cursor.close();
-		}
+//		Cursor cursor = null;
+//		try {
+//			String selection = AccountTable._ID + " = ?";
+//			String[] selectionArgument = new String[] { String.valueOf(id) };
+//			cursor = dbHelper.getReadableDatabase().query(AccountTable.TABLE_NAME, null, selection, selectionArgument, null, null, null);
+//			cursor.moveToFirst();
+//			Account account = getAccountFromCursor(cursor);
+//			return account;
+//		} finally {
+//			cursor.close();
+//		}
+		return DEFAULT_ACCOUNT;
 	}
 
 	private Account getAccountFromCursor(Cursor cursor) {
