@@ -15,33 +15,41 @@ import pl.edu.agh.tools.DateTimeTools;
 
 public class OptimalPathFindingService {
 
-	private Set<EventDate> constantRequiredEventSet;
-	private Set<EventDate> notConstantRequiredEventSet;
-	private Set<EventDate> constantNotRequiredEventSet;
-	private Set<EventDate> notConstantNotRequiredEventSet;
+	private List<EventDate> constantRequiredEventList;
+	private List<EventDate> notConstantRequiredEventList;
+	private List<EventDate> constantNotRequiredEventList;
+	private List<EventDate> notConstantNotRequiredEventList;
 	private List<EventDate> eventList;
 	private IDistanceStrategy distanceStrategy;
 	public OptimalPathFindingService() {
-		constantRequiredEventSet = new HashSet<EventDate>();
-		notConstantRequiredEventSet = new HashSet<EventDate>();
-		constantNotRequiredEventSet = new HashSet<EventDate>();
-		notConstantNotRequiredEventSet = new HashSet<EventDate>();
+		constantRequiredEventList = new ArrayList<EventDate>();
+		notConstantRequiredEventList = new ArrayList<EventDate>();
+		constantNotRequiredEventList = new ArrayList<EventDate>();
+		notConstantNotRequiredEventList = new ArrayList<EventDate>();
 		eventList = new ArrayList<EventDate>();
 	}
 	public OptimalPathFindingService(Set<EventDate> eventDateSet) {
 		this();
 		addEventDates(eventDateSet);
 	}
+	public OptimalPathFindingService(IDistanceStrategy distanceStrategy) {
+		this();
+		setDistanceStrategy(distanceStrategy);
+	}
+	public void setDistanceStrategy(IDistanceStrategy distanceStrategy) {
+		this.distanceStrategy = distanceStrategy;
+		
+	}
 	public void addEventDates(Set<EventDate> eventDateSet){
 		for(EventDate eventDate: eventDateSet){
 			if(eventDate.getEvent().isRequired() && eventDate.getEvent().isConstant()){
-				constantRequiredEventSet.add(eventDate);
+				constantRequiredEventList.add(eventDate);
 			} else if(eventDate.getEvent().isRequired()){
-				notConstantRequiredEventSet.add(eventDate);
+				notConstantRequiredEventList.add(eventDate);
 			} else if(eventDate.getEvent().isConstant()){
-				constantNotRequiredEventSet.add(eventDate);
+				constantNotRequiredEventList.add(eventDate);
 			} else {
-				notConstantNotRequiredEventSet.add(eventDate);
+				notConstantNotRequiredEventList.add(eventDate);
 			}
 		}
 	}
@@ -50,10 +58,10 @@ public class OptimalPathFindingService {
 		addEventDates(eventDateSet);
 	}
 	public void clear(){
-		constantRequiredEventSet = new HashSet<EventDate>();
-		notConstantRequiredEventSet = new HashSet<EventDate>();
-		constantNotRequiredEventSet = new HashSet<EventDate>();
-		notConstantNotRequiredEventSet = new HashSet<EventDate>();
+		constantRequiredEventList = new ArrayList<EventDate>();
+		notConstantRequiredEventList = new ArrayList<EventDate>();
+		constantNotRequiredEventList = new ArrayList<EventDate>();
+		notConstantNotRequiredEventList = new ArrayList<EventDate>();
 		eventList = new ArrayList<EventDate>();
 	}
 	public void inputEventDate(EventDate eventDate, Date startDate) throws OptimalPathFindingException {
@@ -105,7 +113,7 @@ public class OptimalPathFindingService {
 		}
 	}
 	
-	public List<EventDate> getEventDateOrder(){
+	public List<EventDate> getEventDateOrder() throws OptimalPathFindingException{
 		calculateOptimalEventOrder();
 		return eventList;
 		
@@ -144,19 +152,13 @@ public class OptimalPathFindingService {
 		}
 	}
 	
-	private void calculateOptimalEventOrder(){
+	private void calculateOptimalEventOrder() throws OptimalPathFindingException{
 		List<EventDate> tempEventList = new ArrayList<EventDate>();
-		try {
-			placeConstantRequiredEvents(tempEventList);
-			placeRequiredEvents(tempEventList);
-			placeConstantEvents(tempEventList);
-			placeNonConstantEvents(tempEventList);
-			eventList = tempEventList;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		
+		placeConstantRequiredEvents(tempEventList);
+		placeRequiredEvents(tempEventList);
+		placeConstantEvents(tempEventList);
+		placeNonConstantEvents(tempEventList);
+		eventList = tempEventList;
 	}
 	
 	private void placeEventAfter(EventDate beforeEvent, EventDate event){
@@ -167,7 +169,7 @@ public class OptimalPathFindingService {
 	}
 	
 	private void placeNonConstantEvents(List<EventDate> tempEventList) {
-		Set<EventDate> tempNotConstantEventSet = new HashSet<EventDate>(notConstantNotRequiredEventSet);
+		Set<EventDate> tempNotConstantEventSet = new HashSet<EventDate>(notConstantNotRequiredEventList);
 		while(!tempNotConstantEventSet.isEmpty()){
 			EventDate bestBeforeEvent = null;
 			EventDate bestEvent = null;
@@ -194,7 +196,7 @@ public class OptimalPathFindingService {
 		
 	}
 	private void placeConstantEvents(List<EventDate> tempEventList) {
-		for(EventDate event : constantNotRequiredEventSet){
+		for(EventDate event : constantNotRequiredEventList){
 			Calendar eventStartTime = DateTimeTools.getCalendarFromDate(event.getStartTime());
 			int newEventLocation;
 			for(newEventLocation = 0;newEventLocation < tempEventList.size() && DateTimeTools.getCalendarFromDate(tempEventList.get(newEventLocation).getStartTime()).before(eventStartTime);newEventLocation++){
@@ -206,7 +208,7 @@ public class OptimalPathFindingService {
 		}
 	}
 	private void placeRequiredEvents(List<EventDate> tempEventList) throws OptimalPathFindingException {
-		Set<EventDate> tempNotConstantEventSet = new HashSet<EventDate>(notConstantRequiredEventSet);
+		Set<EventDate> tempNotConstantEventSet = new HashSet<EventDate>(notConstantRequiredEventList);
 		while(!tempNotConstantEventSet.isEmpty()){
 			EventDate bestBeforeEvent = null;
 			EventDate bestEvent = null;
@@ -232,8 +234,9 @@ public class OptimalPathFindingService {
 		}
 		
 	}
+	
 	private void placeConstantRequiredEvents(List<EventDate> tempEventList) throws OptimalPathFindingException {
-		for(EventDate event : constantRequiredEventSet){
+		for(EventDate event : constantRequiredEventList){
 			Calendar eventStartTime = DateTimeTools.getCalendarFromDate(event.getStartTime());
 			int newEventLocation;
 			for(newEventLocation = 0;newEventLocation < tempEventList.size() && DateTimeTools.getCalendarFromDate(tempEventList.get(newEventLocation).getStartTime()).before(eventStartTime);newEventLocation++){
@@ -242,6 +245,7 @@ public class OptimalPathFindingService {
 		}
 		if(!isPlanSuitable(tempEventList))throw new OptimalPathFindingException("Unable to find optimal schedule.");
 	}
+	
 	private boolean isPlanSuitable(List<EventDate> tempEventList){
 		int eventIterator;
 		for(eventIterator = 1; eventIterator < tempEventList.size(); eventIterator++){
