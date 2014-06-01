@@ -11,9 +11,10 @@ import java.util.Set;
 import pl.edu.agh.domain.EventDate;
 import pl.edu.agh.exceptions.OptimalPathFindingException;
 import pl.edu.agh.services.interfaces.IDistanceStrategy;
+import pl.edu.agh.services.interfaces.IPathFindingService;
 import pl.edu.agh.tools.DateTimeTools;
 
-public class OptimalPathFindingService {
+public class OptimalPathFindingService implements IPathFindingService {
 
 	private List<EventDate> constantRequiredEventList;
 	private List<EventDate> notConstantRequiredEventList;
@@ -36,10 +37,18 @@ public class OptimalPathFindingService {
 		this();
 		setDistanceStrategy(distanceStrategy);
 	}
+	/* (non-Javadoc)
+	 * @see pl.edu.agh.services.IPathFindingService#setDistanceStrategy(pl.edu.agh.services.interfaces.IDistanceStrategy)
+	 */
+	@Override
 	public void setDistanceStrategy(IDistanceStrategy distanceStrategy) {
 		this.distanceStrategy = distanceStrategy;
 		
 	}
+	/* (non-Javadoc)
+	 * @see pl.edu.agh.services.IPathFindingService#addEventDates(java.util.Set)
+	 */
+	@Override
 	public void addEventDates(Set<EventDate> eventDateSet){
 		for(EventDate eventDate: eventDateSet){
 			if(eventDate.getEvent().isRequired() && eventDate.getEvent().isConstant()){
@@ -53,10 +62,18 @@ public class OptimalPathFindingService {
 			}
 		}
 	}
+	/* (non-Javadoc)
+	 * @see pl.edu.agh.services.IPathFindingService#setEventDates(java.util.Set)
+	 */
+	@Override
 	public void setEventDates(Set<EventDate> eventDateSet){
 		clear();
 		addEventDates(eventDateSet);
 	}
+	/* (non-Javadoc)
+	 * @see pl.edu.agh.services.IPathFindingService#clear()
+	 */
+	@Override
 	public void clear(){
 		constantRequiredEventList = new ArrayList<EventDate>();
 		notConstantRequiredEventList = new ArrayList<EventDate>();
@@ -64,6 +81,10 @@ public class OptimalPathFindingService {
 		notConstantNotRequiredEventList = new ArrayList<EventDate>();
 		eventList = new ArrayList<EventDate>();
 	}
+	/* (non-Javadoc)
+	 * @see pl.edu.agh.services.IPathFindingService#inputEventDate(pl.edu.agh.domain.EventDate, java.util.Date)
+	 */
+	@Override
 	public void inputEventDate(EventDate eventDate, Date startDate) throws OptimalPathFindingException {
 		List<EventDate> tempEventList = new ArrayList<EventDate>();
 		EventDate tempEventDate = null;
@@ -113,8 +134,11 @@ public class OptimalPathFindingService {
 		}
 	}
 	
-	public List<EventDate> getEventDateOrder() throws OptimalPathFindingException{
-		calculateOptimalEventOrder();
+	/* (non-Javadoc)
+	 * @see pl.edu.agh.services.IPathFindingService#getEventDateOrder()
+	 */
+	@Override
+	public List<EventDate> getEventDateOrder(){
 		return eventList;
 		
 	}
@@ -152,7 +176,11 @@ public class OptimalPathFindingService {
 		}
 	}
 	
-	private void calculateOptimalEventOrder() throws OptimalPathFindingException{
+	/* (non-Javadoc)
+	 * @see pl.edu.agh.services.IPathFindingService#calculateOptimalEventOrder()
+	 */
+	@Override
+	public void calculateOptimalEventOrder() throws OptimalPathFindingException{
 		List<EventDate> tempEventList = new ArrayList<EventDate>();
 		placeConstantRequiredEvents(tempEventList);
 		placeRequiredEvents(tempEventList);
