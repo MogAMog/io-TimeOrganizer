@@ -105,7 +105,7 @@ public class DateTimeTools {
 	}
 	
 	public static int getMinuteDifferenceBetweenTwoDates(Date firstDate, Date secondDate) {
-		return Math.abs(getCalendarFromDate(firstDate).get(Calendar.HOUR_OF_DAY) * 60 + getCalendarFromDate(firstDate).get(Calendar.MINUTE) - (getCalendarFromDate(secondDate).get(Calendar.HOUR_OF_DAY) * 60 + getCalendarFromDate(secondDate).get(Calendar.MINUTE)));
+		return getCalendarFromDate(secondDate).get(Calendar.HOUR_OF_DAY) * 60 + getCalendarFromDate(secondDate).get(Calendar.MINUTE) - (getCalendarFromDate(firstDate).get(Calendar.HOUR_OF_DAY) * 60 + getCalendarFromDate(firstDate).get(Calendar.MINUTE));
 	}
 
 	public static Calendar getCalendarFromDate(Date date) {

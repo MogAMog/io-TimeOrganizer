@@ -16,12 +16,20 @@ import pl.edu.agh.tools.DateTimeTools;
 
 public class OptimalPathFindingService implements IPathFindingService {
 
-	private List<EventDate> constantRequiredEventList;
-	private List<EventDate> notConstantRequiredEventList;
-	private List<EventDate> constantNotRequiredEventList;
-	private List<EventDate> notConstantNotRequiredEventList;
-	private List<EventDate> eventList;
-	private IDistanceStrategy distanceStrategy;
+//	private List<EventDate> constantRequiredEventList;
+//	private List<EventDate> notConstantRequiredEventList;
+//	private List<EventDate> constantNotRequiredEventList;
+//	private List<EventDate> notConstantNotRequiredEventList;
+//	private List<EventDate> eventList;
+//	private IDistanceStrategy distanceStrategy;
+	
+	public List<EventDate> constantRequiredEventList;
+	public List<EventDate> notConstantRequiredEventList;
+	public List<EventDate> constantNotRequiredEventList;
+	public List<EventDate> notConstantNotRequiredEventList;
+	public List<EventDate> eventList;
+	public IDistanceStrategy distanceStrategy;
+	
 	public OptimalPathFindingService() {
 		constantRequiredEventList = new ArrayList<EventDate>();
 		notConstantRequiredEventList = new ArrayList<EventDate>();
@@ -152,7 +160,7 @@ public class OptimalPathFindingService implements IPathFindingService {
 	}
 	
 	private boolean areOverlaping(EventDate event1, EventDate event2){
-		return DateTimeTools.getMinuteDifferenceBetweenTwoDates(event1.getEndTime(), event2.getStartTime()) >= getTimeDistance(event1,event2);
+		return DateTimeTools.getMinuteDifferenceBetweenTwoDates(event1.getEndTime(), event2.getStartTime()) < getTimeDistance(event1,event2);
 	}
 	
 	private int getTimeDistance(EventDate event1, EventDate event2) {
@@ -160,20 +168,24 @@ public class OptimalPathFindingService implements IPathFindingService {
 	}
 	private void fitEventAfter(EventDate event, EventDate beforeEvent, List<EventDate> tempEventList){
 		int eventIterator = 0;
-		while(tempEventList.get(eventIterator).getId() != beforeEvent.getId() && eventIterator < tempEventList.size()){
+		while(tempEventList.get(eventIterator).getId() != beforeEvent.getId()/* && eventIterator < tempEventList.size() */){
 			eventIterator++;
 		}
-		if(tempEventList.get(eventIterator).getId() != beforeEvent.getId()){
-			tempEventList.add(eventIterator, event);
-		}
-		if(!event.getEvent().isConstant()){
+		//if(tempEventList.get(eventIterator).getId() == beforeEvent.getId()){
+			tempEventList.add(eventIterator + 1, event);
+		//}
+		//if(!event.getEvent().isConstant()){
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(beforeEvent.getEndTime());
 			calendar.add(Calendar.MINUTE, (int) getTimeDistance(beforeEvent, event));
 			event.setStartTime(calendar.getTime());
+			
+			calendar = Calendar.getInstance();
+			calendar.setTime(beforeEvent.getEndTime());
+			calendar.add(Calendar.MINUTE, (int) getTimeDistance(beforeEvent, event));
 			calendar.add(Calendar.MINUTE, event.getDuration());
 			event.setEndTime(calendar.getTime());
-		}
+		//}
 	}
 	
 	/* (non-Javadoc)
@@ -257,8 +269,8 @@ public class OptimalPathFindingService implements IPathFindingService {
 			if(bestEvent == null){
 				throw new OptimalPathFindingException("Unable to find optimal schedule.");
 			}
-			fitEventAfter(bestEvent, bestBeforeEvent, tempEventList);
 			tempNotConstantEventSet.remove(bestEvent);
+			fitEventAfter(bestEvent, bestBeforeEvent, tempEventList);
 		}
 		
 	}
@@ -271,10 +283,11 @@ public class OptimalPathFindingService implements IPathFindingService {
 			}
 			tempEventList.add(newEventLocation, event);
 		}
+		
 		if(!isPlanSuitable(tempEventList))throw new OptimalPathFindingException("Unable to find optimal schedule.");
 	}
 	
-	private boolean isPlanSuitable(List<EventDate> tempEventList){
+	public boolean isPlanSuitable(List<EventDate> tempEventList){
 		int eventIterator;
 		for(eventIterator = 1; eventIterator < tempEventList.size(); eventIterator++){
 			if(areOverlaping(tempEventList.get(eventIterator-1), tempEventList.get(eventIterator)))return false;
