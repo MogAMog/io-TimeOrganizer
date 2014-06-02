@@ -212,185 +212,189 @@ containing a value of this type.
         public static final int arrow_back=0x7f020002;
         public static final int calendar_icon=0x7f020003;
         public static final int calendar_info=0x7f020004;
-        public static final int city=0x7f020005;
-        public static final int clock_blue=0x7f020006;
-        public static final int common_signin_btn_icon_dark=0x7f020007;
-        public static final int common_signin_btn_icon_disabled_dark=0x7f020008;
-        public static final int common_signin_btn_icon_disabled_focus_dark=0x7f020009;
-        public static final int common_signin_btn_icon_disabled_focus_light=0x7f02000a;
-        public static final int common_signin_btn_icon_disabled_light=0x7f02000b;
-        public static final int common_signin_btn_icon_focus_dark=0x7f02000c;
-        public static final int common_signin_btn_icon_focus_light=0x7f02000d;
-        public static final int common_signin_btn_icon_light=0x7f02000e;
-        public static final int common_signin_btn_icon_normal_dark=0x7f02000f;
-        public static final int common_signin_btn_icon_normal_light=0x7f020010;
-        public static final int common_signin_btn_icon_pressed_dark=0x7f020011;
-        public static final int common_signin_btn_icon_pressed_light=0x7f020012;
-        public static final int common_signin_btn_text_dark=0x7f020013;
-        public static final int common_signin_btn_text_disabled_dark=0x7f020014;
-        public static final int common_signin_btn_text_disabled_focus_dark=0x7f020015;
-        public static final int common_signin_btn_text_disabled_focus_light=0x7f020016;
-        public static final int common_signin_btn_text_disabled_light=0x7f020017;
-        public static final int common_signin_btn_text_focus_dark=0x7f020018;
-        public static final int common_signin_btn_text_focus_light=0x7f020019;
-        public static final int common_signin_btn_text_light=0x7f02001a;
-        public static final int common_signin_btn_text_normal_dark=0x7f02001b;
-        public static final int common_signin_btn_text_normal_light=0x7f02001c;
-        public static final int common_signin_btn_text_pressed_dark=0x7f02001d;
-        public static final int common_signin_btn_text_pressed_light=0x7f02001e;
-        public static final int date_time_info_rectangle_shape=0x7f02001f;
-        public static final int decline=0x7f020020;
-        public static final int delete_event=0x7f020021;
-        public static final int edit_event=0x7f020022;
-        public static final int error=0x7f020023;
-        public static final int event_description=0x7f020024;
-        public static final int event_localization=0x7f020025;
-        public static final int event_rectangle_shape=0x7f020026;
-        public static final int globe=0x7f020027;
-        public static final int globe_terrestre=0x7f020028;
-        public static final int ic_launcher=0x7f020029;
-        public static final int ic_plusone_medium_off_client=0x7f02002a;
-        public static final int ic_plusone_small_off_client=0x7f02002b;
-        public static final int ic_plusone_standard_off_client=0x7f02002c;
-        public static final int ic_plusone_tall_off_client=0x7f02002d;
-        public static final int icon_accept=0x7f02002e;
-        public static final int location_info_rectangle_shape=0x7f02002f;
-        public static final int location_map=0x7f020030;
-        public static final int retro_address=0x7f020031;
-        public static final int sad=0x7f020032;
-        public static final int shape_frame_black=0x7f020033;
-        public static final int shape_frame_blue=0x7f020034;
-        public static final int shape_frame_green=0x7f020035;
-        public static final int shape_frame_orange=0x7f020036;
-        public static final int shape_frame_red=0x7f020037;
-        public static final int shape_frame_violet=0x7f020038;
-        public static final int start_finished=0x7f020039;
-        public static final int system_help=0x7f02003a;
+        public static final int car_icon=0x7f020005;
+        public static final int city=0x7f020006;
+        public static final int clock_blue=0x7f020007;
+        public static final int common_signin_btn_icon_dark=0x7f020008;
+        public static final int common_signin_btn_icon_disabled_dark=0x7f020009;
+        public static final int common_signin_btn_icon_disabled_focus_dark=0x7f02000a;
+        public static final int common_signin_btn_icon_disabled_focus_light=0x7f02000b;
+        public static final int common_signin_btn_icon_disabled_light=0x7f02000c;
+        public static final int common_signin_btn_icon_focus_dark=0x7f02000d;
+        public static final int common_signin_btn_icon_focus_light=0x7f02000e;
+        public static final int common_signin_btn_icon_light=0x7f02000f;
+        public static final int common_signin_btn_icon_normal_dark=0x7f020010;
+        public static final int common_signin_btn_icon_normal_light=0x7f020011;
+        public static final int common_signin_btn_icon_pressed_dark=0x7f020012;
+        public static final int common_signin_btn_icon_pressed_light=0x7f020013;
+        public static final int common_signin_btn_text_dark=0x7f020014;
+        public static final int common_signin_btn_text_disabled_dark=0x7f020015;
+        public static final int common_signin_btn_text_disabled_focus_dark=0x7f020016;
+        public static final int common_signin_btn_text_disabled_focus_light=0x7f020017;
+        public static final int common_signin_btn_text_disabled_light=0x7f020018;
+        public static final int common_signin_btn_text_focus_dark=0x7f020019;
+        public static final int common_signin_btn_text_focus_light=0x7f02001a;
+        public static final int common_signin_btn_text_light=0x7f02001b;
+        public static final int common_signin_btn_text_normal_dark=0x7f02001c;
+        public static final int common_signin_btn_text_normal_light=0x7f02001d;
+        public static final int common_signin_btn_text_pressed_dark=0x7f02001e;
+        public static final int common_signin_btn_text_pressed_light=0x7f02001f;
+        public static final int date_time_info_rectangle_shape=0x7f020020;
+        public static final int decline=0x7f020021;
+        public static final int delete_event=0x7f020022;
+        public static final int edit_event=0x7f020023;
+        public static final int error=0x7f020024;
+        public static final int event_description=0x7f020025;
+        public static final int event_localization=0x7f020026;
+        public static final int event_rectangle_shape=0x7f020027;
+        public static final int globe=0x7f020028;
+        public static final int globe_terrestre=0x7f020029;
+        public static final int ic_launcher=0x7f02002a;
+        public static final int ic_plusone_medium_off_client=0x7f02002b;
+        public static final int ic_plusone_small_off_client=0x7f02002c;
+        public static final int ic_plusone_standard_off_client=0x7f02002d;
+        public static final int ic_plusone_tall_off_client=0x7f02002e;
+        public static final int icon_accept=0x7f02002f;
+        public static final int location_info_rectangle_shape=0x7f020030;
+        public static final int location_map=0x7f020031;
+        public static final int retro_address=0x7f020032;
+        public static final int sad=0x7f020033;
+        public static final int search=0x7f020034;
+        public static final int shape_frame_black=0x7f020035;
+        public static final int shape_frame_blue=0x7f020036;
+        public static final int shape_frame_green=0x7f020037;
+        public static final int shape_frame_orange=0x7f020038;
+        public static final int shape_frame_red=0x7f020039;
+        public static final int shape_frame_violet=0x7f02003a;
+        public static final int start_finished=0x7f02003b;
+        public static final int system_help=0x7f02003c;
     }
     public static final class id {
-        public static final int AddDefaultLocalizationView_add_button=0x7f05000a;
+        public static final int AddDefaultLocalizationView_add_button=0x7f05000b;
         public static final int AddDefaultLocalizationView_localization_address=0x7f050006;
         public static final int AddDefaultLocalizationView_localization_city=0x7f050007;
-        public static final int AddDefaultLocalizationView_localization_cooridnates_state=0x7f050008;
+        public static final int AddDefaultLocalizationView_localization_cooridnates_state=0x7f050009;
         public static final int AddDefaultLocalizationView_localization_name=0x7f050005;
-        public static final int AddDefaultLocalizationView_map=0x7f050009;
-        public static final int AddNewEventView_AddEvent_Button_Id=0x7f050031;
-        public static final int ConstantEventAdd_buttonAddEvent=0x7f050022;
-        public static final int ConstantEventAdd_buttonEndDate=0x7f050013;
-        public static final int ConstantEventAdd_buttonEndTime=0x7f050020;
-        public static final int ConstantEventAdd_buttonStartDate=0x7f050011;
-        public static final int ConstantEventAdd_buttonStartTime=0x7f05001e;
-        public static final int ConstantEventAdd_spinner=0x7f050015;
-        public static final int ConstantEventAdd_textEndDate=0x7f050012;
-        public static final int ConstantEventAdd_textEndTime=0x7f05001f;
-        public static final int ConstantEventAdd_textStartDate=0x7f050010;
-        public static final int ConstantEventAdd_textStartTime=0x7f05001d;
-        public static final int ConstantEventAdd_checkBoxRequired=0x7f050021;
-        public static final int ConstantEventAdd_eventDescription=0x7f05000c;
-        public static final int ConstantEventAdd_eventTitle=0x7f05000b;
-        public static final int DefaultLocalizationList_DeleteLocation_ImageButton_TextView_Id=0x7f050062;
-        public static final int DefaultLocalizationList_Item_Location_Address_TextView_Id=0x7f050060;
-        public static final int DefaultLocalizationList_Item_Location_City_TextView_Id=0x7f050061;
-        public static final int DefaultLocalizationList_Item_Location_Name_TextView_Id=0x7f05005f;
-        public static final int DefaultLocalizationList_ShowOnMap_ImageButton_TextView_Id=0x7f050063;
-        public static final int DeleteEventListItem_DeleteEventButton=0x7f050066;
-        public static final int DeleteEventListItem_EventDateCount=0x7f050065;
-        public static final int DeleteEventListItem_Title=0x7f050064;
-        public static final int ErrorDialog_errorListTextView=0x7f050067;
-        public static final int ErrorDialog_okButton=0x7f050068;
-        public static final int EventDateFold_Date_Button_Id=0x7f050029;
-        public static final int EventDateFold_Date_TextView_Id=0x7f050028;
-        public static final int EventDescription_Constant_ImageView_Id=0x7f050039;
-        public static final int EventDescription_Date_Id=0x7f050034;
-        public static final int EventDescription_Description_Id=0x7f050033;
-        public static final int EventDescription_Draft_ImageView_Id=0x7f05003b;
-        public static final int EventDescription_EndTime_Id=0x7f050036;
-        public static final int EventDescription_Finished_ImageView_Id=0x7f05003a;
-        public static final int EventDescription_Location_Id=0x7f050037;
-        public static final int EventDescription_Required_ImageView_Id=0x7f050038;
-        public static final int EventDescription_StartTime_Id=0x7f050035;
-        public static final int EventDescription_Title_Id=0x7f050032;
-        public static final int EventDescription_map=0x7f05003c;
-        public static final int EventListItem_delete_event_button=0x7f050070;
-        public static final int EventListItem_event_description_button=0x7f05006f;
-        public static final int EventListItem_event_end_time=0x7f05006d;
-        public static final int EventListItem_event_start_time=0x7f05006c;
-        public static final int EventListItem_event_title=0x7f05006e;
-        public static final int EventListItem_finished_checkbox=0x7f05006b;
-        public static final int EventRequirementFold_FixedTime_Id=0x7f050025;
-        public static final int EventRequirementFold_IsDraft_Id=0x7f050027;
-        public static final int EventRequirementFold_Required_Id=0x7f050026;
-        public static final int EventTimeFold_Duration_SeekBar_Id=0x7f050030;
-        public static final int EventTimeFold_Duration_TextView_Id=0x7f05002f;
-        public static final int EventTimeFold_EndTime_Button_Id=0x7f05002d;
-        public static final int EventTimeFold_EndTime_TextView_Id=0x7f05002c;
-        public static final int EventTimeFold_StartTime_Button_Id=0x7f05002b;
-        public static final int EventTimeFold_StartTime_TextView_Id=0x7f05002a;
-        public static final int EventTitleAndDescriptionFold_AddEventDescription_Id=0x7f050024;
-        public static final int EventTitleAndDescriptionFold_AddEventTitle_Id=0x7f050023;
-        public static final int HelpItem_Image=0x7f050069;
-        public static final int HelpItem_Title=0x7f05006a;
-        public static final int HelpView_Content=0x7f05003e;
-        public static final int HelpView_List=0x7f05003d;
-        public static final int ImpossibilityEvent_checkBoxFRIDAY=0x7f05004d;
-        public static final int ImpossibilityEvent_checkBoxMONDAY=0x7f050049;
-        public static final int ImpossibilityEvent_checkBoxSATURDAY=0x7f05004e;
-        public static final int ImpossibilityEvent_checkBoxSUNDAY=0x7f05004f;
-        public static final int ImpossibilityEvent_checkBoxTHURSDAY=0x7f05004c;
-        public static final int ImpossibilityEvent_checkBoxTUESDAY=0x7f05004a;
-        public static final int ImpossibilityEvent_checkBoxWENDESDAY=0x7f05004b;
-        public static final int ImpossibilityEventAdd_buttonAddEvent=0x7f050054;
-        public static final int ImpossibilityEventAdd_buttonDate=0x7f050046;
-        public static final int ImpossibilityEventAdd_buttonEndDate=0x7f050044;
-        public static final int ImpossibilityEventAdd_buttonEndTime=0x7f050053;
-        public static final int ImpossibilityEventAdd_buttonStartDate=0x7f050042;
-        public static final int ImpossibilityEventAdd_buttonStartTime=0x7f050051;
-        public static final int ImpossibilityEventAdd_frequencyFoldListLabel=0x7f050047;
-        public static final int ImpossibilityEventAdd_spinner=0x7f050048;
-        public static final int ImpossibilityEventAdd_textDate=0x7f050045;
-        public static final int ImpossibilityEventAdd_textEndDate=0x7f050043;
-        public static final int ImpossibilityEventAdd_textEndTime=0x7f050052;
-        public static final int ImpossibilityEventAdd_textStartDate=0x7f050041;
-        public static final int ImpossibilityEventAdd_textStartTime=0x7f050050;
-        public static final int ImpossibilityEventTypeFold_Constant_Id=0x7f05003f;
-        public static final int ImpossibilityEventTypeFold_OneTime_Id=0x7f050040;
-        public static final int LinearLayout1=0x7f05002e;
-        public static final int LocationChoiceFold_DefaultLocationList_Id=0x7f05000d;
-        public static final int LocationChoiceFold_OneTimeLocation_Button_Id=0x7f05000e;
-        public static final int LocationChoiceFold_OneTimeLocation_ImageView_Id=0x7f05000f;
-        public static final int MainActivity_ActionBar_AddDefaultLocation=0x7f050077;
-        public static final int MainActivity_ActionBar_AddNewConstantEvent=0x7f050074;
-        public static final int MainActivity_ActionBar_AddNewEvent=0x7f050073;
-        public static final int MainActivity_ActionBar_AddNewEventMenu=0x7f050072;
-        public static final int MainActivity_ActionBar_AddNewImpossibilityEvent=0x7f050075;
-        public static final int MainActivity_ActionBar_DeleteConstantEvent=0x7f050076;
-        public static final int MainActivity_ActionBar_Help=0x7f05007a;
-        public static final int MainActivity_ActionBar_Localiation_ShowDefaultLocalizationList=0x7f050079;
-        public static final int MainActivity_ActionBar_Localization_AddDefaultLocalization=0x7f050078;
-        public static final int MainActivity_ConstantCheckBox=0x7f050057;
-        public static final int MainActivity_Date_Button=0x7f050056;
-        public static final int MainActivity_Date_TextView=0x7f050055;
-        public static final int MainActivity_DraftCheckBox=0x7f050059;
-        public static final int MainActivity_EventListFragment=0x7f05005a;
-        public static final int MainActivity_RequiredCheckBox=0x7f050058;
-        public static final int OneTimeLocalizationView_chooseLocalizationButton=0x7f05005d;
-        public static final int OneTimeLocalizationView_localization_cooridnates_state=0x7f05005b;
-        public static final int OneTimeLocalizationView_map=0x7f05005c;
-        public static final int ShowLocationsOnMapView_Map=0x7f05005e;
-        public static final int action_settings=0x7f050071;
-        public static final int checkBoxFRIDAY=0x7f05001a;
-        public static final int checkBoxMONDAY=0x7f050016;
-        public static final int checkBoxSATURDAY=0x7f05001b;
-        public static final int checkBoxSUNDAY=0x7f05001c;
-        public static final int checkBoxTHURSDAY=0x7f050019;
-        public static final int checkBoxTUESDAY=0x7f050017;
-        public static final int checkBoxWEDNESDAY=0x7f050018;
+        public static final int AddDefaultLocalizationView_map=0x7f05000a;
+        public static final int AddDefaultLocalizationView_searchImageButton=0x7f050008;
+        public static final int AddNewEventView_AddEvent_Button_Id=0x7f050032;
+        public static final int ConstantEventAdd_buttonAddEvent=0x7f050023;
+        public static final int ConstantEventAdd_buttonEndDate=0x7f050014;
+        public static final int ConstantEventAdd_buttonEndTime=0x7f050021;
+        public static final int ConstantEventAdd_buttonStartDate=0x7f050012;
+        public static final int ConstantEventAdd_buttonStartTime=0x7f05001f;
+        public static final int ConstantEventAdd_spinner=0x7f050016;
+        public static final int ConstantEventAdd_textEndDate=0x7f050013;
+        public static final int ConstantEventAdd_textEndTime=0x7f050020;
+        public static final int ConstantEventAdd_textStartDate=0x7f050011;
+        public static final int ConstantEventAdd_textStartTime=0x7f05001e;
+        public static final int ConstantEventAdd_checkBoxRequired=0x7f050022;
+        public static final int ConstantEventAdd_eventDescription=0x7f05000d;
+        public static final int ConstantEventAdd_eventTitle=0x7f05000c;
+        public static final int DefaultLocalizationList_DeleteLocation_ImageButton_TextView_Id=0x7f050063;
+        public static final int DefaultLocalizationList_Item_Location_Address_TextView_Id=0x7f050061;
+        public static final int DefaultLocalizationList_Item_Location_City_TextView_Id=0x7f050062;
+        public static final int DefaultLocalizationList_Item_Location_Name_TextView_Id=0x7f050060;
+        public static final int DefaultLocalizationList_ShowOnMap_ImageButton_TextView_Id=0x7f050064;
+        public static final int DeleteEventListItem_DeleteEventButton=0x7f050067;
+        public static final int DeleteEventListItem_EventDateCount=0x7f050066;
+        public static final int DeleteEventListItem_Title=0x7f050065;
+        public static final int ErrorDialog_errorListTextView=0x7f050068;
+        public static final int ErrorDialog_okButton=0x7f050069;
+        public static final int EventDateFold_Date_Button_Id=0x7f05002a;
+        public static final int EventDateFold_Date_TextView_Id=0x7f050029;
+        public static final int EventDescription_Constant_ImageView_Id=0x7f05003a;
+        public static final int EventDescription_Date_Id=0x7f050035;
+        public static final int EventDescription_Description_Id=0x7f050034;
+        public static final int EventDescription_Draft_ImageView_Id=0x7f05003c;
+        public static final int EventDescription_EndTime_Id=0x7f050037;
+        public static final int EventDescription_Finished_ImageView_Id=0x7f05003b;
+        public static final int EventDescription_Location_Id=0x7f050038;
+        public static final int EventDescription_Required_ImageView_Id=0x7f050039;
+        public static final int EventDescription_StartTime_Id=0x7f050036;
+        public static final int EventDescription_Title_Id=0x7f050033;
+        public static final int EventDescription_map=0x7f05003d;
+        public static final int EventListItem_delete_event_button=0x7f050071;
+        public static final int EventListItem_event_description_button=0x7f050070;
+        public static final int EventListItem_event_end_time=0x7f05006e;
+        public static final int EventListItem_event_start_time=0x7f05006d;
+        public static final int EventListItem_event_title=0x7f05006f;
+        public static final int EventListItem_finished_checkbox=0x7f05006c;
+        public static final int EventListItem_show_road_from_previous_event_button=0x7f050072;
+        public static final int EventRequirementFold_FixedTime_Id=0x7f050026;
+        public static final int EventRequirementFold_IsDraft_Id=0x7f050028;
+        public static final int EventRequirementFold_Required_Id=0x7f050027;
+        public static final int EventTimeFold_Duration_SeekBar_Id=0x7f050031;
+        public static final int EventTimeFold_Duration_TextView_Id=0x7f050030;
+        public static final int EventTimeFold_EndTime_Button_Id=0x7f05002e;
+        public static final int EventTimeFold_EndTime_TextView_Id=0x7f05002d;
+        public static final int EventTimeFold_StartTime_Button_Id=0x7f05002c;
+        public static final int EventTimeFold_StartTime_TextView_Id=0x7f05002b;
+        public static final int EventTitleAndDescriptionFold_AddEventDescription_Id=0x7f050025;
+        public static final int EventTitleAndDescriptionFold_AddEventTitle_Id=0x7f050024;
+        public static final int HelpItem_Image=0x7f05006a;
+        public static final int HelpItem_Title=0x7f05006b;
+        public static final int HelpView_Content=0x7f05003f;
+        public static final int HelpView_List=0x7f05003e;
+        public static final int ImpossibilityEvent_checkBoxFRIDAY=0x7f05004e;
+        public static final int ImpossibilityEvent_checkBoxMONDAY=0x7f05004a;
+        public static final int ImpossibilityEvent_checkBoxSATURDAY=0x7f05004f;
+        public static final int ImpossibilityEvent_checkBoxSUNDAY=0x7f050050;
+        public static final int ImpossibilityEvent_checkBoxTHURSDAY=0x7f05004d;
+        public static final int ImpossibilityEvent_checkBoxTUESDAY=0x7f05004b;
+        public static final int ImpossibilityEvent_checkBoxWENDESDAY=0x7f05004c;
+        public static final int ImpossibilityEventAdd_buttonAddEvent=0x7f050055;
+        public static final int ImpossibilityEventAdd_buttonDate=0x7f050047;
+        public static final int ImpossibilityEventAdd_buttonEndDate=0x7f050045;
+        public static final int ImpossibilityEventAdd_buttonEndTime=0x7f050054;
+        public static final int ImpossibilityEventAdd_buttonStartDate=0x7f050043;
+        public static final int ImpossibilityEventAdd_buttonStartTime=0x7f050052;
+        public static final int ImpossibilityEventAdd_frequencyFoldListLabel=0x7f050048;
+        public static final int ImpossibilityEventAdd_spinner=0x7f050049;
+        public static final int ImpossibilityEventAdd_textDate=0x7f050046;
+        public static final int ImpossibilityEventAdd_textEndDate=0x7f050044;
+        public static final int ImpossibilityEventAdd_textEndTime=0x7f050053;
+        public static final int ImpossibilityEventAdd_textStartDate=0x7f050042;
+        public static final int ImpossibilityEventAdd_textStartTime=0x7f050051;
+        public static final int ImpossibilityEventTypeFold_Constant_Id=0x7f050040;
+        public static final int ImpossibilityEventTypeFold_OneTime_Id=0x7f050041;
+        public static final int LinearLayout1=0x7f05002f;
+        public static final int LocationChoiceFold_DefaultLocationList_Id=0x7f05000e;
+        public static final int LocationChoiceFold_OneTimeLocation_Button_Id=0x7f05000f;
+        public static final int LocationChoiceFold_OneTimeLocation_ImageView_Id=0x7f050010;
+        public static final int MainActivity_ActionBar_AddDefaultLocation=0x7f050079;
+        public static final int MainActivity_ActionBar_AddNewConstantEvent=0x7f050076;
+        public static final int MainActivity_ActionBar_AddNewEvent=0x7f050075;
+        public static final int MainActivity_ActionBar_AddNewEventMenu=0x7f050074;
+        public static final int MainActivity_ActionBar_AddNewImpossibilityEvent=0x7f050077;
+        public static final int MainActivity_ActionBar_DeleteConstantEvent=0x7f050078;
+        public static final int MainActivity_ActionBar_Help=0x7f05007c;
+        public static final int MainActivity_ActionBar_Localiation_ShowDefaultLocalizationList=0x7f05007b;
+        public static final int MainActivity_ActionBar_Localization_AddDefaultLocalization=0x7f05007a;
+        public static final int MainActivity_ConstantCheckBox=0x7f050058;
+        public static final int MainActivity_Date_Button=0x7f050057;
+        public static final int MainActivity_Date_TextView=0x7f050056;
+        public static final int MainActivity_DraftCheckBox=0x7f05005a;
+        public static final int MainActivity_EventListFragment=0x7f05005b;
+        public static final int MainActivity_RequiredCheckBox=0x7f050059;
+        public static final int OneTimeLocalizationView_chooseLocalizationButton=0x7f05005e;
+        public static final int OneTimeLocalizationView_localization_cooridnates_state=0x7f05005c;
+        public static final int OneTimeLocalizationView_map=0x7f05005d;
+        public static final int ShowLocationsOnMapView_Map=0x7f05005f;
+        public static final int action_settings=0x7f050073;
+        public static final int checkBoxFRIDAY=0x7f05001b;
+        public static final int checkBoxMONDAY=0x7f050017;
+        public static final int checkBoxSATURDAY=0x7f05001c;
+        public static final int checkBoxSUNDAY=0x7f05001d;
+        public static final int checkBoxTHURSDAY=0x7f05001a;
+        public static final int checkBoxTUESDAY=0x7f050018;
+        public static final int checkBoxWEDNESDAY=0x7f050019;
         public static final int hybrid=0x7f050004;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int satellite=0x7f050002;
         public static final int terrain=0x7f050003;
-        public static final int textViewSpinneLabel=0x7f050014;
+        public static final int textViewSpinneLabel=0x7f050015;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f070000;
@@ -431,110 +435,110 @@ containing a value of this type.
         public static final int show_locations_on_map=0x7f0a0007;
     }
     public static final class string {
-        public static final int AddDefaultLocalizationActivity_LegendTitle_Address=0x7f060052;
-        public static final int AddDefaultLocalizationActivity_LegendTitle_Coordinates=0x7f060053;
-        public static final int AddDefaultLocalizationActivity_LegendTitle_Name=0x7f060051;
-        public static final int AddDefaultLocalizationActivity_add_localization_button_label=0x7f060050;
-        public static final int AddDefaultLocalizationActivity_corrdinates_chosen_ok=0x7f06004f;
-        public static final int AddDefaultLocalizationActivity_current_chosen_localization=0x7f06004e;
-        public static final int AddDefaultLocalizationActivity_current_localization_title=0x7f06004d;
-        public static final int AddDefaultLocalizationView_localization_address=0x7f06004a;
-        public static final int AddDefaultLocalizationView_localization_address_image_desc=0x7f060046;
-        public static final int AddDefaultLocalizationView_localization_city=0x7f06004b;
-        public static final int AddDefaultLocalizationView_localization_city_image_desc=0x7f060047;
-        public static final int AddDefaultLocalizationView_localization_coordinates_image_desc=0x7f060048;
-        public static final int AddDefaultLocalizationView_localization_coordinates_state=0x7f06004c;
-        public static final int AddDefaultLocalizationView_localization_name=0x7f060049;
+        public static final int AddDefaultLocalizationActivity_LegendTitle_Address=0x7f060053;
+        public static final int AddDefaultLocalizationActivity_LegendTitle_Coordinates=0x7f060054;
+        public static final int AddDefaultLocalizationActivity_LegendTitle_Name=0x7f060052;
+        public static final int AddDefaultLocalizationActivity_add_localization_button_label=0x7f060051;
+        public static final int AddDefaultLocalizationActivity_corrdinates_chosen_ok=0x7f060050;
+        public static final int AddDefaultLocalizationActivity_current_chosen_localization=0x7f06004f;
+        public static final int AddDefaultLocalizationActivity_current_localization_title=0x7f06004e;
+        public static final int AddDefaultLocalizationView_localization_address=0x7f06004b;
+        public static final int AddDefaultLocalizationView_localization_address_image_desc=0x7f060047;
+        public static final int AddDefaultLocalizationView_localization_city=0x7f06004c;
+        public static final int AddDefaultLocalizationView_localization_city_image_desc=0x7f060048;
+        public static final int AddDefaultLocalizationView_localization_coordinates_image_desc=0x7f060049;
+        public static final int AddDefaultLocalizationView_localization_coordinates_state=0x7f06004d;
+        public static final int AddDefaultLocalizationView_localization_name=0x7f06004a;
         /**  ************************************************************************************************* 
  ************************************* Add Default Location ************************************** 
  ************************************************************************************************* 
          */
-        public static final int AddDefaultLocalizationView_localization_name_image_desc=0x7f060045;
+        public static final int AddDefaultLocalizationView_localization_name_image_desc=0x7f060046;
         /**  ************************************************************************************************* 
  ************************************** Add New Event View *************************************** 
  ************************************************************************************************* 
          */
         public static final int AddNewEventView_AddEvent_Button_Label=0x7f060029;
         public static final int AddNewEventView_NotFixedMode_Disabled=0x7f06002a;
-        public static final int DefaultLocalizationList_DeleteLocalization_AlertDialog_Message=0x7f0600a3;
-        public static final int DefaultLocalizationList_DeleteLocalization_AlertDialog_Title=0x7f0600a2;
-        public static final int DefaultLocalizationList_DeleteLocalization_Toast_Text=0x7f0600a4;
-        public static final int DefaultLocalizationList_Empty=0x7f0600a1;
+        public static final int DefaultLocalizationList_DeleteLocalization_AlertDialog_Message=0x7f0600a4;
+        public static final int DefaultLocalizationList_DeleteLocalization_AlertDialog_Title=0x7f0600a3;
+        public static final int DefaultLocalizationList_DeleteLocalization_Toast_Text=0x7f0600a5;
+        public static final int DefaultLocalizationList_Empty=0x7f0600a2;
         /**  ************************************************************************************************* 
  *********************************** Event Requirements Fold ************************************* 
  ************************************************************************************************* 
          */
-        public static final int DefaultLocalizationList_Item_Location_Address_NoSet=0x7f06009f;
-        public static final int DefaultLocalizationList_Item_Location_City_NoSet=0x7f0600a0;
-        public static final int DeleteConstantEvent_Dialog_Message=0x7f0600b6;
+        public static final int DefaultLocalizationList_Item_Location_Address_NoSet=0x7f0600a0;
+        public static final int DefaultLocalizationList_Item_Location_City_NoSet=0x7f0600a1;
+        public static final int DeleteConstantEvent_Dialog_Message=0x7f0600b7;
         /**  ************************************************************************************************* 
  *********************************** Delete Event Activity ************************************* 
  ************************************************************************************************* 
          */
-        public static final int DeleteConstantEvent_Dialog_Title=0x7f0600b5;
-        public static final int DeleteConstantEvent_Empty=0x7f0600b7;
-        public static final int ErrorDialog_ImageDescription=0x7f06006b;
-        public static final int ErrorDialog_Title=0x7f06006c;
-        public static final int Event_Constant=0x7f060038;
-        public static final int Event_Description=0x7f060037;
-        public static final int Event_Draft=0x7f06003a;
-        public static final int Event_Required=0x7f060039;
+        public static final int DeleteConstantEvent_Dialog_Title=0x7f0600b6;
+        public static final int DeleteConstantEvent_Empty=0x7f0600b8;
+        public static final int ErrorDialog_ImageDescription=0x7f06006c;
+        public static final int ErrorDialog_Title=0x7f06006d;
+        public static final int Event_Constant=0x7f060039;
+        public static final int Event_Description=0x7f060038;
+        public static final int Event_Draft=0x7f06003b;
+        public static final int Event_Required=0x7f06003a;
         /**  ************************************************************************************************* 
  *************************************** Event Properties **************************************** 
  ************************************************************************************************* 
          */
-        public static final int Event_Title=0x7f060036;
-        public static final int EventDate_Date=0x7f06003c;
-        public static final int EventDate_Duration=0x7f06003f;
-        public static final int EventDate_EndTime=0x7f06003e;
-        public static final int EventDate_Finished=0x7f060040;
+        public static final int Event_Title=0x7f060037;
+        public static final int EventDate_Date=0x7f06003d;
+        public static final int EventDate_Duration=0x7f060040;
+        public static final int EventDate_EndTime=0x7f06003f;
+        public static final int EventDate_Finished=0x7f060041;
         /**  ************************************************************************************************* 
  *************************************** Event Properties **************************************** 
  ************************************************************************************************* 
          */
-        public static final int EventDate_Location=0x7f06003b;
-        public static final int EventDate_StartTime=0x7f06003d;
-        public static final int EventDateAndTimeFold_Legend=0x7f060099;
-        public static final int EventDateFold_Date_Button_Label=0x7f06009c;
-        public static final int EventDateFold_Date_Label=0x7f06009a;
-        public static final int EventDateFold_Date_Label_NoSet=0x7f06009b;
-        public static final int EventDateFold_EndDate_Button_Label=0x7f060091;
-        public static final int EventDateFold_EndDate_Label=0x7f06008f;
-        public static final int EventDateFold_EndDate_Label_NoSet=0x7f060090;
+        public static final int EventDate_Location=0x7f06003c;
+        public static final int EventDate_StartTime=0x7f06003e;
+        public static final int EventDateAndTimeFold_Legend=0x7f06009a;
+        public static final int EventDateFold_Date_Button_Label=0x7f06009d;
+        public static final int EventDateFold_Date_Label=0x7f06009b;
+        public static final int EventDateFold_Date_Label_NoSet=0x7f06009c;
+        public static final int EventDateFold_EndDate_Button_Label=0x7f060092;
+        public static final int EventDateFold_EndDate_Label=0x7f060090;
+        public static final int EventDateFold_EndDate_Label_NoSet=0x7f060091;
         /**  ************************************************************************************************* 
  *********************************** Event Date and Time Fold ************************************ 
  ************************************************************************************************* 
          */
-        public static final int EventDateFold_Legend=0x7f06008b;
-        public static final int EventDateFold_StartDate_Button_Label=0x7f06008e;
-        public static final int EventDateFold_StartDate_Label=0x7f06008c;
-        public static final int EventDateFold_StartDate_Label_NoSet=0x7f06008d;
-        public static final int EventDescription_EventAdditionalInformation_MainTile_Label=0x7f060044;
-        public static final int EventDescription_EventDateTimeInformation_MainTile_Label=0x7f060042;
+        public static final int EventDateFold_Legend=0x7f06008c;
+        public static final int EventDateFold_StartDate_Button_Label=0x7f06008f;
+        public static final int EventDateFold_StartDate_Label=0x7f06008d;
+        public static final int EventDateFold_StartDate_Label_NoSet=0x7f06008e;
+        public static final int EventDescription_EventAdditionalInformation_MainTile_Label=0x7f060045;
+        public static final int EventDescription_EventDateTimeInformation_MainTile_Label=0x7f060043;
         /**  ************************************************************************************************* 
  ************************************ Event Description View ************************************* 
  ************************************************************************************************* 
          */
-        public static final int EventDescription_EventInformation_MainTile_Label=0x7f060041;
-        public static final int EventDescription_EventLocalizationInformation_MainTile_Label=0x7f060043;
-        public static final int EventFrequencyFold_CheckBox_Friday=0x7f060081;
-        public static final int EventFrequencyFold_CheckBox_Monday=0x7f06007d;
-        public static final int EventFrequencyFold_CheckBox_Saturday=0x7f060082;
-        public static final int EventFrequencyFold_CheckBox_Sunday=0x7f060083;
-        public static final int EventFrequencyFold_CheckBox_Thursday=0x7f060080;
-        public static final int EventFrequencyFold_CheckBox_Tuesday=0x7f06007e;
-        public static final int EventFrequencyFold_CheckBox_Wednesday=0x7f06007f;
+        public static final int EventDescription_EventInformation_MainTile_Label=0x7f060042;
+        public static final int EventDescription_EventLocalizationInformation_MainTile_Label=0x7f060044;
+        public static final int EventFrequencyFold_CheckBox_Friday=0x7f060082;
+        public static final int EventFrequencyFold_CheckBox_Monday=0x7f06007e;
+        public static final int EventFrequencyFold_CheckBox_Saturday=0x7f060083;
+        public static final int EventFrequencyFold_CheckBox_Sunday=0x7f060084;
+        public static final int EventFrequencyFold_CheckBox_Thursday=0x7f060081;
+        public static final int EventFrequencyFold_CheckBox_Tuesday=0x7f06007f;
+        public static final int EventFrequencyFold_CheckBox_Wednesday=0x7f060080;
         /**  ************************************************************************************************* 
  ************************************ Event Frequency Fold *************************************** 
  ************************************************************************************************* 
          */
-        public static final int EventFrequencyFold_Legend=0x7f060076;
-        public static final int EventFrequencyFold_List_Item_EveryFourWeeksItem=0x7f06007c;
-        public static final int EventFrequencyFold_List_Item_EveryTwoWeeksItem=0x7f06007b;
-        public static final int EventFrequencyFold_List_Item_EveryWeekItem=0x7f06007a;
-        public static final int EventFrequencyFold_List_Item_Everyday=0x7f060079;
-        public static final int EventFrequencyFold_List_Label=0x7f060077;
-        public static final int EventFrequencyFold_List_NoSelection=0x7f060078;
+        public static final int EventFrequencyFold_Legend=0x7f060077;
+        public static final int EventFrequencyFold_List_Item_EveryFourWeeksItem=0x7f06007d;
+        public static final int EventFrequencyFold_List_Item_EveryTwoWeeksItem=0x7f06007c;
+        public static final int EventFrequencyFold_List_Item_EveryWeekItem=0x7f06007b;
+        public static final int EventFrequencyFold_List_Item_Everyday=0x7f06007a;
+        public static final int EventFrequencyFold_List_Label=0x7f060078;
+        public static final int EventFrequencyFold_List_NoSelection=0x7f060079;
         /**  ************************************************************************************************* 
  ************************************** EventListItem View *************************************** 
  ************************************************************************************************* 
@@ -542,66 +546,67 @@ containing a value of this type.
         public static final int EventListItem_event_description=0x7f060033;
         public static final int EventListItem_event_edit=0x7f060034;
         public static final int EventListItem_event_localization=0x7f060035;
-        public static final int EventRequirementFold_Draft=0x7f060087;
-        public static final int EventRequirementFold_FixedTime=0x7f060085;
+        public static final int EventListItem_road_from_previous_event=0x7f060036;
+        public static final int EventRequirementFold_Draft=0x7f060088;
+        public static final int EventRequirementFold_FixedTime=0x7f060086;
         /**  ************************************************************************************************* 
  *********************************** Event Requirements Fold ************************************* 
  ************************************************************************************************* 
          */
-        public static final int EventRequirementFold_Legend=0x7f060084;
-        public static final int EventRequirementFold_Required=0x7f060086;
-        public static final int EventTimeFold_Duration_Label=0x7f06009d;
-        public static final int EventTimeFold_EndTime_Button_Label=0x7f060098;
-        public static final int EventTimeFold_EndTime_Label=0x7f060096;
-        public static final int EventTimeFold_EndTime_Label_NoSet=0x7f060097;
-        public static final int EventTimeFold_Legend=0x7f060092;
-        public static final int EventTimeFold_StartTime_Button_Label=0x7f060095;
-        public static final int EventTimeFold_StartTime_Label=0x7f060093;
-        public static final int EventTimeFold_StartTime_Label_NoSet=0x7f060094;
-        public static final int EventTitleAndDescriptionFold_AddEventDescription_Hint=0x7f060070;
-        public static final int EventTitleAndDescriptionFold_AddEventTitle_Hint=0x7f06006f;
+        public static final int EventRequirementFold_Legend=0x7f060085;
+        public static final int EventRequirementFold_Required=0x7f060087;
+        public static final int EventTimeFold_Duration_Label=0x7f06009e;
+        public static final int EventTimeFold_EndTime_Button_Label=0x7f060099;
+        public static final int EventTimeFold_EndTime_Label=0x7f060097;
+        public static final int EventTimeFold_EndTime_Label_NoSet=0x7f060098;
+        public static final int EventTimeFold_Legend=0x7f060093;
+        public static final int EventTimeFold_StartTime_Button_Label=0x7f060096;
+        public static final int EventTimeFold_StartTime_Label=0x7f060094;
+        public static final int EventTimeFold_StartTime_Label_NoSet=0x7f060095;
+        public static final int EventTitleAndDescriptionFold_AddEventDescription_Hint=0x7f060071;
+        public static final int EventTitleAndDescriptionFold_AddEventTitle_Hint=0x7f060070;
         /**  ************************************************************************************************* 
  ****************************** Event Title And Description Fold ********************************* 
  ************************************************************************************************* 
          */
-        public static final int EventTitleAndDescriptionFold_Legend=0x7f06006e;
-        public static final int HelpView_HelpItemContent_DefaultLocations=0x7f0600b0;
-        public static final int HelpView_HelpItemContent_DeleteEvent=0x7f0600ae;
-        public static final int HelpView_HelpItemContent_GoBack=0x7f0600b2;
-        public static final int HelpView_HelpItemContent_ShowEventInfo=0x7f0600b1;
-        public static final int HelpView_HelpItemContent_ShowLocation=0x7f0600ad;
-        public static final int HelpView_HelpItemTitle_AddEvent=0x7f0600a9;
-        public static final int HelpView_HelpItemTitle_DefaultLocations=0x7f0600aa;
+        public static final int EventTitleAndDescriptionFold_Legend=0x7f06006f;
+        public static final int HelpView_HelpItemContent_DefaultLocations=0x7f0600b1;
+        public static final int HelpView_HelpItemContent_DeleteEvent=0x7f0600af;
+        public static final int HelpView_HelpItemContent_GoBack=0x7f0600b3;
+        public static final int HelpView_HelpItemContent_ShowEventInfo=0x7f0600b2;
+        public static final int HelpView_HelpItemContent_ShowLocation=0x7f0600ae;
+        public static final int HelpView_HelpItemTitle_AddEvent=0x7f0600aa;
+        public static final int HelpView_HelpItemTitle_DefaultLocations=0x7f0600ab;
         /**  ************************************************************************************************* 
  *********************************** Help Activity ************************************* 
  ************************************************************************************************* 
          */
-        public static final int HelpView_HelpItemTitle_DeleteEvent=0x7f0600a7;
-        public static final int HelpView_HelpItemTitle_GoBack=0x7f0600ac;
-        public static final int HelpView_HelpItemTitle_ShowEventInfo=0x7f0600ab;
-        public static final int HelpView_HelpItemTitle_ShowLocation=0x7f0600a8;
-        public static final int HelpView_HelptItemContent_AddEvent=0x7f0600af;
+        public static final int HelpView_HelpItemTitle_DeleteEvent=0x7f0600a8;
+        public static final int HelpView_HelpItemTitle_GoBack=0x7f0600ad;
+        public static final int HelpView_HelpItemTitle_ShowEventInfo=0x7f0600ac;
+        public static final int HelpView_HelpItemTitle_ShowLocation=0x7f0600a9;
+        public static final int HelpView_HelptItemContent_AddEvent=0x7f0600b0;
         /**  ************************************************************************************************* 
  ************************************* Standard Properties *************************************** 
  ************************************************************************************************* 
          */
         public static final int Image_Description=0x7f060028;
-        public static final int ImpossibilityEventTypeFold_Legend=0x7f06008a;
+        public static final int ImpossibilityEventTypeFold_Legend=0x7f06008b;
         /**  ************************************************************************************************* 
  *********************************** Impossibility Event Fold ************************************* 
  ************************************************************************************************* 
          */
-        public static final int ImpossibilityEventTypeFold_RadioButton_Constant=0x7f060088;
-        public static final int ImpossibilityEventTypeFold_RadioButton_OneTime=0x7f060089;
-        public static final int LocationChoiceFold_DefaultLocationList_Label=0x7f060072;
-        public static final int LocationChoiceFold_DefaultLocationList_NoSelection=0x7f060073;
+        public static final int ImpossibilityEventTypeFold_RadioButton_Constant=0x7f060089;
+        public static final int ImpossibilityEventTypeFold_RadioButton_OneTime=0x7f06008a;
+        public static final int LocationChoiceFold_DefaultLocationList_Label=0x7f060073;
+        public static final int LocationChoiceFold_DefaultLocationList_NoSelection=0x7f060074;
         /**  ************************************************************************************************* 
  ************************************ Location Choice Fold *************************************** 
  ************************************************************************************************* 
          */
-        public static final int LocationChoiceFold_Legend=0x7f060071;
-        public static final int LocationChoiceFold_OneTimeLocation_Button_Label=0x7f060075;
-        public static final int LocationChoiceFold_OneTimeLocation_Label=0x7f060074;
+        public static final int LocationChoiceFold_Legend=0x7f060072;
+        public static final int LocationChoiceFold_OneTimeLocation_Button_Label=0x7f060076;
+        public static final int LocationChoiceFold_OneTimeLocation_Label=0x7f060075;
         public static final int MainActivityView_ActionBar_Localization_AddDefaultLocalization=0x7f060031;
         public static final int MainActivityView_ActionBar_Localization_ShowDefaultLocalizationList=0x7f060032;
         public static final int MainActivityView_ActionBar_add_default_location=0x7f06002f;
@@ -621,34 +626,34 @@ containing a value of this type.
  ********************************** One Time Localiation View ************************************ 
  ************************************************************************************************* 
          */
-        public static final int OneTimeLocalizationView_chooseLocalizationButtonLabel=0x7f06006d;
-        public static final int Validation_Account_Login_NotNull=0x7f060055;
+        public static final int OneTimeLocalizationView_chooseLocalizationButtonLabel=0x7f06006e;
+        public static final int Validation_Account_Login_NotNull=0x7f060056;
         /**  ************************************************************************************************* 
  ****************************************** Validation ******************************************* 
  ************************************************************************************************* 
          */
-        public static final int Validation_Account_Password_NotNull=0x7f060054;
-        public static final int Validation_EndDate_NotNull=0x7f060069;
-        public static final int Validation_EndDateBeforeStartDate=0x7f06006a;
-        public static final int Validation_Event_Account_NotNull=0x7f060056;
-        public static final int Validation_Event_FrequencyNotChosen=0x7f06005a;
-        public static final int Validation_Event_IsConstant_NotNull=0x7f060059;
-        public static final int Validation_Event_IsRequired_NotNull=0x7f060058;
-        public static final int Validation_Event_OneDayMustBeChosen=0x7f06005b;
-        public static final int Validation_Event_Title_NotNull=0x7f060057;
-        public static final int Validation_EventDate_Date_NotNull=0x7f06005e;
-        public static final int Validation_EventDate_Duration_NotNull=0x7f060061;
-        public static final int Validation_EventDate_EndTime_NotNull=0x7f060060;
-        public static final int Validation_EventDate_EndTimeBeforeStartTime=0x7f060063;
-        public static final int Validation_EventDate_Event_NotNull=0x7f06005c;
-        public static final int Validation_EventDate_IsFinished_NotNull=0x7f060062;
-        public static final int Validation_EventDate_Location_NotNull=0x7f06005d;
-        public static final int Validation_EventDate_PastDate=0x7f060064;
-        public static final int Validation_EventDate_StartTime_NotNull=0x7f06005f;
-        public static final int Validation_Location_Coordinates_NotNull=0x7f060066;
-        public static final int Validation_Location_IsDefault_NotNull=0x7f060067;
-        public static final int Validation_Location_Name_NotNull=0x7f060065;
-        public static final int Validation_StartDate_NotNull=0x7f060068;
+        public static final int Validation_Account_Password_NotNull=0x7f060055;
+        public static final int Validation_EndDate_NotNull=0x7f06006a;
+        public static final int Validation_EndDateBeforeStartDate=0x7f06006b;
+        public static final int Validation_Event_Account_NotNull=0x7f060057;
+        public static final int Validation_Event_FrequencyNotChosen=0x7f06005b;
+        public static final int Validation_Event_IsConstant_NotNull=0x7f06005a;
+        public static final int Validation_Event_IsRequired_NotNull=0x7f060059;
+        public static final int Validation_Event_OneDayMustBeChosen=0x7f06005c;
+        public static final int Validation_Event_Title_NotNull=0x7f060058;
+        public static final int Validation_EventDate_Date_NotNull=0x7f06005f;
+        public static final int Validation_EventDate_Duration_NotNull=0x7f060062;
+        public static final int Validation_EventDate_EndTime_NotNull=0x7f060061;
+        public static final int Validation_EventDate_EndTimeBeforeStartTime=0x7f060064;
+        public static final int Validation_EventDate_Event_NotNull=0x7f06005d;
+        public static final int Validation_EventDate_IsFinished_NotNull=0x7f060063;
+        public static final int Validation_EventDate_Location_NotNull=0x7f06005e;
+        public static final int Validation_EventDate_PastDate=0x7f060065;
+        public static final int Validation_EventDate_StartTime_NotNull=0x7f060060;
+        public static final int Validation_Location_Coordinates_NotNull=0x7f060067;
+        public static final int Validation_Location_IsDefault_NotNull=0x7f060068;
+        public static final int Validation_Location_Name_NotNull=0x7f060066;
+        public static final int Validation_StartDate_NotNull=0x7f060069;
         public static final int action_settings=0x7f06001c;
         public static final int app_name=0x7f06001b;
         /**   Title for notification shown when GooglePlayServices needs to be
@@ -756,14 +761,14 @@ containing a value of this type.
         public static final int text_view_duration_event_add=0x7f060022;
         public static final int title_activity_add_default_localization=0x7f060026;
         public static final int title_activity_constant_event_add=0x7f060027;
-        public static final int title_activity_default_localization_list=0x7f06009e;
-        public static final int title_activity_delete_constant_event=0x7f0600b4;
+        public static final int title_activity_default_localization_list=0x7f06009f;
+        public static final int title_activity_delete_constant_event=0x7f0600b5;
         public static final int title_activity_event_add=0x7f06001f;
         public static final int title_activity_event_description=0x7f060024;
-        public static final int title_activity_help=0x7f0600a6;
-        public static final int title_activity_impossibility_event_add=0x7f0600b3;
+        public static final int title_activity_help=0x7f0600a7;
+        public static final int title_activity_impossibility_event_add=0x7f0600b4;
         public static final int title_activity_one_time_localization=0x7f060025;
-        public static final int title_activity_show_locations_on_map=0x7f0600a5;
+        public static final int title_activity_show_locations_on_map=0x7f0600a6;
     }
     public static final class style {
         /** 

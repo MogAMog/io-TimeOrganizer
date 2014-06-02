@@ -106,6 +106,14 @@
                     android:ems="10"
                     android:hint="@string/AddDefaultLocalizationView.localization_city" />
             </LinearLayout>
+            
+            <ImageButton 
+                android:id="@+id/AddDefaultLocalizationView.searchImageButton"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@drawable/search"
+                android:background="@null" 
+                android:contentDescription="@string/Image.Description"/>
         </LinearLayout>
 
         <TextView
