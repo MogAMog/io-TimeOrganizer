@@ -16,19 +16,19 @@ import pl.edu.agh.tools.DateTimeTools;
 
 public class OptimalPathFindingService implements IPathFindingService {
 
-//	private List<EventDate> constantRequiredEventList;
-//	private List<EventDate> notConstantRequiredEventList;
-//	private List<EventDate> constantNotRequiredEventList;
-//	private List<EventDate> notConstantNotRequiredEventList;
-//	private List<EventDate> eventList;
-//	private IDistanceStrategy distanceStrategy;
+	private List<EventDate> constantRequiredEventList;
+	private List<EventDate> notConstantRequiredEventList;
+	private List<EventDate> constantNotRequiredEventList;
+	private List<EventDate> notConstantNotRequiredEventList;
+	private List<EventDate> eventList;
+	private IDistanceStrategy distanceStrategy;
 	
-	public List<EventDate> constantRequiredEventList;
-	public List<EventDate> notConstantRequiredEventList;
-	public List<EventDate> constantNotRequiredEventList;
-	public List<EventDate> notConstantNotRequiredEventList;
-	public List<EventDate> eventList;
-	public IDistanceStrategy distanceStrategy;
+//	public List<EventDate> constantRequiredEventList;
+//	public List<EventDate> notConstantRequiredEventList;
+//	public List<EventDate> constantNotRequiredEventList;
+//	public List<EventDate> notConstantNotRequiredEventList;
+//	public List<EventDate> eventList;
+//	public IDistanceStrategy distanceStrategy;
 	
 	public OptimalPathFindingService() {
 		constantRequiredEventList = new ArrayList<EventDate>();
@@ -94,52 +94,68 @@ public class OptimalPathFindingService implements IPathFindingService {
 	 */
 	@Override
 	public void inputEventDate(EventDate eventDate, Date startDate) throws OptimalPathFindingException {
-		List<EventDate> tempEventList = new ArrayList<EventDate>();
-		EventDate tempEventDate = null;
-		EventDate prevEventDate = new EventDate(null, null, null, startDate, 0, false);
+		//EventDate prevEventDate = new EventDate(null, null, null, startDate, 0, false);
 		boolean placeForEventFound = false;
-		Iterator<EventDate> eventListIterator = eventList.iterator();
-		while(eventListIterator.hasNext() && (tempEventDate = (EventDate) eventListIterator.next()).getStartTime().before(startDate)){
-			tempEventList.add(tempEventDate);
-			prevEventDate = tempEventDate;
-		}
-		if(tempEventDate!=null){
-			tempEventList.add(tempEventDate);
-		}
-		EventDate mockEventDate;
-		if(DateTimeTools.happenedBefore(prevEventDate.getEndTime(), startDate)){
-			mockEventDate = new EventDate(prevEventDate.getLocation(), prevEventDate.getDate(), startDate, startDate, 0, false);
-			
-		}else{
-			mockEventDate = prevEventDate;
-		}
-		if(canEventFitBetween(eventDate, mockEventDate, tempEventDate)){
-			placeEventAfter(mockEventDate, eventDate);
-			tempEventList.add(eventDate);
-			placeForEventFound = true;
-		}
-		while(eventListIterator.hasNext() && !placeForEventFound){
-			prevEventDate = tempEventDate;
-			tempEventDate = eventListIterator.next();
-			tempEventList.add(tempEventDate);
-			if(canEventFitBetween(eventDate, prevEventDate, tempEventDate)){
-				placeEventAfter(prevEventDate, eventDate);
-				tempEventList.add(eventDate);
+		for(int i = 1; i < eventList.size() && !placeForEventFound; i++){
+			EventDate mockEventDate;
+			if(!DateTimeTools.happenedBefore(eventList.get(i - 1).getEndTime(), startDate)){
+				mockEventDate = eventList.get(i - 1);
+			} else {
+				mockEventDate = new EventDate(eventList.get(i - 1).getLocation(), eventList.get(i - 1).getDate(), startDate, startDate, 0, false);
+			}
+			if(eventList.get(i).getStartTime().after(startDate)&&canEventFitBetween(eventDate, mockEventDate, eventList.get(i))){
+				
+				
+				placeEventAfter(mockEventDate, eventDate);
+				eventList.add(i,eventDate);
 				placeForEventFound = true;
 			}
 		}
-		while(eventListIterator.hasNext()){
-			tempEventDate = eventListIterator.next();
-			tempEventList.add(tempEventDate);
-		}
-		if(placeForEventFound){
-			eventList = tempEventList;
-			Set<EventDate> eventSet = new HashSet<EventDate>();
-			eventSet.add(eventDate);
-			addEventDates(eventSet);
-		}else{
+		if(!placeForEventFound)
 			throw new OptimalPathFindingException("Unable to find place for the event");
-		}
+//		boolean placeForEventFound = false;
+//		Iterator<EventDate> eventListIterator = eventList.iterator();
+//		while(eventListIterator.hasNext() && (tempEventDate = (EventDate) eventListIterator.next()).getStartTime().before(startDate)){
+//			tempEventList.add(tempEventDate);
+//			prevEventDate = tempEventDate;
+//		}
+//		if(tempEventDate!=null){
+//			tempEventList.add(tempEventDate);
+//		}
+//		EventDate mockEventDate;
+//		if(DateTimeTools.happenedBefore(prevEventDate.getEndTime(), startDate)){
+//			mockEventDate = new EventDate(prevEventDate.getLocation(), prevEventDate.getDate(), startDate, startDate, 0, false);
+//			
+//		}else{
+//			mockEventDate = prevEventDate;
+//		}
+//		if(canEventFitBetween(eventDate, mockEventDate, tempEventDate)){
+//			placeEventAfter(mockEventDate, eventDate);
+//			tempEventList.add(eventDate);
+//			placeForEventFound = true;
+//		}
+//		while(eventListIterator.hasNext() && !placeForEventFound){
+//			prevEventDate = tempEventDate;
+//			tempEventDate = eventListIterator.next();
+//			tempEventList.add(tempEventDate);
+//			if(canEventFitBetween(eventDate, prevEventDate, tempEventDate)){
+//				placeEventAfter(prevEventDate, eventDate);
+//				tempEventList.add(eventDate);
+//				placeForEventFound = true;
+//			}
+//		}
+//		while(eventListIterator.hasNext()){
+//			tempEventDate = eventListIterator.next();
+//			tempEventList.add(tempEventDate);
+//		}
+//		if(placeForEventFound){
+//			eventList = tempEventList;
+//			Set<EventDate> eventSet = new HashSet<EventDate>();
+//			eventSet.add(eventDate);
+//			addEventDates(eventSet);
+//		}else{
+//			throw new OptimalPathFindingException("Unable to find place for the event");
+//		}
 	}
 	
 	/* (non-Javadoc)
@@ -230,8 +246,9 @@ public class OptimalPathFindingService implements IPathFindingService {
 			if(bestEvent == null){
 				break;
 			}
-			fitEventAfter(bestEvent, bestBeforeEvent, tempEventList);
+			
 			tempNotConstantEventSet.remove(bestEvent);
+			fitEventAfter(bestEvent, bestBeforeEvent, tempEventList);
 		}
 		
 	}
