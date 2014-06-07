@@ -171,7 +171,7 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 		List<Event> deleteList = new ArrayList<Event>();
 		
 		for(Event event : events) {
-			if(!event.isDraft()) {
+			if(event.isDraft()) {
 				deleteList.add(event);
 			}
 		}
@@ -191,7 +191,7 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 				eventDatesSet.add(eventDate);
 			}
 		}
-		return null;
+		return eventDatesSet;
 	}
 	
 	private boolean checkIfEventFulfilsFilterRequirements(Event event) {
