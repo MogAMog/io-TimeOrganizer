@@ -3,12 +3,17 @@ package com.example.ioproject;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import pl.edu.agh.domain.Event;
 import pl.edu.agh.domain.EventDate;
 import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
+import pl.edu.agh.exceptions.OptimalPathFindingException;
+import pl.edu.agh.services.DefaultDistanceStrategy;
 import pl.edu.agh.services.EventManagementService;
+import pl.edu.agh.services.OptimalPathFindingService;
 import pl.edu.agh.tools.DateTimeTools;
 import pl.edu.agh.view.adddefaultlocalization.AddDefaultLocalizationActivity;
 import pl.edu.agh.view.addevent.ConstantEventAddActivity;
@@ -16,7 +21,7 @@ import pl.edu.agh.view.addevent.EventAddActivity;
 import pl.edu.agh.view.addevent.ImpossibilityEventAddActivity;
 import pl.edu.agh.view.defaultlocalizationlist.DefaultLocalizationListActivity;
 import pl.edu.agh.view.deleteconstantevents.DeleteConstantEventActivity;
-import pl.edu.agh.view.eventlist.*;
+import pl.edu.agh.view.eventlist.EventListFragment;
 import pl.edu.agh.view.fragments.pickers.DatePickerFragment;
 import pl.edu.agh.view.fragments.pickers.DatePickerFragment.SetDateInterface;
 import pl.edu.agh.view.help.HelpActivity;
@@ -29,8 +34,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.TextView;
 
 public class MainActivity extends Activity implements EventListFragment.ProvideEventList, SetDateInterface{
 
@@ -100,6 +105,16 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
     		case R.id.MainActivity_ActionBar_Help:
     			startActivity(new Intent(this, HelpActivity.class));
     			return true;
+    		case R.id.MainActivity_ActionBar_Algorithm:
+    			OptimalPathFindingService optimalPathFindingService = new OptimalPathFindingService(new DefaultDistanceStrategy());
+    			optimalPathFindingService.setEventDates(getEventDatesSet());
+			try {
+				optimalPathFindingService.calculateOptimalEventOrder();
+			} catch (OptimalPathFindingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    			return true;
     	}
     	return super.onOptionsItemSelected(item);
     }
@@ -147,6 +162,36 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 			event.getEventDates().removeAll(deleteEventDates);
 		}
 		return events;
+	}
+	
+	public Set<EventDate> getEventDatesSet() {
+		eventManagementService.clearCache();
+		Set<EventDate> eventDatesSet = new HashSet<EventDate>();
+		List<Event> events = eventManagementService.getAll();
+		List<Event> deleteList = new ArrayList<Event>();
+		
+		for(Event event : events) {
+			if(!event.isDraft()) {
+				deleteList.add(event);
+			}
+		}
+		
+		List<EventDate> deleteEventDates = new ArrayList<EventDate>();
+		for(Event event : events) {
+			for(EventDate eventDate : event.getEventDates()) {
+				if(!checkIfEventDateFulfilsFilterRequirements(eventDate)) {
+					deleteEventDates.add(eventDate);
+				}
+			}
+			event.getEventDates().removeAll(deleteEventDates);
+		}
+		
+		for(Event event : events) {
+			for(EventDate eventDate : event.getEventDates()) {
+				eventDatesSet.add(eventDate);
+			}
+		}
+		return null;
 	}
 	
 	private boolean checkIfEventFulfilsFilterRequirements(Event event) {
