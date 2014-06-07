@@ -1,5 +1,6 @@
 package pl.edu.agh.services;
 
+import java.lang.ref.Reference;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -21,6 +22,9 @@ public class OptimalPathFindingService implements IPathFindingService {
 	private List<EventDate> notConstantNotRequiredEventList;
 	private List<EventDate> eventList;
 	private IDistanceStrategy distanceStrategy;
+	
+	private Date morningBoundary;
+	private Date eveningBoundary;
 
 	public OptimalPathFindingService() {
 		constantRequiredEventList = new ArrayList<EventDate>();
@@ -171,6 +175,9 @@ public class OptimalPathFindingService implements IPathFindingService {
 	}
 
 	private int getTimeDistance(EventDate event1, EventDate event2) {
+		if(event1.getLocation() == null || event2.getLocation() == null){
+			return 0;
+		}
 		return distanceStrategy.getTimeDistanceBetween(event1.getLocation(),
 				event2.getLocation());
 	}
@@ -213,6 +220,9 @@ public class OptimalPathFindingService implements IPathFindingService {
 	private void placeNonConstantEvents(List<EventDate> tempEventList) {
 		Set<EventDate> tempNotConstantEventSet = new HashSet<EventDate>(
 				notConstantNotRequiredEventList);
+		EventDate morningBoundaryEvent = createBoundaryEvent(morningBoundary);
+		EventDate eveningBoundaryEvent = createBoundaryEvent(eveningBoundary);
+		addBoundaryEvents(tempEventList, morningBoundaryEvent, eveningBoundaryEvent);
 		while (!tempNotConstantEventSet.isEmpty()) {
 			EventDate bestBeforeEvent = null;
 			EventDate bestEvent = null;
@@ -240,6 +250,7 @@ public class OptimalPathFindingService implements IPathFindingService {
 			tempNotConstantEventSet.remove(bestEvent);
 			fitEventAfter(bestEvent, bestBeforeEvent, tempEventList);
 		}
+		removeBoundaryEvents(tempEventList, morningBoundaryEvent, eveningBoundaryEvent);
 
 	}
 
@@ -264,6 +275,9 @@ public class OptimalPathFindingService implements IPathFindingService {
 			throws OptimalPathFindingException {
 		Set<EventDate> tempNotConstantEventSet = new HashSet<EventDate>(
 				notConstantRequiredEventList);
+		EventDate morningBoundaryEvent = createBoundaryEvent(morningBoundary);
+		EventDate eveningBoundaryEvent = createBoundaryEvent(eveningBoundary);
+		addBoundaryEvents(tempEventList, morningBoundaryEvent, eveningBoundaryEvent);
 		while (!tempNotConstantEventSet.isEmpty()) {
 			EventDate bestBeforeEvent = null;
 			EventDate bestEvent = null;
@@ -291,7 +305,7 @@ public class OptimalPathFindingService implements IPathFindingService {
 			tempNotConstantEventSet.remove(bestEvent);
 			fitEventAfter(bestEvent, bestBeforeEvent, tempEventList);
 		}
-
+		removeBoundaryEvents(tempEventList, morningBoundaryEvent, eveningBoundaryEvent);
 	}
 
 	private void placeConstantRequiredEvents(List<EventDate> tempEventList)
@@ -321,5 +335,36 @@ public class OptimalPathFindingService implements IPathFindingService {
 				return false;
 		}
 		return true;
+	}
+	
+	private void addBoundaryEvents(List<EventDate> tempEventList, EventDate morningBoundaryEvent, EventDate eveningBoundaryEvent){
+		if(!tempEventList.isEmpty()){
+			if(tempEventList.get(0).getStartTime().after(morningBoundaryEvent.getStartTime())){
+				tempEventList.add(0,morningBoundaryEvent);
+			}
+			if(tempEventList.get(tempEventList.size()-1).getEndTime().before(morningBoundaryEvent.getEndTime())){
+				tempEventList.add(tempEventList.size(),eveningBoundaryEvent);
+			}
+		}else{
+			tempEventList.add(morningBoundaryEvent);
+			tempEventList.add(eveningBoundaryEvent);
+		}
+	}
+	
+	private void removeBoundaryEvents(List<EventDate> tempEventList, EventDate morningBoundaryEvent, EventDate eveningBoundaryEvent){
+		tempEventList.remove(morningBoundaryEvent);
+		tempEventList.remove(eveningBoundaryEvent);
+	}
+	
+	private EventDate createBoundaryEvent(Date date){
+		return new EventDate(null, null, date, date, 0, false);
+	}
+
+	public void setMorningBoundary(Date morningBoundary) {
+		this.morningBoundary = morningBoundary;
+	}
+	
+	public void setEveningBoundary(Date eveningBoundary) {
+		this.eveningBoundary = eveningBoundary;
 	}
 }
