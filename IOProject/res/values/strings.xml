@@ -42,6 +42,7 @@
     <string name="MainActivityView.ActionBar.help">Help</string>
     <string name="MainActivityView.ActionBar.Localization.AddDefaultLocalization">Add Default Localization</string>
     <string name="MainActivityView.ActionBar.Localization.ShowDefaultLocalizationList">Show Default Localization List</string>
+    <string name="MainActivityView.ActionBar.run_algorithm">Run algorithm</string>
 
     <!-- ************************************************************************************************* -->
     <!-- ************************************** EventListItem View *************************************** -->
