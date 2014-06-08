@@ -224,9 +224,11 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 	private void recalculateEventList() {
 		OptimalPathFindingService optimalPathFindingService = new OptimalPathFindingService(new DefaultDistanceStrategy());
 		optimalPathFindingService.setEventDates(getEventDatesSet());
-		optimalPathFindingService.setMorningBoundary(new Date());
+		optimalPathFindingService.setMorningBoundary((Date)chosenDate.clone());
+		Date date = (Date)chosenDate.clone();
 		Calendar cal = Calendar.getInstance();
-		cal.set(Calendar.HOUR, 23);
+		cal.setTime(date);
+		cal.set(Calendar.HOUR_OF_DAY, 23);
 		cal.set(Calendar.MINUTE, 59);
 		cal.set(Calendar.SECOND, 59);
 		optimalPathFindingService.setEveningBoundary(cal.getTime());
