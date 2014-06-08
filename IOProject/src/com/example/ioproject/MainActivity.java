@@ -106,14 +106,7 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
     			startActivity(new Intent(this, HelpActivity.class));
     			return true;
     		case R.id.MainActivity_ActionBar_Algorithm:
-    			OptimalPathFindingService optimalPathFindingService = new OptimalPathFindingService(new DefaultDistanceStrategy());
-    			optimalPathFindingService.setEventDates(getEventDatesSet());
-			try {
-				optimalPathFindingService.calculateOptimalEventOrder();
-			} catch (OptimalPathFindingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+    			recalculateEventList();
     			return true;
     	}
     	return super.onOptionsItemSelected(item);
@@ -209,7 +202,11 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 	
 	@Override
 	public void reloadCurrentFragmentList() {
-		((EventListFragment)getFragmentManager().findFragmentById(R.id.MainActivity_EventListFragment)).reloadEventList();
+		reloadList(null);
+	}
+	
+	private void reloadList(List<EventDate> eventDates) {
+		((EventListFragment)getFragmentManager().findFragmentById(R.id.MainActivity_EventListFragment)).reloadEventList(eventDates);
 	}
 	
 	public void showDatePickerDialog(View v) {
@@ -224,5 +221,21 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 		((TextView) findViewById(R.id.MainActivity_Date_TextView)).setText(new StringBuilder().append(getString(R.string.EventDate_Date)).append(": ").append(DateTimeTools.convertDateToString(calendar)));
 	}
 	
+	private void recalculateEventList() {
+		OptimalPathFindingService optimalPathFindingService = new OptimalPathFindingService(new DefaultDistanceStrategy());
+		optimalPathFindingService.setEventDates(getEventDatesSet());
+		optimalPathFindingService.setMorningBoundary(new Date());
+		Calendar cal = Calendar.getInstance();
+		cal.set(Calendar.HOUR, 23);
+		cal.set(Calendar.MINUTE, 59);
+		cal.set(Calendar.SECOND, 59);
+		optimalPathFindingService.setEveningBoundary(cal.getTime());
+		try {
+			optimalPathFindingService.calculateOptimalEventOrder();
+		} catch (OptimalPathFindingException e) {
+			e.printStackTrace();
+		}
+		reloadList(optimalPathFindingService.getEventDateOrder());
+	}
 	
 }
