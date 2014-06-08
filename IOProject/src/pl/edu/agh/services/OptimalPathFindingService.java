@@ -1,6 +1,5 @@
 package pl.edu.agh.services;
 
-import java.lang.ref.Reference;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -22,7 +21,7 @@ public class OptimalPathFindingService implements IPathFindingService {
 	private List<EventDate> notConstantNotRequiredEventList;
 	private List<EventDate> eventList;
 	private IDistanceStrategy distanceStrategy;
-	
+
 	private Date morningBoundary;
 	private Date eveningBoundary;
 
@@ -114,33 +113,55 @@ public class OptimalPathFindingService implements IPathFindingService {
 	public void inputEventDate(EventDate eventDate, Date startDate)
 			throws OptimalPathFindingException {
 		boolean placeForEventFound = false;
-		for (int i = 1; i < eventList.size() && !placeForEventFound; i++) {
-			EventDate beforeEvent;
-			if (!DateTimeTools.happenedBefore(
-					eventList.get(i - 1).getEndTime(), startDate)) {
-				beforeEvent = eventList.get(i - 1);
-			} else {
-				beforeEvent = new EventDate(eventList.get(i - 1)
-						.getLocation(), eventList.get(i - 1).getDate(),
-						startDate, startDate, 0, false);
+		if (eventDate.getEvent().isConstant()) {
+			Calendar eventStartTime = DateTimeTools.getCalendarFromDate(eventDate
+					.getStartTime());
+			int newEventLocation;
+			for (newEventLocation = 0; newEventLocation < eventList.size()
+					&& DateTimeTools.getCalendarFromDate(
+							eventList.get(newEventLocation).getStartTime())
+							.before(eventStartTime); newEventLocation++) {
 			}
-			if (eventList.get(i).getStartTime().after(startDate)
-					&& canEventFitBetween(eventDate, beforeEvent,
-							eventList.get(i))) {
-
-				Date startTime = DateTimeTools.addMinutesToDate(
-						beforeEvent.getEndTime(), getTimeDistance(beforeEvent, eventDate));
-				eventDate.setStartTime(startTime);
-				Date endTime = DateTimeTools.addMinutesToDate(startTime,
-						eventDate.getDuration());
-				eventDate.setEndTime(endTime);
-				eventList.add(i, eventDate);
+			eventList.add(newEventLocation, eventDate);
+			if(isPlanSuitable(eventList))
 				placeForEventFound = true;
+			else {
+				eventList.remove(eventDate);
+			}
+		} else {
+			for (int i = 1; i < eventList.size() && !placeForEventFound; i++) {
+				EventDate beforeEvent;
+				if (!DateTimeTools.happenedBefore(eventList.get(i - 1)
+						.getEndTime(), startDate)) {
+					beforeEvent = eventList.get(i - 1);
+				} else {
+					beforeEvent = new EventDate(eventList.get(i - 1)
+							.getLocation(), eventList.get(i - 1).getDate(),
+							startDate, startDate, 0, false);
+				}
+				if (eventList.get(i).getStartTime().after(startDate)
+						&& canEventFitBetween(eventDate, beforeEvent,
+								eventList.get(i))) {
+
+					Date startTime = DateTimeTools.addMinutesToDate(
+							beforeEvent.getEndTime(),
+							getTimeDistance(beforeEvent, eventDate));
+					eventDate.setStartTime(startTime);
+					Date endTime = DateTimeTools.addMinutesToDate(startTime,
+							eventDate.getDuration());
+					eventDate.setEndTime(endTime);
+					eventList.add(i, eventDate);
+					placeForEventFound = true;
+				}
 			}
 		}
 		if (!placeForEventFound) {
 			throw new OptimalPathFindingException(
 					"Unable to find place for the event");
+		} else {
+			Set<EventDate> tempSet = new HashSet<EventDate>();
+			tempSet.add(eventDate);
+			this.addEventDates(tempSet);
 		}
 	}
 
@@ -175,7 +196,7 @@ public class OptimalPathFindingService implements IPathFindingService {
 	}
 
 	private int getTimeDistance(EventDate event1, EventDate event2) {
-		if(event1.getLocation() == null || event2.getLocation() == null){
+		if (event1.getLocation() == null || event2.getLocation() == null) {
 			return 0;
 		}
 		return distanceStrategy.getTimeDistanceBetween(event1.getLocation(),
@@ -188,7 +209,7 @@ public class OptimalPathFindingService implements IPathFindingService {
 		while (tempEventList.get(eventIterator).getId() != beforeEvent.getId()) {
 			eventIterator++;
 		}
-		
+
 		tempEventList.add(eventIterator + 1, event);
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime((Date) beforeEvent.getEndTime().clone());
@@ -222,7 +243,8 @@ public class OptimalPathFindingService implements IPathFindingService {
 				notConstantNotRequiredEventList);
 		EventDate morningBoundaryEvent = createBoundaryEvent(morningBoundary);
 		EventDate eveningBoundaryEvent = createBoundaryEvent(eveningBoundary);
-		addBoundaryEvents(tempEventList, morningBoundaryEvent, eveningBoundaryEvent);
+		addBoundaryEvents(tempEventList, morningBoundaryEvent,
+				eveningBoundaryEvent);
 		while (!tempNotConstantEventSet.isEmpty()) {
 			EventDate bestBeforeEvent = null;
 			EventDate bestEvent = null;
@@ -250,7 +272,8 @@ public class OptimalPathFindingService implements IPathFindingService {
 			tempNotConstantEventSet.remove(bestEvent);
 			fitEventAfter(bestEvent, bestBeforeEvent, tempEventList);
 		}
-		removeBoundaryEvents(tempEventList, morningBoundaryEvent, eveningBoundaryEvent);
+		removeBoundaryEvents(tempEventList, morningBoundaryEvent,
+				eveningBoundaryEvent);
 
 	}
 
@@ -277,7 +300,8 @@ public class OptimalPathFindingService implements IPathFindingService {
 				notConstantRequiredEventList);
 		EventDate morningBoundaryEvent = createBoundaryEvent(morningBoundary);
 		EventDate eveningBoundaryEvent = createBoundaryEvent(eveningBoundary);
-		addBoundaryEvents(tempEventList, morningBoundaryEvent, eveningBoundaryEvent);
+		addBoundaryEvents(tempEventList, morningBoundaryEvent,
+				eveningBoundaryEvent);
 		while (!tempNotConstantEventSet.isEmpty()) {
 			EventDate bestBeforeEvent = null;
 			EventDate bestEvent = null;
@@ -305,7 +329,8 @@ public class OptimalPathFindingService implements IPathFindingService {
 			tempNotConstantEventSet.remove(bestEvent);
 			fitEventAfter(bestEvent, bestBeforeEvent, tempEventList);
 		}
-		removeBoundaryEvents(tempEventList, morningBoundaryEvent, eveningBoundaryEvent);
+		removeBoundaryEvents(tempEventList, morningBoundaryEvent,
+				eveningBoundaryEvent);
 	}
 
 	private void placeConstantRequiredEvents(List<EventDate> tempEventList)
@@ -336,34 +361,38 @@ public class OptimalPathFindingService implements IPathFindingService {
 		}
 		return true;
 	}
-	
-	private void addBoundaryEvents(List<EventDate> tempEventList, EventDate morningBoundaryEvent, EventDate eveningBoundaryEvent){
-		if(!tempEventList.isEmpty()){
-			if(tempEventList.get(0).getStartTime().after(morningBoundaryEvent.getStartTime())){
-				tempEventList.add(0,morningBoundaryEvent);
+
+	private void addBoundaryEvents(List<EventDate> tempEventList,
+			EventDate morningBoundaryEvent, EventDate eveningBoundaryEvent) {
+		if (!tempEventList.isEmpty()) {
+			if (tempEventList.get(0).getStartTime()
+					.after(morningBoundaryEvent.getStartTime())) {
+				tempEventList.add(0, morningBoundaryEvent);
 			}
-			if(tempEventList.get(tempEventList.size()-1).getEndTime().before(morningBoundaryEvent.getEndTime())){
-				tempEventList.add(tempEventList.size(),eveningBoundaryEvent);
+			if (tempEventList.get(tempEventList.size() - 1).getEndTime()
+					.before(morningBoundaryEvent.getEndTime())) {
+				tempEventList.add(tempEventList.size(), eveningBoundaryEvent);
 			}
-		}else{
+		} else {
 			tempEventList.add(morningBoundaryEvent);
 			tempEventList.add(eveningBoundaryEvent);
 		}
 	}
-	
-	private void removeBoundaryEvents(List<EventDate> tempEventList, EventDate morningBoundaryEvent, EventDate eveningBoundaryEvent){
+
+	private void removeBoundaryEvents(List<EventDate> tempEventList,
+			EventDate morningBoundaryEvent, EventDate eveningBoundaryEvent) {
 		tempEventList.remove(morningBoundaryEvent);
 		tempEventList.remove(eveningBoundaryEvent);
 	}
-	
-	private EventDate createBoundaryEvent(Date date){
+
+	private EventDate createBoundaryEvent(Date date) {
 		return new EventDate(null, null, date, date, 0, false);
 	}
 
 	public void setMorningBoundary(Date morningBoundary) {
 		this.morningBoundary = morningBoundary;
 	}
-	
+
 	public void setEveningBoundary(Date eveningBoundary) {
 		this.eveningBoundary = eveningBoundary;
 	}
