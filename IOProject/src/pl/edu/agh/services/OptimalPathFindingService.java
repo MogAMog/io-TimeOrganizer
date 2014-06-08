@@ -191,12 +191,12 @@ public class OptimalPathFindingService implements IPathFindingService {
 		
 		tempEventList.add(eventIterator + 1, event);
 		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(beforeEvent.getEndTime());
+		calendar.setTime((Date) beforeEvent.getEndTime().clone());
 		calendar.add(Calendar.MINUTE, (int) getTimeDistance(beforeEvent, event));
 		event.setStartTime(calendar.getTime());
 
 		calendar = Calendar.getInstance();
-		calendar.setTime(beforeEvent.getEndTime());
+		calendar.setTime((Date) beforeEvent.getEndTime().clone());
 		calendar.add(Calendar.MINUTE, (int) getTimeDistance(beforeEvent, event));
 		calendar.add(Calendar.MINUTE, event.getDuration());
 		event.setEndTime(calendar.getTime());
