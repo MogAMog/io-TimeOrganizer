@@ -272,6 +272,7 @@ containing a value of this type.
         public static final int system_help=0x7f02003e;
     }
     public static final class id {
+        public static final int AddConstantEvent_ActionBar_AddAsTemplate=0x7f050077;
         public static final int AddDefaultLocalizationView_add_button=0x7f05000b;
         public static final int AddDefaultLocalizationView_localization_address=0x7f050006;
         public static final int AddDefaultLocalizationView_localization_city=0x7f050007;
@@ -279,6 +280,7 @@ containing a value of this type.
         public static final int AddDefaultLocalizationView_localization_name=0x7f050005;
         public static final int AddDefaultLocalizationView_map=0x7f05000a;
         public static final int AddDefaultLocalizationView_searchImageButton=0x7f050008;
+        public static final int AddEvent_ActionBar_AddAsTemplate=0x7f050078;
         public static final int AddNewEventView_AddEvent_Button_Id=0x7f050032;
         public static final int ConstantEventAdd_buttonAddEvent=0x7f050023;
         public static final int ConstantEventAdd_buttonEndDate=0x7f050014;
@@ -364,16 +366,16 @@ containing a value of this type.
         public static final int LocationChoiceFold_DefaultLocationList_Id=0x7f05000e;
         public static final int LocationChoiceFold_OneTimeLocation_Button_Id=0x7f05000f;
         public static final int LocationChoiceFold_OneTimeLocation_ImageView_Id=0x7f050010;
-        public static final int MainActivity_ActionBar_AddDefaultLocation=0x7f05007c;
-        public static final int MainActivity_ActionBar_AddNewConstantEvent=0x7f050079;
-        public static final int MainActivity_ActionBar_AddNewEvent=0x7f050078;
-        public static final int MainActivity_ActionBar_AddNewEventMenu=0x7f050077;
-        public static final int MainActivity_ActionBar_AddNewImpossibilityEvent=0x7f05007a;
-        public static final int MainActivity_ActionBar_Algorithm=0x7f050080;
-        public static final int MainActivity_ActionBar_DeleteConstantEvent=0x7f05007b;
-        public static final int MainActivity_ActionBar_Help=0x7f05007f;
-        public static final int MainActivity_ActionBar_Localiation_ShowDefaultLocalizationList=0x7f05007e;
-        public static final int MainActivity_ActionBar_Localization_AddDefaultLocalization=0x7f05007d;
+        public static final int MainActivity_ActionBar_AddDefaultLocation=0x7f05007e;
+        public static final int MainActivity_ActionBar_AddNewConstantEvent=0x7f05007b;
+        public static final int MainActivity_ActionBar_AddNewEvent=0x7f05007a;
+        public static final int MainActivity_ActionBar_AddNewEventMenu=0x7f050079;
+        public static final int MainActivity_ActionBar_AddNewImpossibilityEvent=0x7f05007c;
+        public static final int MainActivity_ActionBar_Algorithm=0x7f050082;
+        public static final int MainActivity_ActionBar_DeleteConstantEvent=0x7f05007d;
+        public static final int MainActivity_ActionBar_Help=0x7f050081;
+        public static final int MainActivity_ActionBar_Localiation_ShowDefaultLocalizationList=0x7f050080;
+        public static final int MainActivity_ActionBar_Localization_AddDefaultLocalization=0x7f05007f;
         public static final int MainActivity_ConstantCheckBox=0x7f050058;
         public static final int MainActivity_Date_Button=0x7f050057;
         public static final int MainActivity_Date_TextView=0x7f050056;
@@ -561,6 +563,7 @@ containing a value of this type.
          */
         public static final int EventRequirementFold_Legend=0x7f060086;
         public static final int EventRequirementFold_Required=0x7f060088;
+        public static final int EventTemplate_Image_Description=0x7f0600ba;
         public static final int EventTimeFold_Duration_Label=0x7f06009f;
         public static final int EventTimeFold_EndTime_Button_Label=0x7f06009a;
         public static final int EventTimeFold_EndTime_Label=0x7f060098;

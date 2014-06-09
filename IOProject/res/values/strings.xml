@@ -245,5 +245,7 @@
     <string name="DeleteConstantEvent.Dialog.Title">Delete Event</string>
     <string name="DeleteConstantEvent.Dialog.Message">Do you want to delete</string>
     <string name="DeleteConstantEvent.Empty">There are no constant events in the system.</string>
+    
+    <string name="EventTemplate.Image.Description">Add As Template</string>
 
 </resources>

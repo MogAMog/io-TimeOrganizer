@@ -31,6 +31,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
@@ -113,6 +114,8 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		case android.R.id.home:
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
+		case R.id.AddConstantEvent_ActionBar_AddAsTemplate:
+			return saveConstantEventAsTemplate();
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -234,5 +237,10 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 				}
 			default: super.onActivityResult(requestCode, resultCode, data);		
 		}
+	}
+	
+	private boolean saveConstantEventAsTemplate() {
+		Toast.makeText(this, "Add As Template", Toast.LENGTH_LONG).show();
+		return true;
 	}
 }
