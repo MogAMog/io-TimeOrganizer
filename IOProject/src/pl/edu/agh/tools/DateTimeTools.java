@@ -104,6 +104,14 @@ public class DateTimeTools {
 		return calendar;
 	}
 	
+	public static Calendar getCalendarInstanceWithTime(Date date, int hour, int minute) {
+		Calendar calendar = getCalendarFromDate(date);
+		calendar.set(Calendar.HOUR_OF_DAY, hour);
+		calendar.set(Calendar.MINUTE, minute);
+		calendar.set(Calendar.SECOND, 0);
+		return calendar;
+	}
+	
 	public static int getMinuteDifferenceBetweenTwoDates(Date firstDate, Date secondDate) {
 		return getCalendarFromDate(secondDate).get(Calendar.HOUR_OF_DAY) * 60 + getCalendarFromDate(secondDate).get(Calendar.MINUTE) - (getCalendarFromDate(firstDate).get(Calendar.HOUR_OF_DAY) * 60 + getCalendarFromDate(firstDate).get(Calendar.MINUTE));
 	}
