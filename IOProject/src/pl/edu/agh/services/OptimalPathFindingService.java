@@ -231,10 +231,18 @@ public class OptimalPathFindingService implements IPathFindingService {
 	@Override
 	public void calculateOptimalEventOrder() throws OptimalPathFindingException {
 		List<EventDate> tempEventList = new ArrayList<EventDate>();
-		placeConstantRequiredEvents(tempEventList);
-		placeRequiredEvents(tempEventList);
-		placeConstantEvents(tempEventList);
-		placeNonConstantEvents(tempEventList);
+		
+		if(!constantRequiredEventList.isEmpty())
+			placeConstantRequiredEvents(tempEventList);
+		
+		if(!notConstantRequiredEventList.isEmpty())
+			placeRequiredEvents(tempEventList);
+		
+		if(!constantNotRequiredEventList.isEmpty())
+			placeConstantEvents(tempEventList);
+		
+		if(!notConstantNotRequiredEventList.isEmpty())
+			placeNonConstantEvents(tempEventList);
 		eventList = tempEventList;
 	}
 
