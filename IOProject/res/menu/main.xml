@@ -52,8 +52,14 @@
     <item
         android:id="@+id/MainActivity.ActionBar.Help"
         android:icon="@drawable/system_help"
-        android:orderInCategory="4"
+        android:orderInCategory="5"
         android:showAsAction="always"
         android:title="@string/MainActivityView.ActionBar.help"/>
+    <item
+        android:id="@+id/MainActivity.ActionBar.Algorithm"
+        android:icon="@drawable/run_algorithm"
+        android:orderInCategory="4"
+        android:showAsAction="always"
+        android:title="@string/MainActivityView.ActionBar.run_algorithm" />
 
 </menu>

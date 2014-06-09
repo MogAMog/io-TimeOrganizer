@@ -127,6 +127,11 @@ public class EventDateManagementService implements IDatabaseDmlProvider<EventDat
 			cursor.close();
 		}
 	}
+	
+	public Set<EventDate> getAllEventDatesForChosenDate() {
+		return null;
+		
+	}
 
 	@Override
 	public EventDate getByIdAllData(long id) {

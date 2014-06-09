@@ -50,28 +50,33 @@ public class EventListFragment extends ListFragment {
 	@Override
 	public void onResume() {
 		super.onResume();
-		reloadEventList();
+		reloadEventList(null);
 	}
 	
-	public void reloadEventList() {
+	public void reloadEventList(List<EventDate> eventDates) {
 		ArrayList<EventListItem> todoItems = new ArrayList<EventListItem>();
-
-		for (Event event : mainActivity.getEventList()) {
-			for (EventDate eventDate : event.getEventDates()) {
-				todoItems.add(new EventListItem(event, eventDate));
-			}
-		}
 		
-		Collections.sort(todoItems, new Comparator<EventListItem>() {
-			@SuppressWarnings("deprecation")
-			@Override
-			public int compare(EventListItem lhs, EventListItem rhs) {
-				if(lhs.getEventDate().getStartTime().getHours() != rhs.getEventDate().getStartTime().getHours()) {
-					return lhs.getEventDate().getStartTime().getHours() > rhs.getEventDate().getStartTime().getHours() ? 1 : -1;
-				}
-				return lhs.getEventDate().getStartTime().getMinutes() >= rhs.getEventDate().getStartTime().getMinutes() ? 1 : -1;
+		if (eventDates != null)
+			for (EventDate eventDate : eventDates) {
+				todoItems.add(new EventListItem(eventDate.getEvent(), eventDate));
 			}
-		});
+		else 
+			for (Event event : mainActivity.getEventList()) {
+				for (EventDate eventDate : event.getEventDates()) {
+					todoItems.add(new EventListItem(event, eventDate));
+				}
+			}
+		
+//		Collections.sort(todoItems, new Comparator<EventListItem>() {
+//			@SuppressWarnings("deprecation")
+//			@Override
+//			public int compare(EventListItem lhs, EventListItem rhs) {
+//				if(lhs.getEventDate().getStartTime().getHours() != rhs.getEventDate().getStartTime().getHours()) {
+//					return lhs.getEventDate().getStartTime().getHours() > rhs.getEventDate().getStartTime().getHours() ? 1 : -1;
+//				}
+//				return lhs.getEventDate().getStartTime().getMinutes() >= rhs.getEventDate().getStartTime().getMinutes() ? 1 : -1;
+//			}
+//		});
 
 		todoListAdapter = new EventListAdapter(getActivity(), R.layout.todo_list_item, todoItems);
 		setListAdapter(todoListAdapter);

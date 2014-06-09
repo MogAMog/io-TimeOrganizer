@@ -87,9 +87,11 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 				if(isChecked) { 
 					enableStartEndTimeButtons();
 					disableSeekBar();
+					event.setConstant(true);
 				} else {
 					disableStartEndTimeButtons();
 					enabledSeekBar();
+					event.setConstant(false);
 				}			
 			}
 		});
