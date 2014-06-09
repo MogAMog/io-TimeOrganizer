@@ -24,6 +24,8 @@ import pl.edu.agh.view.deleteconstantevents.DeleteConstantEventActivity;
 import pl.edu.agh.view.eventlist.EventListFragment;
 import pl.edu.agh.view.fragments.pickers.DatePickerFragment;
 import pl.edu.agh.view.fragments.pickers.DatePickerFragment.SetDateInterface;
+import pl.edu.agh.view.fragments.pickers.TimePickerFragment;
+import pl.edu.agh.view.fragments.pickers.TimePickerFragment.SetTimeInterface;
 import pl.edu.agh.view.help.HelpActivity;
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -37,13 +39,14 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements EventListFragment.ProvideEventList, SetDateInterface{
+public class MainActivity extends Activity implements EventListFragment.ProvideEventList, SetDateInterface, SetTimeInterface{
 
 	private EventManagementService eventManagementService;
 	private CheckBox constantCheckBox;
 	private CheckBox requiredCheckBox;
 	private CheckBox draftCheckBox;
 	private DialogFragment datePickerFragment;
+	private DialogFragment timePickerFragment;
 	private Date chosenDate;
 	
 	@Override
@@ -54,6 +57,7 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 		this.deleteDatabase(MainDatabaseHelper.DATABASE_NAME);
 		this.eventManagementService = new EventManagementService(new MainDatabaseHelper(this));
 		datePickerFragment = new DatePickerFragment();
+		timePickerFragment = new TimePickerFragment();
 		chosenDate = Calendar.getInstance().getTime();
 		((TextView) findViewById(R.id.MainActivity_Date_TextView)).setText(new StringBuilder().append(getString(R.string.EventDate_Date)).append(": ").append(DateTimeTools.convertDateToString(Calendar.getInstance())));
 
@@ -114,14 +118,6 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 
 	public void addNewEventAction(View view) {
 		startActivity(new Intent(this, EventAddActivity.class));
-//		ConnectionsFinderService cfs = new ConnectionsFinderService();
-//		Location l1 = new Location("basen", "ujazdowska 22", "krakow", 50.05434, 19.93931, false);
-//		Location l2 = new Location("dworzec", "pawia 1", "krakow", 50.06265, 19.94259, false);
-//		EventDate firstEvent = new EventDate(l1, null, null, null, 0, false);
-//		Calendar cal = Calendar.getInstance();
-//		cal.set(2014, 04, 14);
-//		EventDate secondEvent = new EventDate(l2, cal.getTime(), new Date(2014, 05, 14, 12, 03, 00), null, 0, false);
-//		startActivity(cfs.createIntent(firstEvent, secondEvent));
 	}
 
 	public void addNewConstantEventAction(View view) {
@@ -210,6 +206,7 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 	}
 	
 	public void showDatePickerDialog(View v) {
+		timePickerFragment.show(getFragmentManager(), "timePicker");
 		datePickerFragment.show(getFragmentManager(), "datePicker");
 	}
 
@@ -219,6 +216,12 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 		chosenDate = calendar.getTime();
 		reloadCurrentFragmentList();
 		((TextView) findViewById(R.id.MainActivity_Date_TextView)).setText(new StringBuilder().append(getString(R.string.EventDate_Date)).append(": ").append(DateTimeTools.convertDateToString(calendar)));
+	}
+	
+	@Override
+	public void setTime(int hours, int minutes) {
+		Calendar calendar = DateTimeTools.getCalendarInstanceWithTime(chosenDate, hours, minutes);
+		chosenDate = calendar.getTime();
 	}
 	
 	private void recalculateEventList() {
@@ -239,5 +242,4 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 		}
 		reloadList(optimalPathFindingService.getEventDateOrder());
 	}
-	
 }
