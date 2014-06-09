@@ -3,6 +3,7 @@ package pl.edu.agh.domain.databasemanagement;
 import pl.edu.agh.domain.tables.AccountTable;
 import pl.edu.agh.domain.tables.EventDateTable;
 import pl.edu.agh.domain.tables.EventTable;
+import pl.edu.agh.domain.tables.EventTemplateTable;
 import pl.edu.agh.domain.tables.LocationTable;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -24,17 +25,15 @@ public class MainDatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL(SqlDatabaseTableScriptBuilder.buildCreateTableStatement(LocationTable.getInstance()));
 		db.execSQL(SqlDatabaseTableScriptBuilder.buildCreateTableStatement(EventTable.getInstance()));
 		db.execSQL(SqlDatabaseTableScriptBuilder.buildCreateTableStatement(EventDateTable.getInstance()));
+		db.execSQL(SqlDatabaseTableScriptBuilder.buildCreateTableStatement(EventTemplateTable.getInstance()));
 	}
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		//new PersonTable(this).dropTable();
-		//onCreate(db);
 	}
 	
 	@Override
 	public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		//onUpgrade(db, oldVersion, newVersion);
 	}
 	
 }

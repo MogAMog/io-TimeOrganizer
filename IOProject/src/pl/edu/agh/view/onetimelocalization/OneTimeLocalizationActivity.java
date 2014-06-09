@@ -1,5 +1,9 @@
 package pl.edu.agh.view.onetimelocalization;
 
+import java.util.concurrent.ExecutionException;
+
+import pl.edu.agh.services.LocationSearchingService;
+
 import com.example.ioproject.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -16,6 +20,8 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class OneTimeLocalizationActivity extends Activity {
@@ -56,6 +62,35 @@ public class OneTimeLocalizationActivity extends Activity {
 				location.setLatitude(chosenLatLng.latitude);
 				location.setLongitude(chosenLatLng.longitude);
 				isChosen = true;
+			}
+		});
+		
+		((ImageButton)findViewById(R.id.OneTimeLocalizationView_searchImageButton)).setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				try {
+					String address = ((TextView)findViewById(R.id.OneTimeLocalizationView_localization_address)).getText().toString();
+					String city = ((TextView)findViewById(R.id.OneTimeLocalizationView_localization_city)).getText().toString();
+					LatLng latLng;
+					latLng = new LocationSearchingService(address + "," + city).execute("").get();
+					map.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 15));
+					map.clear();
+					map.addMarker(new MarkerOptions()
+						.title(getString(R.string.AddDefaultLocalizationActivity_current_chosen_localization))
+						.position(latLng));
+					chosenLatLng = latLng;
+					coordinatesState.setText(getString(R.string.AddDefaultLocalizationActivity_corrdinates_chosen_ok));
+					coordinatesState.setTextColor(Color.GREEN);
+					location.setLatitude(chosenLatLng.latitude);
+					location.setLongitude(chosenLatLng.longitude);
+					location.setLatitude(chosenLatLng.latitude);
+					location.setLongitude(chosenLatLng.longitude);
+					isChosen = true;
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				} catch (ExecutionException e) {
+					e.printStackTrace();
+				}
 			}
 		});
 	}

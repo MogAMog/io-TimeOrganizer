@@ -36,6 +36,7 @@ public class EventFrequencyFold {
 		public int getListItemId() {
 			return listItemId;
 		}
+		
 	}
 	
 	private Activity activity;
