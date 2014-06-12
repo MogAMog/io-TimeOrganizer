@@ -39,14 +39,14 @@ import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements EventListFragment.ProvideEventList, SetDateInterface, SetTimeInterface{
+public class MainActivity extends Activity implements EventListFragment.ProvideEventList, SetDateInterface {
 
 	private EventManagementService eventManagementService;
 	private CheckBox constantCheckBox;
 	private CheckBox requiredCheckBox;
 	private CheckBox draftCheckBox;
 	private DialogFragment datePickerFragment;
-	private DialogFragment timePickerFragment;
+	//private DialogFragment timePickerFragment;
 	private Date chosenDate;
 	
 	@Override
@@ -57,7 +57,7 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 		this.deleteDatabase(MainDatabaseHelper.DATABASE_NAME);
 		this.eventManagementService = new EventManagementService(new MainDatabaseHelper(this));
 		datePickerFragment = new DatePickerFragment();
-		timePickerFragment = new TimePickerFragment();
+		//timePickerFragment = new TimePickerFragment();
 		chosenDate = Calendar.getInstance().getTime();
 		((TextView) findViewById(R.id.MainActivity_Date_TextView)).setText(new StringBuilder().append(getString(R.string.EventDate_Date)).append(": ").append(DateTimeTools.convertDateToString(Calendar.getInstance())));
 
@@ -206,7 +206,7 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 	}
 	
 	public void showDatePickerDialog(View v) {
-		timePickerFragment.show(getFragmentManager(), "timePicker");
+		//timePickerFragment.show(getFragmentManager(), "timePicker");
 		datePickerFragment.show(getFragmentManager(), "datePicker");
 	}
 
@@ -218,16 +218,31 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 		((TextView) findViewById(R.id.MainActivity_Date_TextView)).setText(new StringBuilder().append(getString(R.string.EventDate_Date)).append(": ").append(DateTimeTools.convertDateToString(calendar)));
 	}
 	
-	@Override
-	public void setTime(int hours, int minutes) {
-		Calendar calendar = DateTimeTools.getCalendarInstanceWithTime(chosenDate, hours, minutes);
-		chosenDate = calendar.getTime();
-	}
+//	@Override
+//	public void setTime(int hours, int minutes) {
+//		Calendar calendar = DateTimeTools.getCalendarInstanceWithTime(chosenDate, hours, minutes);
+//		chosenDate = calendar.getTime();
+//	}
 	
 	private void recalculateEventList() {
 		OptimalPathFindingService optimalPathFindingService = new OptimalPathFindingService(new DefaultDistanceStrategy());
 		optimalPathFindingService.setEventDates(getEventDatesSet());
-		optimalPathFindingService.setMorningBoundary((Date)chosenDate.clone());
+		
+		if(chosenDate.after(Calendar.getInstance().getTime())) {
+			Date date = (Date)chosenDate.clone();
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(date);
+			cal.set(Calendar.HOUR_OF_DAY, 6);
+			cal.set(Calendar.MINUTE, 0);
+			cal.set(Calendar.SECOND, 0);
+			
+			optimalPathFindingService.setMorningBoundary(cal.getTime());
+		}
+		else {
+			chosenDate = Calendar.getInstance().getTime();
+			optimalPathFindingService.setMorningBoundary((Date)chosenDate.clone());
+		}
+		//optimalPathFindingService.setMorningBoundary((Date)chosenDate.clone());
 		Date date = (Date)chosenDate.clone();
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
