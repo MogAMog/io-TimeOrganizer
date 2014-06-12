@@ -235,6 +235,8 @@ public class OptimalPathFindingService implements IPathFindingService {
 		if(!constantRequiredEventList.isEmpty())
 			placeConstantRequiredEvents(tempEventList);
 		
+		System.out.println(tempEventList.size());
+		
 		if(!notConstantRequiredEventList.isEmpty())
 			placeRequiredEvents(tempEventList);
 		
@@ -306,10 +308,13 @@ public class OptimalPathFindingService implements IPathFindingService {
 			throws OptimalPathFindingException {
 		Set<EventDate> tempNotConstantEventSet = new HashSet<EventDate>(
 				notConstantRequiredEventList);
+		
+		System.out.println(tempEventList.size());
 		EventDate morningBoundaryEvent = createBoundaryEvent(morningBoundary);
 		EventDate eveningBoundaryEvent = createBoundaryEvent(eveningBoundary);
 		addBoundaryEvents(tempEventList, morningBoundaryEvent,
 				eveningBoundaryEvent);
+		System.out.println(tempEventList.size());
 		while (!tempNotConstantEventSet.isEmpty()) {
 			EventDate bestBeforeEvent = null;
 			EventDate bestEvent = null;
@@ -378,8 +383,9 @@ public class OptimalPathFindingService implements IPathFindingService {
 				tempEventList.add(0, morningBoundaryEvent);
 			}
 			if (tempEventList.get(tempEventList.size() - 1).getEndTime()
-					.before(morningBoundaryEvent.getEndTime())) {
-				tempEventList.add(tempEventList.size(), eveningBoundaryEvent);
+					.before(eveningBoundaryEvent.getEndTime())) {
+				//tempEventList.add(tempEventList.size(), eveningBoundaryEvent);
+				tempEventList.add(eveningBoundaryEvent);
 			}
 		} else {
 			tempEventList.add(morningBoundaryEvent);
