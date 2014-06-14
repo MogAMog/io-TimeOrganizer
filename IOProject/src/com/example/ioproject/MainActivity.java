@@ -10,6 +10,7 @@ import java.util.Set;
 import pl.edu.agh.domain.Event;
 import pl.edu.agh.domain.EventDate;
 import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
+import pl.edu.agh.errors.FormValidationError;
 import pl.edu.agh.exceptions.OptimalPathFindingException;
 import pl.edu.agh.services.DefaultDistanceStrategy;
 import pl.edu.agh.services.EventManagementService;
@@ -22,10 +23,9 @@ import pl.edu.agh.view.addevent.ImpossibilityEventAddActivity;
 import pl.edu.agh.view.defaultlocalizationlist.DefaultLocalizationListActivity;
 import pl.edu.agh.view.deleteconstantevents.DeleteConstantEventActivity;
 import pl.edu.agh.view.eventlist.EventListFragment;
+import pl.edu.agh.view.fragments.dialogs.ErrorDialog;
 import pl.edu.agh.view.fragments.pickers.DatePickerFragment;
 import pl.edu.agh.view.fragments.pickers.DatePickerFragment.SetDateInterface;
-import pl.edu.agh.view.fragments.pickers.TimePickerFragment;
-import pl.edu.agh.view.fragments.pickers.TimePickerFragment.SetTimeInterface;
 import pl.edu.agh.view.help.HelpActivity;
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -38,6 +38,7 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity implements EventListFragment.ProvideEventList, SetDateInterface {
 
@@ -253,8 +254,12 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 		try {
 			optimalPathFindingService.calculateOptimalEventOrder();
 		} catch (OptimalPathFindingException e) {
-			e.printStackTrace();
+			List<FormValidationError> errors = new ArrayList<FormValidationError>();
+			errors.add(new FormValidationError(R.string.Validation_Algorithm_Schedule_NotFound));
+			ErrorDialog.createDialog(this, errors).show();
+			return;
 		}
 		reloadList(optimalPathFindingService.getEventDateOrder());
+		Toast.makeText(this,"Schedule processed",Toast.LENGTH_SHORT).show();
 	}
 }

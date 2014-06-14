@@ -103,6 +103,7 @@
     <!-- ************************************************************************************************* -->
     <string name="Validation.Account.Password.NotNull">Password must be provided.</string>
     <string name="Validation.Account.Login.NotNull">Login must be provided.</string>
+    <string name="Validation.Algorithm.Schedule.NotFound">Unable to find optimal schedule.</string>
     <string name="Validation.Event.Account.NotNull">Location must be chosen.</string>
     <string name="Validation.Event.Title.NotNull">Title must be provided.</string>
     <string name="Validation.Event.IsRequired.NotNull">Required requirement must be chosen.</string>
@@ -245,7 +246,6 @@
     <string name="DeleteConstantEvent.Dialog.Title">Delete Event</string>
     <string name="DeleteConstantEvent.Dialog.Message">Do you want to delete</string>
     <string name="DeleteConstantEvent.Empty">There are no constant events in the system.</string>
-    
     <string name="EventTemplate.Image.Description">Add As Template</string>
 
 </resources>
