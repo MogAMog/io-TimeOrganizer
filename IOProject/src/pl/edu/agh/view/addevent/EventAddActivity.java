@@ -3,15 +3,20 @@ package pl.edu.agh.view.addevent;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Random;
 
 import pl.edu.agh.domain.Event;
 import pl.edu.agh.domain.EventDate;
+import pl.edu.agh.domain.EventTemplate;
 import pl.edu.agh.domain.Location;
 import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
 import pl.edu.agh.errors.FormValidationError;
 import pl.edu.agh.services.AccountManagementService;
 import pl.edu.agh.services.EventManagementService;
+import pl.edu.agh.services.EventTemplateManagementService;
 import pl.edu.agh.tools.DateTimeTools;
+import pl.edu.agh.tools.StringTools;
+import pl.edu.agh.view.addevent.TemplateChooseFold.SetEventAsTemplate;
 import pl.edu.agh.view.fragments.dialogs.ErrorDialog;
 import pl.edu.agh.view.fragments.pickers.DatePickerFragment;
 import pl.edu.agh.view.fragments.pickers.EndTimePickerFragment;
@@ -39,15 +44,17 @@ import android.widget.TextView;
 import com.example.ioproject.R;
 
 
-public class EventAddActivity extends Activity implements SetDateInterface, SetTimePeriodInterface {
+public class EventAddActivity extends Activity implements SetDateInterface, SetTimePeriodInterface, SetEventAsTemplate {
 	
 	private EventDate eventDate;
 	private Event event;
 	
 	private EventManagementService eventManagementService;
+	private EventTemplateManagementService eventTemplateManagementService;
 	
 	private EventTimeAndDescriptionFold eventTimeAndDescriptionFold;
 	private EventLocalizationFold eventLocalizationFold;
+	private TemplateChooseFold templateChooseFold;
 	
 	private DialogFragment startTimePickerFragment;
 	private DialogFragment endTimePickerFragment;
@@ -58,6 +65,7 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	private Button endTimeButton;
 	private TextView startTimeTextView;
 	private TextView endTimeTextView;
+	private boolean isFixedTime;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +76,9 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		eventDate = new EventDate();
 		event = new Event();
 		eventManagementService = new EventManagementService(new MainDatabaseHelper(this));
+		eventTemplateManagementService = new EventTemplateManagementService(new MainDatabaseHelper(this));
 		eventTimeAndDescriptionFold = new EventTimeAndDescriptionFold(this, event, R.id.EventTitleAndDescriptionFold_AddEventTitle_Id, R.id.EventTitleAndDescriptionFold_AddEventDescription_Id);
+		templateChooseFold = new TemplateChooseFold(this, R.id.TemplateChooseFold_SpinnerList_Id, false);
 		eventLocalizationFold = new EventLocalizationFold(this, R.id.LocationChoiceFold_DefaultLocationList_Id, R.id.LocationChoiceFold_OneTimeLocation_Button_Id, R.id.LocationChoiceFold_OneTimeLocation_ImageView_Id);
 		startTimePickerFragment = new StartTimePickerFragment();
 		endTimePickerFragment = new EndTimePickerFragment();
@@ -203,6 +213,7 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		endTimeButton.setEnabled(false);
 		startTimeTextView.setText(getString(R.string.AddNewEventView_NotFixedMode_Disabled));
 		endTimeTextView.setText(getString(R.string.AddNewEventView_NotFixedMode_Disabled));
+		isFixedTime = false;
 	}
 	
 	private void enableStartEndTimeButtons() {
@@ -210,6 +221,7 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		endTimeButton.setEnabled(true);
 		startTimeTextView.setText(getString(R.string.EventTimeFold_StartTime_Label_NoSet));
 		endTimeTextView.setText(getString(R.string.EventTimeFold_EndTime_Label_NoSet));
+		isFixedTime = true;
 	}
 	
 	private void enabledSeekBar() {
@@ -257,9 +269,35 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	}
 	
 	private boolean saveEventAsTemplate() {
-		Toast.makeText(this, "Add As Template", Toast.LENGTH_LONG).show();
+		EventTemplate eventTemplate = new EventTemplate();
+		eventTemplate.setTemplateName(StringTools.isNullOrEmpty(event.getTitle()) ? Integer.toString(new Random().nextInt()) : event.getTitle());
+		eventTemplate.setConstant(false);
+		eventTemplate.setDescription(event.getDescription());
+		eventTemplate.setDraft(event.isDraft());
+		eventTemplate.setDuration(eventDurationSeekBar.getProgress());
+		eventTemplate.setEndTime(eventDate.getEndTime());
+		eventTemplate.setFixedTime(isFixedTime);
+		eventTemplate.setFridaySelected(false);
+		eventTemplate.setRequired(event.isRequired());
+		eventTemplate.setStartDate(eventDate.getDate());
+		eventTemplate.setStartTime(eventDate.getStartTime());
+		eventTemplate.setTitle(event.getTitle());
+		eventTemplateManagementService.insert(eventTemplate);
+		finish();
 		return true;
 	}
+
+	@Override
+	public void setFieldsFromTemplate(EventTemplate eventTemplate) {
+		Toast.makeText(this, "Set Fields From Template", Toast.LENGTH_LONG).show();
+	}
+
+	@Override
+	public void clearAllFields() {
+		Toast.makeText(this, "Clear All Fields", Toast.LENGTH_LONG).show();
+	}
+	
+	
 
 	
 }

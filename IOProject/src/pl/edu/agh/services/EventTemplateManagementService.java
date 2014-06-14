@@ -23,6 +23,7 @@ public class EventTemplateManagementService {
 
 	public long insert(EventTemplate eventTemplate) { 
 		ContentValues values = new ContentValues();
+		values.put(EventTemplateTable.COLUMN_NAME_TEMPLATENAME, eventTemplate.getTemplateName());
 		values.put(EventTemplateTable.COLUMN_NAME_TITLE, eventTemplate.getTitle());
 		values.put(EventTemplateTable.COLUMN_NAME_DESCRIPTION, eventTemplate.getTitle());
 		values.put(EventTemplateTable.COLUMN_NAME_REQUIRED, BooleanTools.convertBooleanToInt(eventTemplate.isRequired()));
@@ -30,11 +31,11 @@ public class EventTemplateManagementService {
 		values.put(EventTemplateTable.COLUMN_NAME_DRAFT, BooleanTools.convertBooleanToInt(eventTemplate.isDraft()));
 		values.put(EventTemplateTable.COLUMN_NAME_FIXED_TIME, BooleanTools.convertBooleanToInt(eventTemplate.isFixedTime()));
 		values.put(EventTemplateTable.COLUMN_NAME_DURATION, eventTemplate.getDuration());
-		values.put(EventTemplateTable.COLUMN_NAME_START_DATE, DateTimeTools.convertDateToString(eventTemplate.getStartDate()));
-		values.put(EventTemplateTable.COLUMN_NAME_END_DATE, DateTimeTools.convertDateToString(eventTemplate.getEndDate()));
-		values.put(EventTemplateTable.COLUMN_NAME_START_TIME, DateTimeTools.convertTimeToString(eventTemplate.getStartTime()));
-		values.put(EventTemplateTable.COLUMN_NAME_END_TIME, DateTimeTools.convertTimeToString(eventTemplate.getEndTime()));
-		values.put(EventTemplateTable.COLUMN_NAME_FREQUENCY, eventTemplate.getFrequency().name());
+		values.put(EventTemplateTable.COLUMN_NAME_START_DATE, eventTemplate.getStartDate() != null ? DateTimeTools.convertDateToString(eventTemplate.getStartDate()) : null);
+		values.put(EventTemplateTable.COLUMN_NAME_END_DATE, eventTemplate.getEndDate() != null ? DateTimeTools.convertDateToString(eventTemplate.getEndDate()) : null);
+		values.put(EventTemplateTable.COLUMN_NAME_START_TIME, eventTemplate.getStartTime() != null ? DateTimeTools.convertTimeToString(eventTemplate.getStartTime()) : null);
+		values.put(EventTemplateTable.COLUMN_NAME_END_TIME, eventTemplate.getEndTime() != null ? DateTimeTools.convertTimeToString(eventTemplate.getEndTime()) : null);
+		values.put(EventTemplateTable.COLUMN_NAME_FREQUENCY, eventTemplate.getFrequency() != null ? eventTemplate.getFrequency().name() : null);
 		values.put(EventTemplateTable.COLUMN_NAME_MONDAY_SELECTED, BooleanTools.convertBooleanToInt(eventTemplate.isMondaySelected()));
 		values.put(EventTemplateTable.COLUMN_NAME_TUESDAY_SELECTED, BooleanTools.convertBooleanToInt(eventTemplate.isTuesdaySelected()));
 		values.put(EventTemplateTable.COLUMN_NAME_WEDNESDAY_SELECTED, BooleanTools.convertBooleanToInt(eventTemplate.isWednesdaySelected()));
@@ -52,7 +53,7 @@ public class EventTemplateManagementService {
 		try { 
 			String selection = EventTemplateTable.COLUMN_NAME_CONSTANT + " = ?";
 			String[] selectionArgument = new String[] { String.valueOf(BooleanTools.convertBooleanToInt(false)) };
-			cursor = dbHelper.getReadableDatabase().query(EventTable.TABLE_NAME, new String[] { EventTemplateTable.COLUMN_NAME_TEMPLATENAME }, selection, selectionArgument, null, null, null);
+			cursor = dbHelper.getReadableDatabase().query(EventTemplateTable.TABLE_NAME, new String[] { EventTemplateTable.COLUMN_NAME_TEMPLATENAME }, selection, selectionArgument, null, null, null);
 			List<String> names = new ArrayList<String>();
 			cursor.moveToFirst();
 			while (!cursor.isAfterLast()) {
@@ -61,7 +62,9 @@ public class EventTemplateManagementService {
 			}
 			return names;
 		} finally {
-			cursor.close();
+			if(cursor != null) {
+				cursor.close();
+			}
 		}
 	}
 	
@@ -70,7 +73,7 @@ public class EventTemplateManagementService {
 		try { 
 			String selection = EventTemplateTable.COLUMN_NAME_CONSTANT + " = ?";
 			String[] selectionArgument = new String[] { String.valueOf(BooleanTools.convertBooleanToInt(true)) };
-			cursor = dbHelper.getReadableDatabase().query(EventTable.TABLE_NAME, new String[] { EventTemplateTable.COLUMN_NAME_TEMPLATENAME }, selection, selectionArgument, null, null, null);
+			cursor = dbHelper.getReadableDatabase().query(EventTemplateTable.TABLE_NAME, new String[] { EventTemplateTable.COLUMN_NAME_TEMPLATENAME }, selection, selectionArgument, null, null, null);
 			List<String> names = new ArrayList<String>();
 			cursor.moveToFirst();
 			while (!cursor.isAfterLast()) {
@@ -79,7 +82,9 @@ public class EventTemplateManagementService {
 			}
 			return names;
 		} finally {
-			cursor.close();
+			if(cursor != null) {
+				cursor.close();
+			}
 		}
 	}
 	
@@ -88,7 +93,7 @@ public class EventTemplateManagementService {
 		try { 
 			String selection = EventTemplateTable.COLUMN_NAME_TEMPLATENAME + " = ?";
 			String[] selectionArgument = new String[] { name };
-			cursor = dbHelper.getReadableDatabase().query(EventTable.TABLE_NAME, null, selection, selectionArgument, null, null, null);
+			cursor = dbHelper.getReadableDatabase().query(EventTemplateTable.TABLE_NAME, null, selection, selectionArgument, null, null, null);
 			cursor.moveToFirst();
 			return getEventTemplateFromCursor(cursor);
 		} finally {
@@ -106,11 +111,13 @@ public class EventTemplateManagementService {
 		template.setDraft(BooleanTools.convertIntToBoolean(cursor.getInt(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_DRAFT))));
 		template.setFixedTime(BooleanTools.convertIntToBoolean(cursor.getInt(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_FIXED_TIME))));
 		template.setDuration(cursor.getInt(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_DURATION)));
-		template.setStartDate(DateTimeTools.convertStringToDate(cursor.getString(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_START_DATE))));
-		template.setEndDate(DateTimeTools.convertStringToDate(cursor.getString(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_END_DATE))));
-		template.setStartTime(DateTimeTools.convertStringToTime(cursor.getString(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_START_TIME))));
-		template.setEndTime(DateTimeTools.convertStringToTime(cursor.getString(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_END_TIME))));
-		template.setFrequency(Frequency.valueOf(cursor.getString(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_FREQUENCY))));
+		
+		template.setStartDate(cursor.getString(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_START_DATE)) != null ? DateTimeTools.convertStringToDate(cursor.getString(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_START_DATE))) : null);
+		template.setEndDate(cursor.getString(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_END_DATE)) != null ? DateTimeTools.convertStringToDate(cursor.getString(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_END_DATE))) : null);
+		template.setStartTime(cursor.getString(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_START_TIME)) != null ? DateTimeTools.convertStringToTime(cursor.getString(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_START_TIME))) : null);
+		template.setEndTime(cursor.getString(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_END_TIME)) != null ? DateTimeTools.convertStringToTime(cursor.getString(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_END_TIME))) : null);
+		template.setFrequency(cursor.getString(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_FREQUENCY)) != null ? Frequency.valueOf(cursor.getString(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_FREQUENCY))) : null);
+		
 		template.setMondaySelected(BooleanTools.convertIntToBoolean(cursor.getInt(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_MONDAY_SELECTED))));
 		template.setTuesdaySelected(BooleanTools.convertIntToBoolean(cursor.getInt(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_TUESDAY_SELECTED))));
 		template.setWednesdaySelected(BooleanTools.convertIntToBoolean(cursor.getInt(cursor.getColumnIndex(EventTemplateTable.COLUMN_NAME_WEDNESDAY_SELECTED))));

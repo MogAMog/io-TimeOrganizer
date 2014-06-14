@@ -247,5 +247,12 @@
     <string name="DeleteConstantEvent.Dialog.Message">Do you want to delete</string>
     <string name="DeleteConstantEvent.Empty">There are no constant events in the system.</string>
     <string name="EventTemplate.Image.Description">Add As Template</string>
+    
+        <!-- ************************************************************************************************* -->
+    <!-- *********************************** ChooseTemplateFold ************************************* -->
+    <!-- ************************************************************************************************* -->
+    <string name="TemplateChooseFold.Title">Templates</string>
+    <string name="TemplateChooseFold.IsFromTemplate.Label">Use Template</string>
+    <string name="TemplateChooseFold.List.Label">Choose template: </string>
 
 </resources>
