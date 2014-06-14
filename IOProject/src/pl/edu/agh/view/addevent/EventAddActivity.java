@@ -35,6 +35,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.SeekBar;
@@ -188,7 +189,7 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	public void setDate(int year, int month, int day) {
 		Calendar calendar = DateTimeTools.getCalendarInstanceWithDate(year, month, day);
 		eventDate.setDate(calendar.getTime());
-		((TextView) findViewById(R.id.EventDateFold_Date_TextView_Id)).setText(new StringBuilder().append(getString(R.string.EventDate_Date)).append(": ").append(DateTimeTools.convertDateToString(calendar)));;
+		((TextView) findViewById(R.id.EventDateFold_Date_TextView_Id)).setText(new StringBuilder().append(getString(R.string.EventDate_Date)).append(": ").append(DateTimeTools.convertDateToString(calendar)));
 	}
 	
 	@Override
@@ -277,7 +278,6 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		eventTemplate.setDuration(eventDurationSeekBar.getProgress());
 		eventTemplate.setEndTime(eventDate.getEndTime());
 		eventTemplate.setFixedTime(isFixedTime);
-		eventTemplate.setFridaySelected(false);
 		eventTemplate.setRequired(event.isRequired());
 		eventTemplate.setStartDate(eventDate.getDate());
 		eventTemplate.setStartTime(eventDate.getStartTime());
@@ -289,12 +289,38 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 
 	@Override
 	public void setFieldsFromTemplate(EventTemplate eventTemplate) {
-		Toast.makeText(this, "Set Fields From Template", Toast.LENGTH_LONG).show();
+		((CheckBox) findViewById(R.id.EventRequirementFold_FixedTime_Id)).setChecked(eventTemplate.isFixedTime());
+		((CheckBox) findViewById(R.id.EventRequirementFold_IsDraft_Id)).setChecked(eventTemplate.isDraft());
+		((CheckBox) findViewById(R.id.EventRequirementFold_Required_Id)).setChecked(eventTemplate.isRequired());
+		((EditText) findViewById(R.id.EventTitleAndDescriptionFold_AddEventTitle_Id)).setText(eventTemplate.getTitle());
+		((EditText) findViewById(R.id.EventTitleAndDescriptionFold_AddEventDescription_Id)).setText(eventTemplate.getDescription());
+		if(eventTemplate.getStartDate() != null) {
+			setDate(eventTemplate.getStartDate().getYear(), eventTemplate.getStartDate().getMonth(), eventTemplate.getStartDate().getDay());
+		}
+		if(eventTemplate.getStartTime() != null) {
+			setStartTime(eventTemplate.getStartTime().getHours(), eventTemplate.getStartTime().getMinutes());
+		}
+		if(eventTemplate.getEndTime() != null) {
+			setEndTime(eventTemplate.getEndTime().getHours(), eventTemplate.getEndTime().getMinutes());
+		}
+		eventDurationSeekBar.setProgress(eventTemplate.getDuration());
+		
 	}
 
 	@Override
 	public void clearAllFields() {
-		Toast.makeText(this, "Clear All Fields", Toast.LENGTH_LONG).show();
+		((CheckBox) findViewById(R.id.EventRequirementFold_FixedTime_Id)).setChecked(false);
+		((CheckBox) findViewById(R.id.EventRequirementFold_IsDraft_Id)).setChecked(false);
+		((CheckBox) findViewById(R.id.EventRequirementFold_Required_Id)).setChecked(false);
+		((EditText) findViewById(R.id.EventTitleAndDescriptionFold_AddEventTitle_Id)).setText(null);
+		((EditText) findViewById(R.id.EventTitleAndDescriptionFold_AddEventDescription_Id)).setText(null);
+		eventDurationSeekBar.setProgress(0);
+		eventDate.setDate(null);
+		eventDate.setStartTime(null);
+		eventDate.setEndTime(null);	
+		((TextView) findViewById(R.id.EventDateFold_Date_TextView_Id)).setText(getString(R.string.EventDateFold_Date_Label_NoSet));
+		startTimeTextView.setText(getString(R.string.EventTimeFold_StartTime_Label_NoSet));
+		endTimeTextView.setText(getString(R.string.EventTimeFold_EndTime_Label_NoSet));
 	}
 	
 	

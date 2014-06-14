@@ -25,7 +25,7 @@ public class EventTemplateManagementService {
 		ContentValues values = new ContentValues();
 		values.put(EventTemplateTable.COLUMN_NAME_TEMPLATENAME, eventTemplate.getTemplateName());
 		values.put(EventTemplateTable.COLUMN_NAME_TITLE, eventTemplate.getTitle());
-		values.put(EventTemplateTable.COLUMN_NAME_DESCRIPTION, eventTemplate.getTitle());
+		values.put(EventTemplateTable.COLUMN_NAME_DESCRIPTION, eventTemplate.getDescription());
 		values.put(EventTemplateTable.COLUMN_NAME_REQUIRED, BooleanTools.convertBooleanToInt(eventTemplate.isRequired()));
 		values.put(EventTemplateTable.COLUMN_NAME_CONSTANT, BooleanTools.convertBooleanToInt(eventTemplate.isConstant()));
 		values.put(EventTemplateTable.COLUMN_NAME_DRAFT, BooleanTools.convertBooleanToInt(eventTemplate.isDraft()));
