@@ -2,13 +2,12 @@ package pl.edu.agh.services;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import com.example.ioproject.R;
 
 import pl.edu.agh.domain.Event;
 import pl.edu.agh.domain.EventDate;
@@ -19,9 +18,12 @@ import pl.edu.agh.errors.FormValidationError;
 import pl.edu.agh.services.interfaces.IEntityValidation;
 import pl.edu.agh.tools.BooleanTools;
 import pl.edu.agh.tools.DateTimeTools;
+import pl.edu.agh.view.eventdescription.EventDescriptionActivity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import com.example.ioproject.R;
 
 public class EventDateManagementService implements IDatabaseDmlProvider<EventDate>, IEntityValidation<EventDate> {
 
@@ -65,6 +67,33 @@ public class EventDateManagementService implements IDatabaseDmlProvider<EventDat
 		if (entity.isFinished() == null) {
 			errors.add(new FormValidationError(R.string.Validation_EventDate_IsFinished_NotNull));
 		}
+		
+		return errors;
+	}
+
+	public List<FormValidationError> validateCollisions(EventDate entity, List<Event> events) {
+		List<FormValidationError> errors = new ArrayList<FormValidationError>();
+		if (entity.getEvent().isDraft() || !entity.getEvent().isRequired() || !entity.getEvent().isConstant())
+			return errors;
+		
+		List<Event> deleteList = new ArrayList<Event>();
+		
+		for(Event event : events) {
+			if(event.isDraft() || !event.isRequired() || !event.isConstant()) {
+				deleteList.add(event);
+			}
+		}
+		events.removeAll(deleteList);
+		
+		for(Event event : events) {
+			for(EventDate eventDate : event.getEventDates()) {
+				if (areIntersected(entity, eventDate)) {
+					errors.add(new FormValidationError(R.string.Validation_EventDate_Collision_Found));
+					return errors;
+				}
+			}
+		}
+		
 		return errors;
 	}
 
@@ -194,5 +223,20 @@ public class EventDateManagementService implements IDatabaseDmlProvider<EventDat
 		String[] selectionArguments = new String[] { Long.valueOf(eventDate.getId()).toString() };
 		dbHelper.getWritableDatabase().update(EventDateTable.TABLE_NAME, updatedValues, selection, selectionArguments);
 		return true;
+	}
+	
+	public boolean areIntersected(EventDate eventDate1, EventDate eventDate2) {
+		Date startTime1 = DateTimeTools.getCalendarFromDates(eventDate1.getDate(), eventDate1.getStartTime()).getTime();
+		Date endTime1 = DateTimeTools.getCalendarFromDates(eventDate1.getDate(), eventDate1.getEndTime()).getTime();
+		Date startTime2 = DateTimeTools.getCalendarFromDates(eventDate2.getDate(), eventDate2.getStartTime()).getTime();
+		Date endTime2 = DateTimeTools.getCalendarFromDates(eventDate2.getDate(), eventDate2.getEndTime()).getTime();
+		
+		if (DateTimeTools.isBetween(startTime1, startTime2, endTime2)
+			|| DateTimeTools.isBetween(endTime1, startTime2, endTime2)
+			|| DateTimeTools.isBetween(startTime2, startTime1, endTime1)
+			|| DateTimeTools.isBetween(endTime2, startTime1, endTime1))
+			return true;
+		
+		return false;
 	}
 }

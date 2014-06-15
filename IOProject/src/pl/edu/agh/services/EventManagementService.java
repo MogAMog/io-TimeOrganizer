@@ -42,8 +42,11 @@ public class EventManagementService implements IDatabaseDmlProvider<Event>, IEnt
 		if(StringTools.isNullOrEmpty(entity.getTitle())) {
 			errors.add(new FormValidationError(R.string.Validation_Event_Title_NotNull));
 		}
+		clearCache();
+		List<Event> events = getAll();
 		for(EventDate eventDate : entity.getEventDates()) {
 			errors.addAll(eventDateManagementService.validate(eventDate));
+			errors.addAll(eventDateManagementService.validateCollisions(eventDate, events));
 		}
 		return errors;
 	}

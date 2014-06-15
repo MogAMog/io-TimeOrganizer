@@ -118,6 +118,7 @@
     <string name="Validation.EventDate.Duration.NotNull">Duration must be provided.</string>
     <string name="Validation.EventDate.IsFinished.NotNull"></string>
     <string name="Validation.EventDate.EndTimeBeforeStartTime">Chosen End Time is before Start Time.</string>
+	<string name="Validation.EventDate.Collision.Found">Event collision has been found</string>  
     <string name="Validation.EventDate.PastDate">Date is past date.</string>
     <string name="Validation.Location.Name.NotNull">Name must be provided.</string>
     <string name="Validation.Location.Coordinates.NotNull">Coordinates has not been chosen, choose place on the map.</string>

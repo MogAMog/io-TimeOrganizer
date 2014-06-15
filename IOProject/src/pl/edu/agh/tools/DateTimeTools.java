@@ -119,12 +119,27 @@ public class DateTimeTools {
 
 	public static Calendar getCalendarFromDate(Date date) {
 		Calendar calendar = Calendar.getInstance();
-		calendar.setTime(date);
+            		calendar.setTime(date);
+		return calendar;
+	}
+	
+	public static Calendar getCalendarFromDates(Date date, Date timeDate) {
+		Calendar timeCalendar = getCalendarFromDate(timeDate);
+		Calendar calendar = getCalendarInstanceWithTime(date, timeCalendar.get(Calendar.HOUR_OF_DAY), timeCalendar.get(Calendar.MINUTE));
 		return calendar;
 	}
 	
 	public static boolean happenedBefore(Date firstDate, Date secondDate){
 		return getCalendarFromDate(firstDate).before(secondDate);
+	}
+	
+	public static boolean isBetween(Date date, Date firstDate, Date seccondDate)
+	{
+		//if(happenedBefore(firstDate, date) && happenedBefore(date, seccondDate)) {
+		if(firstDate.getTime() < date.getTime() && date.getTime() < seccondDate.getTime()) {
+			return true;
+		}
+		return false;
 	}
 	
 	public static Date addMinutesToDate(Date date, int amount){
