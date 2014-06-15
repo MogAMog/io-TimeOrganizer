@@ -3,16 +3,21 @@ package pl.edu.agh.view.addevent;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import pl.edu.agh.domain.Event;
 import pl.edu.agh.domain.EventDate;
+import pl.edu.agh.domain.EventTemplate;
 import pl.edu.agh.domain.Location;
 import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
 import pl.edu.agh.errors.FormValidationError;
 import pl.edu.agh.services.AccountManagementService;
 import pl.edu.agh.services.EventManagementService;
+import pl.edu.agh.services.EventTemplateManagementService;
 import pl.edu.agh.tools.DateTimeTools;
+import pl.edu.agh.tools.StringTools;
 import pl.edu.agh.view.addevent.EventFrequencyFold.Frequency;
+import pl.edu.agh.view.addevent.TemplateChooseFold.SetEventAsTemplate;
 import pl.edu.agh.view.fragments.dialogs.ErrorDialog;
 import pl.edu.agh.view.fragments.pickers.EndDatePickerFragment;
 import pl.edu.agh.view.fragments.pickers.EndTimePickerFragment;
@@ -31,6 +36,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.Toast;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.TextView;
@@ -38,16 +44,18 @@ import android.widget.TextView;
 import com.example.ioproject.R;
 
 
-public class ConstantEventAddActivity extends Activity implements SetDatePeriodInterface, SetTimePeriodInterface {
+public class ConstantEventAddActivity extends Activity implements SetDatePeriodInterface, SetTimePeriodInterface, SetEventAsTemplate {
 	
 	private static final int ONE_TIME_LOCATION_ACTIVITY_ID = 1;
 	
 	private Event event;
 	private EventManagementService eventManagementService;
+	private EventTemplateManagementService eventTemplateManagementService;
 	
 	private EventTimeAndDescriptionFold eventTimeAndDescriptionFold;
 	private EventLocalizationFold eventLocalizationFold;
 	private EventFrequencyFold eventFrequencyFold;
+	private TemplateChooseFold templateChooseFold;
 	
 	private DialogFragment startTimePickerFragment;
 	private DialogFragment endTimePickerFragment;
@@ -68,11 +76,13 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		
 		event = new Event();
 		eventManagementService = new EventManagementService(new MainDatabaseHelper(this));
+		eventTemplateManagementService = new EventTemplateManagementService(new MainDatabaseHelper(this));
 		
 		eventTimeAndDescriptionFold = new EventTimeAndDescriptionFold(this, event, R.id.ConstantEventAdd_eventTitle, R.id.ConstantEventAdd_eventDescription);
 		eventLocalizationFold = new EventLocalizationFold(this, R.id.LocationChoiceFold_DefaultLocationList_Id, R.id.LocationChoiceFold_OneTimeLocation_Button_Id, R.id.LocationChoiceFold_OneTimeLocation_ImageView_Id);
 		eventFrequencyFold = new EventFrequencyFold(this, R.id.ConstantEventAdd_spinner, new int[] {R.id.checkBoxSUNDAY, R.id.checkBoxMONDAY, 
 				R.id.checkBoxTUESDAY, R.id.checkBoxWEDNESDAY, R.id.checkBoxTHURSDAY, R.id.checkBoxFRIDAY, R.id.checkBoxSATURDAY});
+		templateChooseFold = new TemplateChooseFold(this, R.id.TemplateChooseFold_SpinnerList_Id, true);
 		
 		eventTimeAndDescriptionFold.initializeListeners();
 		
@@ -115,7 +125,7 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 			NavUtils.navigateUpFromSameTask(this);
 			return true;
 		case R.id.AddConstantEvent_ActionBar_AddAsTemplate:
-			return saveConstantEventAsTemplate();
+			return saveEventAsTemplate();
 		}
 		return super.onOptionsItemSelected(item);
 	}
@@ -239,8 +249,85 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		}
 	}
 	
-	private boolean saveConstantEventAsTemplate() {
-		Toast.makeText(this, "Add As Template", Toast.LENGTH_LONG).show();
+	private boolean saveEventAsTemplate() {
+		EventTemplate eventTemplate = new EventTemplate();
+		eventTemplate.setTemplateName(StringTools.isNullOrEmpty(event.getTitle()) ? Integer.toString(new Random().nextInt()) : event.getTitle());
+		eventTemplate.setConstant(true);
+		eventTemplate.setTitle(event.getTitle());
+		eventTemplate.setDescription(event.getDescription());
+		eventTemplate.setRequired(event.isRequired());
+		if(startDate != null) {
+			eventTemplate.setStartDate(startDate.getTime());
+		}
+		if(endDate != null) {
+			eventTemplate.setEndDate(endDate.getTime());
+		}
+		if(startTime != null) {
+			eventTemplate.setStartTime(startTime.getTime());
+		}
+		if(endTime != null) {
+			eventTemplate.setEndTime(endTime.getTime());
+		}
+		eventTemplate.setFrequency(eventFrequencyFold.getChosenFrequency());
+		eventTemplate.setMondaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.MONDAY));
+		eventTemplate.setTuesdaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.TUESDAY));
+		eventTemplate.setWednesdaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.WEDNESDAY));
+		eventTemplate.setThursdaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.THURSDAY));
+		eventTemplate.setFridaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.FRIDAY));
+		eventTemplate.setSaturdaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.SATURDAY));
+		eventTemplate.setSundaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.SUNDAY));
+		eventTemplateManagementService.insert(eventTemplate);
+		finish();
 		return true;
+	}
+
+	@Override
+	public void setFieldsFromTemplate(EventTemplate eventTemplate) {
+		((CheckBox) findViewById(R.id.ConstantEventAdd_checkBoxRequired)).setChecked(eventTemplate.isRequired());
+		((EditText) findViewById(R.id.ConstantEventAdd_eventTitle)).setText(eventTemplate.getTitle());
+		((EditText) findViewById(R.id.ConstantEventAdd_eventDescription)).setText(eventTemplate.getDescription());
+		if(eventTemplate.getStartDate() != null) {
+			setStartDate(eventTemplate.getStartDate().getYear(), eventTemplate.getStartDate().getMonth(), eventTemplate.getStartDate().getDay());
+		}
+		if(eventTemplate.getEndDate() != null) {
+			setEndDate(eventTemplate.getStartDate().getYear(), eventTemplate.getStartDate().getMonth(), eventTemplate.getStartDate().getDay());
+		}
+		if(eventTemplate.getStartTime() != null) {
+			setStartTime(eventTemplate.getStartTime().getHours(), eventTemplate.getStartTime().getMinutes());
+		}
+		if(eventTemplate.getEndTime() != null) {
+			setEndTime(eventTemplate.getEndTime().getHours(), eventTemplate.getEndTime().getMinutes());
+		}
+		eventFrequencyFold.setFrequency(eventTemplate.getFrequency());
+		eventFrequencyFold.setWeekdayChecked(Calendar.SUNDAY, eventTemplate.isSundaySelected());
+		eventFrequencyFold.setWeekdayChecked(Calendar.MONDAY, eventTemplate.isMondaySelected());
+		eventFrequencyFold.setWeekdayChecked(Calendar.TUESDAY, eventTemplate.isTuesdaySelected());
+		eventFrequencyFold.setWeekdayChecked(Calendar.WEDNESDAY, eventTemplate.isWednesdaySelected());
+		eventFrequencyFold.setWeekdayChecked(Calendar.THURSDAY, eventTemplate.isThursdaySelected());
+		eventFrequencyFold.setWeekdayChecked(Calendar.FRIDAY, eventTemplate.isFridaySelected());
+		eventFrequencyFold.setWeekdayChecked(Calendar.SATURDAY, eventTemplate.isSaturdaySelected());
+	}
+
+	@Override
+	public void clearAllFields() {
+		((CheckBox) findViewById(R.id.ConstantEventAdd_checkBoxRequired)).setChecked(false);
+		((EditText) findViewById(R.id.ConstantEventAdd_eventTitle)).setText(null);
+		((EditText) findViewById(R.id.ConstantEventAdd_eventDescription)).setText(null);
+		startDate = null;
+		endDate = null;
+		startTime = null;
+		endTime = null;
+		((TextView) findViewById(R.id.ConstantEventAdd_textStartDate)).setText(R.string.EventDateFold_StartDate_Label_NoSet);
+		((TextView) findViewById(R.id.ConstantEventAdd_textEndDate)).setText(R.string.EventDateFold_StartDate_Label_NoSet);
+		((TextView) findViewById(R.id.ConstantEventAdd_textStartTime)).setText(R.string.EventTimeFold_StartTime_Label_NoSet);
+		((TextView) findViewById(R.id.ConstantEventAdd_textEndTime)).setText(R.string.EventTimeFold_EndTime_Label_NoSet);
+		eventFrequencyFold.setFrequency(null);
+		eventFrequencyFold.setWeekdayChecked(Calendar.SUNDAY, false);
+		eventFrequencyFold.setWeekdayChecked(Calendar.MONDAY, false);
+		eventFrequencyFold.setWeekdayChecked(Calendar.TUESDAY, false);
+		eventFrequencyFold.setWeekdayChecked(Calendar.WEDNESDAY, false);
+		eventFrequencyFold.setWeekdayChecked(Calendar.THURSDAY, false);
+		eventFrequencyFold.setWeekdayChecked(Calendar.FRIDAY, false);
+		eventFrequencyFold.setWeekdayChecked(Calendar.SATURDAY, false);
 	}
 }

@@ -16,15 +16,17 @@ public class EventFrequencyFold {
 
 	public static enum Frequency {
 		
-		EVERYDAY(1, R.string.EventFrequencyFold_List_Item_Everyday),
-		EVERY_WEEK(1, R.string.EventFrequencyFold_List_Item_EveryWeekItem),
-		EVERY_TWO_WEEKS(8, R.string.EventFrequencyFold_List_Item_EveryTwoWeeksItem),
-		EVERY_FOUR_WEEKS(22, R.string.EventFrequencyFold_List_Item_EveryFourWeeksItem);
+		EVERYDAY(1, 1, R.string.EventFrequencyFold_List_Item_Everyday),
+		EVERY_WEEK(2, 1, R.string.EventFrequencyFold_List_Item_EveryWeekItem),
+		EVERY_TWO_WEEKS(3, 8, R.string.EventFrequencyFold_List_Item_EveryTwoWeeksItem),
+		EVERY_FOUR_WEEKS(4, 22, R.string.EventFrequencyFold_List_Item_EveryFourWeeksItem);
 		
+		private final int position;
 		private final int daysToAdd;
 		private final int listItemId;
 		
-		private Frequency(int daysToAdd, int listItemId) {
+		private Frequency(int position, int daysToAdd, int listItemId) {
+			this.position = position;
 			this.daysToAdd = daysToAdd;
 			this.listItemId = listItemId;
 		}
@@ -36,7 +38,10 @@ public class EventFrequencyFold {
 		public int getListItemId() {
 			return listItemId;
 		}
-		
+
+		public int getPosition() {
+			return position;
+		}
 	}
 	
 	private Activity activity;
@@ -101,6 +106,10 @@ public class EventFrequencyFold {
 	public boolean isWeekdayChecked(int weekday) {
 		return weekdayCheckboxes[weekday - 1].isChecked();
 	}
+
+	public void setWeekdayChecked(int weekday, boolean isChecked) {
+		weekdayCheckboxes[weekday - 1].setChecked(isChecked);
+	}
 	
 	public void markAllCheckBoxedTrue() {
 		for(CheckBox checkBox : weekdayCheckboxes) {
@@ -140,6 +149,14 @@ public class EventFrequencyFold {
 			}
 		}
 		return null;
+	}
+	
+	public void setFrequency(Frequency frequency) {
+		if(frequency != null) {
+			spinnerList.setSelectedPosition(frequency.getPosition());
+		} else {
+			spinnerList.setSelectedPosition(0);
+		}
 	}
 }
 
