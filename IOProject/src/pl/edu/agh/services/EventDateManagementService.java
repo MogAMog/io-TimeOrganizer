@@ -2,6 +2,7 @@ package pl.edu.agh.services;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.List;
@@ -167,4 +168,31 @@ public class EventDateManagementService implements IDatabaseDmlProvider<EventDat
 		dbHelper.getWritableDatabase().delete(EventDateTable.TABLE_NAME, selection, selectionArgs);
 	}
 
+	public boolean updateEventDateStartEndTime(EventDate eventDate, Date startTime, Date endTime) {
+		if(eventDate == null || startTime == null || endTime == null) {
+			return false;
+		}
+		ContentValues updatedValues = new ContentValues();
+		updatedValues.put(EventDateTable.COLUMN_NAME_START_TIME, DateTimeTools.convertTimeToString(startTime));
+		updatedValues.put(EventDateTable.COLUMN_NAME_END_TIME, DateTimeTools.convertTimeToString(endTime));
+		String selection = EventDateTable._ID + " = ?";
+		String[] selectionArguments = new String[] { Long.valueOf(eventDate.getId()).toString() };
+		dbHelper.getWritableDatabase().update(EventDateTable.TABLE_NAME, updatedValues, selection, selectionArguments);
+		eventDate.setStartTime(startTime);
+		eventDate.setEndTime(endTime);
+		return true;
+	}
+	
+	public boolean updateEventDateStartEndTime(EventDate eventDate) {
+		if(eventDate == null || eventDate.getStartTime() == null || eventDate.getEndTime() == null) {
+			return false;
+		}
+		ContentValues updatedValues = new ContentValues();
+		updatedValues.put(EventDateTable.COLUMN_NAME_START_TIME, DateTimeTools.convertTimeToString(eventDate.getStartTime()));
+		updatedValues.put(EventDateTable.COLUMN_NAME_END_TIME, DateTimeTools.convertTimeToString(eventDate.getEndTime()));
+		String selection = EventDateTable._ID + " = ?";
+		String[] selectionArguments = new String[] { Long.valueOf(eventDate.getId()).toString() };
+		dbHelper.getWritableDatabase().update(EventDateTable.TABLE_NAME, updatedValues, selection, selectionArguments);
+		return true;
+	}
 }
