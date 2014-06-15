@@ -2,7 +2,10 @@ package pl.edu.agh.view.addevent;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 import pl.edu.agh.domain.Event;
@@ -141,7 +144,7 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		endDate = DateTimeTools.getCalendarInstanceWithDate(year, month, day);
 		((TextView) findViewById(R.id.ConstantEventAdd_textEndDate)).setText(getDateDescription("End date", endDate));
 	}
-
+	
 	@Override
 	public void setStartTime(int hour, int minute) {
 		startTime = DateTimeTools.getCalendarInstanceWithTime(hour, minute);
@@ -250,35 +253,41 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 	}
 	
 	private boolean saveEventAsTemplate() {
-		EventTemplate eventTemplate = new EventTemplate();
-		eventTemplate.setTemplateName(StringTools.isNullOrEmpty(event.getTitle()) ? Integer.toString(new Random().nextInt()) : event.getTitle());
-		eventTemplate.setConstant(true);
-		eventTemplate.setTitle(event.getTitle());
-		eventTemplate.setDescription(event.getDescription());
-		eventTemplate.setRequired(event.isRequired());
-		if(startDate != null) {
-			eventTemplate.setStartDate(startDate.getTime());
+		String templateName = StringTools.isNullOrEmpty(event.getTitle()) ? (Integer.toString(Math.abs(new Random().nextInt()))) : event.getTitle();
+		if(templateChooseFold.containsKey(templateName)) {
+			ErrorDialog.createDialog(this, new ArrayList<FormValidationError>() {{ add(new FormValidationError(R.string.TemplateChooseFold_Error_NameDuplication)); }} ).show();
+			return true;
+		} else {
+			EventTemplate eventTemplate = new EventTemplate();
+			eventTemplate.setTemplateName(templateName);
+			eventTemplate.setConstant(true);
+			eventTemplate.setTitle(event.getTitle());
+			eventTemplate.setDescription(event.getDescription());
+			eventTemplate.setRequired(event.isRequired());
+			if(startDate != null) {
+				eventTemplate.setStartDate(startDate.getTime());
+			}
+			if(endDate != null) {
+				eventTemplate.setEndDate(endDate.getTime());
+			}
+			if(startTime != null) {
+				eventTemplate.setStartTime(startTime.getTime());
+			}
+			if(endTime != null) {
+				eventTemplate.setEndTime(endTime.getTime());
+			}
+			eventTemplate.setFrequency(eventFrequencyFold.getChosenFrequency());
+			eventTemplate.setMondaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.MONDAY));
+			eventTemplate.setTuesdaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.TUESDAY));
+			eventTemplate.setWednesdaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.WEDNESDAY));
+			eventTemplate.setThursdaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.THURSDAY));
+			eventTemplate.setFridaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.FRIDAY));
+			eventTemplate.setSaturdaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.SATURDAY));
+			eventTemplate.setSundaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.SUNDAY));
+			eventTemplateManagementService.insert(eventTemplate);
+			finish();
+			return true;
 		}
-		if(endDate != null) {
-			eventTemplate.setEndDate(endDate.getTime());
-		}
-		if(startTime != null) {
-			eventTemplate.setStartTime(startTime.getTime());
-		}
-		if(endTime != null) {
-			eventTemplate.setEndTime(endTime.getTime());
-		}
-		eventTemplate.setFrequency(eventFrequencyFold.getChosenFrequency());
-		eventTemplate.setMondaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.MONDAY));
-		eventTemplate.setTuesdaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.TUESDAY));
-		eventTemplate.setWednesdaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.WEDNESDAY));
-		eventTemplate.setThursdaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.THURSDAY));
-		eventTemplate.setFridaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.FRIDAY));
-		eventTemplate.setSaturdaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.SATURDAY));
-		eventTemplate.setSundaySelected(eventFrequencyFold.isWeekdayChecked(Calendar.SUNDAY));
-		eventTemplateManagementService.insert(eventTemplate);
-		finish();
-		return true;
 	}
 
 	@Override
@@ -287,10 +296,14 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		((EditText) findViewById(R.id.ConstantEventAdd_eventTitle)).setText(eventTemplate.getTitle());
 		((EditText) findViewById(R.id.ConstantEventAdd_eventDescription)).setText(eventTemplate.getDescription());
 		if(eventTemplate.getStartDate() != null) {
-			setStartDate(eventTemplate.getStartDate().getYear(), eventTemplate.getStartDate().getMonth(), eventTemplate.getStartDate().getDay());
+			Calendar calendar = Calendar.getInstance(new Locale("PL"));
+			calendar.setTime(eventTemplate.getStartDate());
+			setStartDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 		}
 		if(eventTemplate.getEndDate() != null) {
-			setEndDate(eventTemplate.getStartDate().getYear(), eventTemplate.getStartDate().getMonth(), eventTemplate.getStartDate().getDay());
+			Calendar calendar = Calendar.getInstance(new Locale("PL"));
+			calendar.setTime(eventTemplate.getEndDate());
+			setEndDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 		}
 		if(eventTemplate.getStartTime() != null) {
 			setStartTime(eventTemplate.getStartTime().getHours(), eventTemplate.getStartTime().getMinutes());

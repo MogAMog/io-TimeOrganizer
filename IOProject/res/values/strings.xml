@@ -254,5 +254,7 @@
     <string name="TemplateChooseFold.Title">Templates</string>
     <string name="TemplateChooseFold.IsFromTemplate.Label">Use Template</string>
     <string name="TemplateChooseFold.List.Label">Choose template: </string>
+    <string name="TemplateChooseFold.Error.NameDuplication">Name duplication. Change title of event.</string>
+    
 
 </resources>

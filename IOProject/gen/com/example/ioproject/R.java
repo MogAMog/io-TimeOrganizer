@@ -637,6 +637,7 @@ containing a value of this type.
  ************************************************************************************************* 
          */
         public static final int OneTimeLocalizationView_chooseLocalizationButtonLabel=0x7f060070;
+        public static final int TemplateChooseFold_Error_NameDuplication=0x7f0600bf;
         public static final int TemplateChooseFold_IsFromTemplate_Label=0x7f0600bd;
         public static final int TemplateChooseFold_List_Label=0x7f0600be;
         /**  ************************************************************************************************* 

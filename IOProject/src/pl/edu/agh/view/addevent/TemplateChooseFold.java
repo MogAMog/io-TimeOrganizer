@@ -22,6 +22,7 @@ public class TemplateChooseFold {
 	}
 	
 	private Activity activity;
+	private List<String> items;
 	private SimpleItemSpinner<String> spinnerList;
 	private EventTemplateManagementService eventTemplateManagementService;
 	
@@ -34,7 +35,7 @@ public class TemplateChooseFold {
 	}
 	
 	private SimpleItemSpinner<String> initializeSpinnerList(int spinnerListId, boolean isConstantEvent) {
-		List<String> items = new ArrayList<String>();
+		items = new ArrayList<String>();
 		String noSelectionItem = activity.getString(R.string.EventFrequencyFold_List_NoSelection);
 		items.add(noSelectionItem);
 		if(!isConstantEvent) {
@@ -65,7 +66,9 @@ public class TemplateChooseFold {
 		});
 	}
 	
-	
+	public boolean containsKey(String key) {
+		return items.contains(key);
+	}
 	
 	
 	

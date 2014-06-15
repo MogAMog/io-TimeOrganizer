@@ -1,5 +1,6 @@
 package pl.edu.agh.view.addevent;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -269,22 +270,29 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		}
 	}
 	
+	@SuppressWarnings("serial")
 	private boolean saveEventAsTemplate() {
-		EventTemplate eventTemplate = new EventTemplate();
-		eventTemplate.setTemplateName(StringTools.isNullOrEmpty(event.getTitle()) ? Integer.toString(new Random().nextInt()) : event.getTitle());
-		eventTemplate.setConstant(false);
-		eventTemplate.setDescription(event.getDescription());
-		eventTemplate.setDraft(event.isDraft());
-		eventTemplate.setDuration(eventDurationSeekBar.getProgress());
-		eventTemplate.setEndTime(eventDate.getEndTime());
-		eventTemplate.setFixedTime(isFixedTime);
-		eventTemplate.setRequired(event.isRequired());
-		eventTemplate.setStartDate(eventDate.getDate());
-		eventTemplate.setStartTime(eventDate.getStartTime());
-		eventTemplate.setTitle(event.getTitle());
-		eventTemplateManagementService.insert(eventTemplate);
-		finish();
-		return true;
+		String templateName = StringTools.isNullOrEmpty(event.getTitle()) ? (Integer.toString(Math.abs(new Random().nextInt()))) : event.getTitle();
+		if(templateChooseFold.containsKey(templateName)) {
+			ErrorDialog.createDialog(this, new ArrayList<FormValidationError>() {{ add(new FormValidationError(R.string.TemplateChooseFold_Error_NameDuplication)); }} ).show();
+			return true;
+		} else {
+			EventTemplate eventTemplate = new EventTemplate();
+			eventTemplate.setTemplateName(templateName);
+			eventTemplate.setConstant(false);
+			eventTemplate.setDescription(event.getDescription());
+			eventTemplate.setDraft(event.isDraft());
+			eventTemplate.setDuration(eventDurationSeekBar.getProgress());
+			eventTemplate.setEndTime(eventDate.getEndTime());
+			eventTemplate.setFixedTime(isFixedTime);
+			eventTemplate.setRequired(event.isRequired());
+			eventTemplate.setStartDate(eventDate.getDate());
+			eventTemplate.setStartTime(eventDate.getStartTime());
+			eventTemplate.setTitle(event.getTitle());
+			eventTemplateManagementService.insert(eventTemplate);
+			finish();
+			return true;
+		}
 	}
 
 	@Override
@@ -295,7 +303,9 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 		((EditText) findViewById(R.id.EventTitleAndDescriptionFold_AddEventTitle_Id)).setText(eventTemplate.getTitle());
 		((EditText) findViewById(R.id.EventTitleAndDescriptionFold_AddEventDescription_Id)).setText(eventTemplate.getDescription());
 		if(eventTemplate.getStartDate() != null) {
-			setDate(eventTemplate.getStartDate().getYear(), eventTemplate.getStartDate().getMonth(), eventTemplate.getStartDate().getDay());
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(eventTemplate.getStartDate());
+			setDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
 		}
 		if(eventTemplate.getStartTime() != null) {
 			setStartTime(eventTemplate.getStartTime().getHours(), eventTemplate.getStartTime().getMinutes());
