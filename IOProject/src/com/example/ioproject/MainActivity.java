@@ -165,10 +165,9 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 				deleteList.add(event);
 			}
 		}
-		System.out.println("events count: " + events.size());
+		
 		List<EventDate> deleteEventDates = new ArrayList<EventDate>();
 		for(Event event : events) {
-			System.out.println("eventsDates count: " + event.getEventDates().size());
 			for(EventDate eventDate : event.getEventDates()) {
 				if(!checkIfEventDateFulfilsFilterRequirements(eventDate)) {
 					deleteEventDates.add(eventDate);
