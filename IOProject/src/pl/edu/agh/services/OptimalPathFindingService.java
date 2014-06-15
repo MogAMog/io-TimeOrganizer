@@ -232,19 +232,26 @@ public class OptimalPathFindingService implements IPathFindingService {
 	public void calculateOptimalEventOrder() throws OptimalPathFindingException {
 		List<EventDate> tempEventList = new ArrayList<EventDate>();
 		
-		if(!constantRequiredEventList.isEmpty())
-			placeConstantRequiredEvents(tempEventList);
-		
-		System.out.println(tempEventList.size());
-		
-		if(!notConstantRequiredEventList.isEmpty())
-			placeRequiredEvents(tempEventList);
-		
-		if(!constantNotRequiredEventList.isEmpty())
-			placeConstantEvents(tempEventList);
-		
-		if(!notConstantNotRequiredEventList.isEmpty())
-			placeNonConstantEvents(tempEventList);
+		try {
+			if(!constantRequiredEventList.isEmpty())
+				placeConstantRequiredEvents(tempEventList);
+			if(!constantNotRequiredEventList.isEmpty())
+				placeConstantEvents(tempEventList);
+			if(!notConstantRequiredEventList.isEmpty())
+				placeRequiredEvents(tempEventList);
+			if(!notConstantNotRequiredEventList.isEmpty())
+				placeNonConstantEvents(tempEventList);
+		} catch (OptimalPathFindingException e) {
+			tempEventList = new ArrayList<EventDate>();
+			if(!constantRequiredEventList.isEmpty())
+				placeConstantRequiredEvents(tempEventList);
+			if(!notConstantRequiredEventList.isEmpty())
+				placeRequiredEvents(tempEventList);
+			if(!constantNotRequiredEventList.isEmpty())
+				placeConstantEvents(tempEventList);
+			if(!notConstantNotRequiredEventList.isEmpty())
+				placeNonConstantEvents(tempEventList);
+		}
 		eventList = tempEventList;
 	}
 
