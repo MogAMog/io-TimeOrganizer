@@ -55,7 +55,7 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		this.deleteDatabase(MainDatabaseHelper.DATABASE_NAME);
+		//this.deleteDatabase(MainDatabaseHelper.DATABASE_NAME);
 		this.eventManagementService = new EventManagementService(new MainDatabaseHelper(this));
 		datePickerFragment = new DatePickerFragment();
 		//timePickerFragment = new TimePickerFragment();

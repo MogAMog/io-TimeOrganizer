@@ -19,7 +19,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class LocationManagementService implements IDatabaseDmlProvider<Location>, IEntityValidation<Location> {
 
-	public static final Location DEAFULT_LOCATION = new Location("Default Location Name", "-", "-", 0.0, 0.0, false);
+	public static final Location DEAFULT_LOCATION = new Location("Default Location Name", "-", "-", 50.061651, 19.939363, false);
 	private static final String ONE_TIME_SPECIFIC_LOCALIZATION = "One Time Event Specific Localization\nAdrress and City not provided.";
 	
 	private SQLiteOpenHelper dbHelper;

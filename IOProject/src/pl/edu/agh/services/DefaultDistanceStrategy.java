@@ -5,7 +5,7 @@ import pl.edu.agh.services.interfaces.IDistanceStrategy;
 
 public class DefaultDistanceStrategy implements IDistanceStrategy {
 	
-	private static int MINUTES_PER_KILOMETER = 5;
+	private static int MINUTES_PER_KILOMETER = 10;
 	private static int KILOMETERS_PER_DEGREE = 111;
 
 	@Override
