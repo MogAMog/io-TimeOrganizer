@@ -134,7 +134,7 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 		eventManagementService.clearCache();
 		List<Event> events = eventManagementService.getAll();
 		List<Event> deleteList = new ArrayList<Event>();
-		
+
 		for(Event event : events) {
 			if(!checkIfEventFulfilsFilterRequirements(event)) {
 				deleteList.add(event);
@@ -165,9 +165,10 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 				deleteList.add(event);
 			}
 		}
-		
+		System.out.println("events count: " + events.size());
 		List<EventDate> deleteEventDates = new ArrayList<EventDate>();
 		for(Event event : events) {
+			System.out.println("eventsDates count: " + event.getEventDates().size());
 			for(EventDate eventDate : event.getEventDates()) {
 				if(!checkIfEventDateFulfilsFilterRequirements(eventDate)) {
 					deleteEventDates.add(eventDate);
@@ -190,11 +191,10 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 			   (!requiredCheckBox.isChecked() || event.isRequired() == true);
 	}
 	
-	@SuppressWarnings("deprecation")
 	private boolean checkIfEventDateFulfilsFilterRequirements(EventDate eventDate) {
-		return (eventDate.getDate().getDay() == chosenDate.getDay()) &&
-			   (eventDate.getDate().getMonth() == chosenDate.getMonth()) &&
-			   (eventDate.getDate().getYear() == chosenDate.getYear());
+		String chosenDateStr = DateTimeTools.convertDateToString(chosenDate);
+		String eventDateStr = DateTimeTools.convertDateToString(eventDate.getDate());
+		return chosenDateStr.equals(eventDateStr);
 	}
 	
 	@Override
