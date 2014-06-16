@@ -184,7 +184,7 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 	
 	public void calculateEventDates() {
 		Location location = eventLocalizationFold.getLocationForEvent();
-		Calendar currentDay = startDate;
+		Calendar currentDay = (Calendar) startDate.clone();
 		Frequency frequency = eventFrequencyFold.getChosenFrequency();
 		while(!currentDay.getTime().after(endDate.getTime())) {
 			if(eventFrequencyFold.isWeekdayChecked(currentDay.get(Calendar.DAY_OF_WEEK))) {
@@ -228,13 +228,20 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 		if(startTime != null && endTime != null && startTime.compareTo(endTime) > 0)
 			errors.add(new FormValidationError(R.string.Validation_EventDate_EndTimeBeforeStartTime));
 		
+		errors.clear();
 		errors.addAll(eventManagementService.validate(event));
+		if(errors.isEmpty()) {
+			calculateEventDates();
+			errors.addAll(eventManagementService.validate(event));
+		}
 		
 		if(!errors.isEmpty()) {
 			ErrorDialog.createDialog(this, errors).show();
+			event.getEventDates().clear();
 		} else {
-			calculateEventDates();
+			//calculateEventDates();
 			eventManagementService.insert(event);
+			event.getEventDates().clear();
 			finish();
 		}
 	}

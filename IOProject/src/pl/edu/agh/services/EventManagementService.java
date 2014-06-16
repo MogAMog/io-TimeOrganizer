@@ -50,6 +50,17 @@ public class EventManagementService implements IDatabaseDmlProvider<Event>, IEnt
 		}
 		return errors;
 	}
+	
+	public List<FormValidationError> validateEventDateCollisions(Event entity) {
+		List<FormValidationError> errors = new ArrayList<FormValidationError>();
+		clearCache();
+		List<Event> events = getAll();
+		for(EventDate eventDate : entity.getEventDates()) {
+			errors.addAll(eventDateManagementService.validateCollisions(eventDate, events));
+		}
+		return errors;
+	}
+	
 
 	@Override
 	public long insert(Event insertObject) {
