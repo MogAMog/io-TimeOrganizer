@@ -176,5 +176,11 @@ public class EventManagementService implements IDatabaseDmlProvider<Event>, IEnt
 	public void clearCache() {
 		eventsCache = null;
 	}
+	
+/*	public void updateCache(List<EventDate> eventDates) {
+		for(EventDate ieventDate : eventDates) {
+			eventDateManagementService.updateEventDateStartEndTime(eventDate, eventDate.getStartTime(), eventDate.getEndTime());
+		}
+	}*/
 
 }

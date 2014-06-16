@@ -195,14 +195,14 @@ public class EventAddActivity extends Activity implements SetDateInterface, SetT
 	
 	@Override
 	public void setStartTime(int hour, int minute) {
-		Calendar calendar = DateTimeTools.getCalendarInstanceWithTime(hour, minute);
+		Calendar calendar = DateTimeTools.getCalendarInstanceWithTime(hour, minute + 1);
 		eventDate.setStartTime(calendar.getTime());
 		startTimeTextView.setText(getTimeDescription(getString(R.string.EventTimeFold_StartTime_Label), calendar));
 	}
 	
 	@Override
 	public void setEndTime(int hour, int minute) {
-		Calendar calendar = DateTimeTools.getCalendarInstanceWithTime(hour, minute);
+		Calendar calendar = DateTimeTools.getCalendarInstanceWithTime(hour, minute + 1);
 		eventDate.setEndTime(calendar.getTime());	
 		endTimeTextView.setText(getTimeDescription(getString(R.string.EventTimeFold_EndTime_Label), calendar));
 	}

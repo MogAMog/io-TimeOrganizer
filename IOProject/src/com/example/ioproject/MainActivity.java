@@ -13,6 +13,7 @@ import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
 import pl.edu.agh.errors.FormValidationError;
 import pl.edu.agh.exceptions.OptimalPathFindingException;
 import pl.edu.agh.services.DefaultDistanceStrategy;
+import pl.edu.agh.services.EventDateManagementService;
 import pl.edu.agh.services.EventManagementService;
 import pl.edu.agh.services.OptimalPathFindingService;
 import pl.edu.agh.tools.DateTimeTools;
@@ -42,6 +43,7 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity implements EventListFragment.ProvideEventList, SetDateInterface {
 
+	private EventDateManagementService eventDateManagementService;
 	private EventManagementService eventManagementService;
 	private CheckBox constantCheckBox;
 	private CheckBox requiredCheckBox;
@@ -55,10 +57,9 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		
-		//this.deleteDatabase(MainDatabaseHelper.DATABASE_NAME);
+		this.eventDateManagementService = new EventDateManagementService(new MainDatabaseHelper(this));
 		this.eventManagementService = new EventManagementService(new MainDatabaseHelper(this));
 		datePickerFragment = new DatePickerFragment();
-		//timePickerFragment = new TimePickerFragment();
 		chosenDate = Calendar.getInstance().getTime();
 		((TextView) findViewById(R.id.MainActivity_Date_TextView)).setText(new StringBuilder().append(getString(R.string.EventDate_Date)).append(": ").append(DateTimeTools.convertDateToString(Calendar.getInstance())));
 
@@ -130,8 +131,8 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 	}
 	
 	@Override
-	public List<Event> getEventList() {
-		eventManagementService.clearCache();
+	public List<Event> getEventList() { //wywo³uje siê tutaj metoda
+		eventManagementService.clearCache(); // tu jest czyszczony cache
 		List<Event> events = eventManagementService.getAll();
 		List<Event> deleteList = new ArrayList<Event>();
 
@@ -146,7 +147,7 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 		for(Event event : events) {
 			for(EventDate eventDate : event.getEventDates()) {
 				if(!checkIfEventDateFulfilsFilterRequirements(eventDate)) {
-					deleteEventDates.add(eventDate);
+				deleteEventDates.add(eventDate);
 				}
 			}
 			event.getEventDates().removeAll(deleteEventDates);
@@ -202,11 +203,10 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 	}
 	
 	private void reloadList(List<EventDate> eventDates) {
-		((EventListFragment)getFragmentManager().findFragmentById(R.id.MainActivity_EventListFragment)).reloadEventList(eventDates);
+		((EventListFragment)getFragmentManager().findFragmentById(R.id.MainActivity_EventListFragment)).reloadEventList(eventDates); 
 	}
 	
 	public void showDatePickerDialog(View v) {
-		//timePickerFragment.show(getFragmentManager(), "timePicker");
 		datePickerFragment.show(getFragmentManager(), "datePicker");
 	}
 
@@ -217,12 +217,6 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 		reloadCurrentFragmentList();
 		((TextView) findViewById(R.id.MainActivity_Date_TextView)).setText(new StringBuilder().append(getString(R.string.EventDate_Date)).append(": ").append(DateTimeTools.convertDateToString(calendar)));
 	}
-	
-//	@Override
-//	public void setTime(int hours, int minutes) {
-//		Calendar calendar = DateTimeTools.getCalendarInstanceWithTime(chosenDate, hours, minutes);
-//		chosenDate = calendar.getTime();
-//	}
 	
 	private void recalculateEventList() {
 		OptimalPathFindingService optimalPathFindingService = new OptimalPathFindingService(new DefaultDistanceStrategy());
@@ -242,7 +236,6 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 			chosenDate = Calendar.getInstance().getTime();
 			optimalPathFindingService.setMorningBoundary((Date)chosenDate.clone());
 		}
-		//optimalPathFindingService.setMorningBoundary((Date)chosenDate.clone());
 		Date date = (Date)chosenDate.clone();
 		Calendar cal = Calendar.getInstance();
 		cal.setTime(date);
@@ -258,7 +251,11 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 			ErrorDialog.createDialog(this, errors).show();
 			return;
 		}
-		reloadList(optimalPathFindingService.getEventDateOrder());
+		
+		for(EventDate eventDate : optimalPathFindingService.getEventDateOrder()) {
+			eventDateManagementService.updateEventDateStartEndTime(eventDate); 
+		}
+		reloadList(null);
 		Toast.makeText(this,"Schedule processed",Toast.LENGTH_SHORT).show();
 	}
 }

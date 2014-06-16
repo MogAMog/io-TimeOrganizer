@@ -147,13 +147,13 @@ public class ConstantEventAddActivity extends Activity implements SetDatePeriodI
 	
 	@Override
 	public void setStartTime(int hour, int minute) {
-		startTime = DateTimeTools.getCalendarInstanceWithTime(hour, minute);
+		startTime = DateTimeTools.getCalendarInstanceWithTime(hour, minute + 1);
 		((TextView) findViewById(R.id.ConstantEventAdd_textStartTime)).setText(getTimeDescription("Start time", startTime));		
 	}
 
 	@Override
 	public void setEndTime(int hour, int minute) {
-		endTime = DateTimeTools.getCalendarInstanceWithTime(hour, minute);
+		endTime = DateTimeTools.getCalendarInstanceWithTime(hour, minute + 1);
 		((TextView) findViewById(R.id.ConstantEventAdd_textEndTime)).setText(getTimeDescription("End time", endTime));
 	}
 

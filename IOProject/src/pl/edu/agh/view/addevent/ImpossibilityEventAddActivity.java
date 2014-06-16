@@ -325,14 +325,14 @@ public class ImpossibilityEventAddActivity extends Activity
 
 	@Override
 	public void setStartTime(int hour, int minute) {
-		startTime = DateTimeTools.getCalendarInstanceWithTime(hour, minute);
+		startTime = DateTimeTools.getCalendarInstanceWithTime(hour, minute + 1);
 		((TextView) findViewById(R.id.ImpossibilityEventAdd_textStartTime))
 				.setText(getTimeDescription(getString(R.string.EventTimeFold_StartTime_Label), startTime));
 	}
 
 	@Override
 	public void setEndTime(int hour, int minute) {
-		endTime = DateTimeTools.getCalendarInstanceWithTime(hour, minute);
+		endTime = DateTimeTools.getCalendarInstanceWithTime(hour, minute + 1);
 		((TextView) findViewById(R.id.ImpossibilityEventAdd_textEndTime))
 				.setText(getTimeDescription(getString(R.string.EventTimeFold_StartTime_Label), endTime));
 	}

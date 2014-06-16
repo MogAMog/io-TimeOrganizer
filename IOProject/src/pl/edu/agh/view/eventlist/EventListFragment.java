@@ -7,6 +7,8 @@ import java.util.List;
 
 import pl.edu.agh.domain.Event;
 import pl.edu.agh.domain.EventDate;
+import pl.edu.agh.domain.databasemanagement.MainDatabaseHelper;
+import pl.edu.agh.services.EventManagementService;
 import android.app.Activity;
 import android.app.ListFragment;
 import android.os.Bundle;
@@ -60,7 +62,7 @@ public class EventListFragment extends ListFragment {
 			for (EventDate eventDate : eventDates) {
 				todoItems.add(new EventListItem(eventDate.getEvent(), eventDate));
 			}
-		else 
+		else //wywo³uje siê ten fragment kodu
 			for (Event event : mainActivity.getEventList()) {
 				for (EventDate eventDate : event.getEventDates()) {
 					todoItems.add(new EventListItem(event, eventDate));
@@ -80,6 +82,7 @@ public class EventListFragment extends ListFragment {
 
 		todoListAdapter = new EventListAdapter(getActivity(), R.layout.todo_list_item, todoItems);
 		setListAdapter(todoListAdapter);
+		
 	}
 	
 }
