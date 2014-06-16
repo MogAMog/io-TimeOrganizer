@@ -255,6 +255,14 @@ public class MainActivity extends Activity implements EventListFragment.ProvideE
 		for(EventDate eventDate : optimalPathFindingService.getEventDateOrder()) {
 			eventDateManagementService.updateEventDateStartEndTime(eventDate); 
 		}
+		List<EventDate> currentEventDates = ((EventListFragment)getFragmentManager().findFragmentById(R.id.MainActivity_EventListFragment)).getCurrentEventDates();
+		currentEventDates.size();
+		currentEventDates.removeAll(optimalPathFindingService.getEventDateOrder());
+		currentEventDates.size();
+		for(EventDate eventDate : currentEventDates) {
+			eventDateManagementService.deleteEventDateById(eventDate.getId());
+		}
+		
 		reloadList(null);
 		Toast.makeText(this,"Schedule processed",Toast.LENGTH_SHORT).show();
 	}

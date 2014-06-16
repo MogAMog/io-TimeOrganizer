@@ -160,4 +160,7 @@ public class EventListAdapter extends ArrayAdapter<EventListItem> {
 		System.out.println("HERE");
 	}
 
+	public ArrayList<EventListItem> getItems() {
+		return items;
+	}
 }

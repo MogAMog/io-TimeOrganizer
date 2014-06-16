@@ -85,4 +85,12 @@ public class EventListFragment extends ListFragment {
 		
 	}
 	
+	public List<EventDate> getCurrentEventDates() {
+		List<EventDate> eventDates = new ArrayList<EventDate>();
+		for(EventListItem eli : todoListAdapter.getItems()) {
+			eventDates.add(eli.getEventDate());
+		}
+		return eventDates;
+	}
+	
 }

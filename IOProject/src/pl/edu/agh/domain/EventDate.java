@@ -98,6 +98,41 @@ public class EventDate implements Serializable {
 	public String toString() {
 		return startTime + " - " + endTime + ": " + event.getDescription();
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+/*		result = prime * result + (date.getYear() + date.getMonth() + date.getDay());
+		result = prime * result + (startTime.getHours() + startTime.getMinutes());
+		result = prime * result + (endTime.getHours() + endTime.getMinutes());*/
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		EventDate other = (EventDate) obj;
+		if (id != other.id)
+			return false;
+//		if(other.getDate().getYear() != date.getYear() || other.getDate().getMonth() != date.getMonth() || other.getDate().getDay() != date.getDay()) {
+//			return false;
+//		}
+//		if(other.getStartTime().getHours() != startTime.getHours() || other.getStartTime().getMinutes() != startTime.getMinutes()) {
+//			return false;
+//		}
+//		if(other.getEndTime().getHours() != endTime.getHours() || other.getEndTime().getMinutes() != endTime.getMinutes()) {
+//			return false;
+//		}
+		return true;
+	}
+	
 	
 	
 	
